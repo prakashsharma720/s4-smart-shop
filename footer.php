@@ -20,39 +20,36 @@
                 <div class="col-lg-3 col-md-4">
                     <h5>About</h5>
                     <ul class="links">
-                        <li><a href="#0">About us</a></li>
-                        <li><a href="blog.php">Blog</a></li>
-                        <li><a href="FAQ.php">FAQ</a></li>
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-4">
-                    <h5>Useful links</h5>
-                    <ul class="links">
-                        <li><a href="Terms&condition.php">Terms&Conditions</a></li>
-                        <li><a href="policy.php">Privacy Policy</a></li>
+                        <li><a href="history.php">About us</a></li>
                         <li><a href="refund.php">Refund & Return/Exchange Policy</a></li>
-                        <li><a href="doctorregi.php">Join as a Doctor</a></li>
-                        <li><a href="#0">fabric App</a></li>
+                        <li><a href="FAQ.php">FAQ</a></li>
+<li>
+    <a href="login.php">Login</a> / <a href="register.php">Register</a>
+</li>
                     </ul>
                 </div>
+               <div class="col-lg-3 col-md-4 text-center">
+    <h5>Pay Here</h5>
+    <img src="img/WhatsApp Image 2025-10-17 at 15.56.21_f22bf529.jpg" alt="Pay Here QR" class="img-fluid rounded shadow mb-2" style="width:120px; height:auto;">
+    <p><strong>Merchant:</strong> S4 SMART SHOP</p>
+</div>
+
                <div class="col-lg-3 col-md-4">
     <h5>Contact with Us</h5>
     <ul class="contacts">
         <li>
             <a href="tel:+612380933400">
-                <i class=" icon_mobile"></i> +61 23 8093 3400
+                <i class=" icon_mobile"></i> +918107875712
             </a>
         </li>
         <li>
             <a href="mailto:help@findoctor.com">
-                <i class="icon_mail_alt"></i> help@findoctor.com
+                <i class="icon_mail_alt"></i> help@s4smartshop.com
             </a>
         </li>
         <li>
             <i class="icon_pin_alt"></i> 
-            MuskOwl LLP, Pacific Hills, Debari,<br> Udaipur, Rajasthan 313001
+               Near Government Upper Primary School,<br> Chittorgarh, Rajasthan 312203
         </li>
     </ul>
 </div>
@@ -62,12 +59,12 @@
             <div class="row">
                 <div class="col-md-8">
                     <ul id="additional_links">
-                        <li><a href="#0">Terms and conditions</a></li>
-                        <li><a href="#0">Privacy</a></li>
+                        <li><a href="Termsandcondition.php">Terms and conditions</a></li>
+                        <li><a href="policy.php">Privacy</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <div id="copy">© 2023 Findoctor</div>
+                    <div id="copy">© 2025 S4 Smart Shop</div>
                 </div>
             </div>
         </div>

@@ -37,8 +37,9 @@
 					<div id="contact_info">
 						<h3>Contacts info</h3>
 						<p>
-							11 Fifth Ave - New York, US<br> + 61 (2) 8093 3400<br>
-							<a href="#">info@domain.com</a>
+						Chittorgarh, Rajasthan 312203
+<br> + +918107875712<br>
+							<a href="#">info@s4smartshop.com</a>
 						</p>
 						<h4>Get directions</h4>
 						<form action="http://maps.google.com/maps" method="get" target="_blank">
@@ -51,11 +52,11 @@
 						</form>
 						<ul>
 							<li><strong>Administration</strong>
-								<a href="tel://003823932342">0038 23932342</a><br><a href="tel://003823932342">admin@findoctor.com</a><br>
+								<a href="tel://003823932342">+918107875712</a><br><a href="tel://003823932342">admin@s4smartshop.com</a><br>
 								<small>Monday to Friday 9am - 7pm</small>
 							</li>
 							<li><strong>General questions</strong>
-								<a href="tel://003823932342">0038 23932342</a><br><a href="tel://003823932342">questions@findoctor.com</a><br>
+								<a href="tel://003823932342">+918107875712</a><br><a href="tel://003823932342">questions@s4smartshop.com</a><br>
 								<p><small>Monday to Friday 9am - 7pm</small></p>
 							</li>
 						</ul>
