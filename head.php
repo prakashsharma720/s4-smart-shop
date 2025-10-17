@@ -1,5 +1,5 @@
  <?php 
-$base_url = 'http://localhost/php-project/s4-shop/';
+include('config.php');
 // print_r($url_array);exit;
  ?>
  <!-- Favicons-->

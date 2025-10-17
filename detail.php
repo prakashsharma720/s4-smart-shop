@@ -1,6 +1,5 @@
 <?php
-// ================== CONFIG ==================
-$base_url = 'http://localhost/php-project/s4-shop/';
+include('config.php');
 
 // ================== START SESSION ==================
 if (session_status() === PHP_SESSION_NONE) {
@@ -9,11 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // ================== GET LOGGED-IN USER ==================
 $user = $_SESSION['user'] ?? null;
-
-// ================== DB CONNECT ==================
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
-
+// print_r($user);exit;
 // ================== GET PRODUCT BY SLUG ==================
 $product_slug = trim($_SERVER['PATH_INFO'] ?? '', '/');
 if (!$product_slug) die("No product specified.");
@@ -194,7 +189,7 @@ if ($user && isset($_POST['place_order'])) {
             <form method="POST" id="orderForm">
                 <div class="modal-body">
                     <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
-<input type="hidden" name="size" id="formsize" value="<?= $has_sizes ? htmlspecialchars($product_sizes[0]) : '' ?>">
+                    <input type="hidden" name="size" id="formsize" value="<?= $has_sizes ? htmlspecialchars($product_sizes[0]) : '' ?>">
                     <input type="hidden" name="quantity" id="formQuantity" value="1">
                     <input type="hidden" name="total" id="formTotal" value="<?= $product['price'] ?>">
 
@@ -205,10 +200,13 @@ if ($user && isset($_POST['place_order'])) {
 
                     <hr class="my-3">
 
-                    <div class="mb-3"><label class="form-label">Full Name</label><input type="text" name="customer_name" class="form-control" required></div>
-                    <div class="mb-3"><label class="form-label">Address</label><input type="text" name="customer_address" class="form-control" required></div>
-                    <div class="mb-3"><label class="form-label">Email</label><input type="email" name="customer_email" class="form-control" required></div>
-                    <div class="mb-3"><label class="form-label">Mobile</label><input type="tel" name="customer_phone" class="form-control" required maxlength="10" pattern="[0-9]{10}"></div>
+                    <div class="mb-3"><label class="form-label">Full Name</label>
+                    <input type="text" name="customer_name" class="form-control" value="<?php echo $user['name'];?>"></div>
+                    <div class="mb-3"><label class="form-label">Email</label>
+                    <input type="email" name="customer_email" class="form-control" value="<?php echo $user['email'];?>"></div>
+                    <div class="mb-3"><label class="form-label">Mobile</label><input type="tel" name="customer_phone" class="form-control" required maxlength="10" pattern="[0-9]{10}" value="<?php echo $user['phone'];?>"></div>
+                    <div class="mb-3"><label class="form-label">Shipping Address</label>(<i>Please enter full address</i>)
+                    <textarea type="text" name="customer_address" class="form-control" required></textarea></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

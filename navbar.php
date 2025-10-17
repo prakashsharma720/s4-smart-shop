@@ -1,11 +1,11 @@
 <?php
+include('config.php');
+
 // ✅ Start session at the very top
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// ✅ Base URL
-$base_url = "http://localhost/php-project/s4-shop/";
 ?>
 <header class="header_sticky" id="mainHeader">
   <nav class="navbar navbar-expand-lg bg-white shadow-sm">

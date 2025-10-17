@@ -1,12 +1,10 @@
 <?php
+include('config.php');
 // ================== START SESSION ==================
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// ================== DB CONNECT ==================
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $error = '';
 $success = '';
@@ -41,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'id' => $userData['id'],
                     'name' => $userData['name'],
                     'email' => $userData['email'],
+                    'phone' => $userData['phone'],
                     'user_code' => $userData['user_code'] ?? '',
                 ];
 

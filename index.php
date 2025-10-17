@@ -129,9 +129,6 @@
                 </div>
             </section>
             <?php
-              $conn = new mysqli("localhost", "root", "", "s4shopdb");
-                if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
-
                 // Fetch all products from DB
                 $product_sql = "SELECT * FROM products ORDER BY id ASC";
                 $product_result = $conn->query($product_sql);

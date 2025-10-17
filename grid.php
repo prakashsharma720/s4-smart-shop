@@ -1,4 +1,6 @@
 <?php
+include('config.php');
+
 $cat_slug = '';
 $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
@@ -6,12 +8,9 @@ $url_array = explode('/',$actual_link);
 $cat_slug = isset($url_array['5']) ? trim($url_array['5']) : '';
 // print_r($url_array);exit;
 
-// Connect to database
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 // CHANGE 1: Get selected category SLUG
- $cat_slug = isset($_GET['cat_slug']) ? trim($_GET['cat_slug']) : $cat_slug;
+$cat_slug = isset($_GET['cat_slug']) ? trim($_GET['cat_slug']) : $cat_slug;
 // Get search keyword
 $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
