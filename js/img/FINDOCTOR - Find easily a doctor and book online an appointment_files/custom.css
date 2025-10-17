@@ -1,0 +1,730 @@
+/* ---------------- Feature Carousel Centered Arrows ---------------- */
+#featureCarousel .circle-arrow-center {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 10;
+}
+
+#featureCarousel .carousel-control-prev.circle-arrow-center {
+  left: 50%;
+  margin-left: -70px; /* adjust horizontal spacing */
+}
+
+#featureCarousel .carousel-control-next.circle-arrow-center {
+  left: 50%;
+  margin-left: 20px; /* adjust horizontal spacing */
+}
+
+#featureCarousel .circle-arrow-center .carousel-arrow {
+  font-size: 24px;
+  color: #000;
+}
+
+/* ---------------- App Section ---------------- */
+#app_section {
+  background: #fff !important;
+  color: #000 !important;
+}
+#app_section h3 {
+  color: #000 !important;
+}
+#app_section h3 strong {
+  color: ##2e2f61!important; /* highlight blue */
+}
+
+/* ---------------- Pricing ---------------- */
+.pricing-wrapper li.is-hidden {
+  display: none !important;
+}
+.pricing-wrapper li.is-visible {
+  display: block !important;
+}
+
+/* ---------------- Filters Row ---------------- */
+.filters_row {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.filters_row li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------- Doctor Carousel ---------------- */
+/* #doctorCarousel .circle-arrow {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  z-index: 10;
+  transition: 0.3s;
+}
+#doctorCarousel .circle-arrow .carousel-arrow {
+  font-size: 24px;
+  color: #fff;
+}
+#doctorCarousel .carousel-control-prev.circle-arrow {
+  left: -70px;
+}
+#doctorCarousel .carousel-control-next.circle-arrow {
+  right: -70px;
+}
+#doctorCarousel .circle-arrow:hover {
+  background-color: rgba(0,0,0,0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+ ✅ Doctor Carousel Cards Proper Size 
+/* Doctor Card */
+.doctor-card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.doctor-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Doctor Image */
+.doctor-card img {
+  width: 100%;
+  height: 240px;       /* ✅ fix image height */
+  object-fit: cover;   /* crop properly */
+}
+
+/* Card Body */
+.doctor-body {
+  flex: 1;             /* body expands to fill */
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-body .role {
+  font-size: 0.8rem;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.doctor-body .name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.doctor-body .desc {
+  font-size: 0.85rem;
+  color: #555;
+  flex-grow: 1;       /* ✅ push footer down */
+}
+
+/* Footer */
+.doctor-footer {
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.doctor-footer .views {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.doctor-footer .btn {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* LinkedIn icon alignment */
+#doctorCarousel .team-card a {
+  margin-top: auto;
+  font-size: 1.2rem;
+  color: #0a66c2;
+  text-decoration: none;
+}
+
+/* Carousel Row Fix */
+#doctorCarousel .carousel-inner .row {
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+#doctorCarousel .carousel-inner .row > [class*="col-"] {
+  flex: 0 0 33.3333%;   /* 3 cards per slide */
+  max-width: 33.3333%;
+  padding: 0 10px;
+}
+
+@media (min-width: 992px) {
+  #doctorCarousel .carousel-inner .row > [class*="col-"] {
+    flex: 0 0 25%;      /* 4 cards per slide on large */
+    max-width: 25%;
+  }
+} */
+
+/* ---------------- Team Cards ---------------- */
+.team-card {
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ---------------- Carousel Default Arrows ---------------- */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.carousel-control-prev {
+  left: -70px;
+}
+.carousel-control-next {
+  right: -70px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-size: 50% 50%;
+}
+
+/* ---------------- Post Info Thumb ---------------- */
+.post_info .thumb img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ---------------- History Section ---------------- */
+.history-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.history-section h5 {
+  margin-top: 10px;
+}
+.history-section p {
+  font-size: 0.95rem;
+}
+
+/* ---------------- Blog Section ---------------- */
+.blog .col-lg-7 {
+  flex: 0 0 350px; 
+  display: flex;
+  align-items: stretch;
+}
+.blog figure {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+.blog figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.blog .preview {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.alignleft img,
+.post_info .thumb img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ---------------- Buttons ---------------- */
+.btn,.btn-custom {
+  background-color: #2e2f61;
+  border: 1px solid #2e2f61;
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+.btn:hover,.btn-custom:hover {
+  background-color: #74d1c6;
+  border-color: #74d1c6;
+  color: #fff;
+}
+
+/* ---------------- Titles ---------------- */
+.main_title {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.main_title h2 {
+  margin-bottom: 15px;
+}
+.main_title p {
+  margin-bottom: 0;
+}
+
+/* ---------------- Container ---------------- */
+.container.margin_120_95 {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* ---------------- Book Now Button ---------------- */
+.card-footer .btn-book {
+  margin-left: auto;
+}
+
+/* ---------------- Mission Section ---------------- */
+.mission-section {
+  background: #f9f9ff;
+  padding: 80px 20px;
+}
+.mission-section h2 {
+  color: #2e2f61;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.mission-section .mission-intro {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.7;
+}
+.mission-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 20px;
+  margin: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.mission-box i {
+  font-size: 2.5rem;
+  color: #2e2f61;
+  margin-bottom: 15px;
+}
+.mission-box h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #222;
+}
+.mission-box p {
+  font-size: 0.95rem;
+  color: #666;
+}
+.mission-box:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.btn-mission {
+  background: #2e2f61;
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-mission:hover {
+  background: #2e2f61;
+}
+
+
+
+/* Card wrapper */
+.team-card-wrapper {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+/* Bigger card */
+.team-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 320px;      /* increased width */
+    height: 380px;     /* increased height */
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-card img {
+    width: 100%;
+    height: 220px; /* increased image height */
+    object-fit: cover;
+}
+
+.team-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    font-size: 0.95rem;
+}
+
+.name { color: #d9534f; font-weight: 600; margin-bottom: 4px; }
+.role { color: #6c757d; margin-bottom: 6px; }
+.desc { color: #444; font-style: normal; line-height: 1.3; flex-grow: 1; }
+
+/* LinkedIn icon */
+.team-card a {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 1.3rem;
+    color: #0a66c2;
+    transition: transform 0.3s, color 0.3s;
+}
+
+/* Hover lift and glow */
+.team-card-wrapper:hover .team-card {
+    transform: translateY(-35px); /* slightly more lift */
+    box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+}
+
+.team-card-wrapper:hover a {
+    transform: scale(1.2);
+    color: #004182;
+}
+
+.team-card::after {
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    border:2px solid transparent;
+    border-radius:8px;
+    transition:0.4s;
+}
+
+.team-card-wrapper:hover .team-card::after {
+    border-color:#74d1c6;
+    box-shadow:0 0 12px rgba(116,209,198,0.6);
+}
+
+    .history-section {
+      position: relative;
+    }
+
+    /* Card style */
+    .history-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      height: 100%;
+    }
+
+    .history-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Icon style */
+    .history-icon {
+      font-size: 50px;
+      color: #2e2f61;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .history-card:hover .history-icon {
+      transform: scale(1.2);
+    }
+
+    /* Arrow connector */
+    .history-card::after {
+      content: "\f138"; /* Bootstrap icon arrow right */
+      font-family: "bootstrap-icons";
+      font-size: 28px;
+      color: #2e2f61;
+      position: absolute;
+      top: 50%;
+      right: -25px;
+      transform: translateY(-50%);
+    }
+
+    /* Remove arrow for last card */
+    .history-row .col-md-4:last-child .history-card::after {
+      content: "";
+    }
+
+    /* Title */
+    .history-title {
+      color: #2e2f61;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Responsive fix */
+    @media (max-width: 767px) {
+      .history-card::after {
+        display: none;
+      }
+    }
+
+    /* Common Background for Mission & Vision */
+    .section-bg {
+      position: relative;
+      background: linear-gradient(180deg, #f0f4f8, #ffffff);
+      padding: 100px 0;
+      overflow: hidden;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .circle-1 {
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: #6cc5b2;
+      opacity: 0.15;
+    }
+
+    .circle-2 {
+      bottom: -60px;
+      right: -60px;
+      width: 250px;
+      height: 250px;
+      background: #2e2f61;
+      opacity: 0.15;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(15px);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+    .glass-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(0,102,204,0.3);
+    }
+    .glass-card h5 {
+      margin-top:15px;
+      color:#003366;
+    }
+    .glass-card p,
+    .section-bg p {
+      font-style: normal;   /* force normal text, remove italic */
+      font-weight: 400;
+      font-size:0.9rem;
+      color:#333;
+      margin-top:5px;
+    }
+
+    /* Button */
+    .btn-mission {
+      background:#2e2f61;
+      color:#fff;
+      border-radius:30px;
+      padding:10px 25px;
+      text-decoration:none;
+      transition:0.3s;
+    }
+    .btn-mission:hover {
+      background:#6cc5b2;
+      color:#fff;
+    }
+    /* ---------------- Snapdeal Product Card Box ---------------- */
+/* ---------------- Snapdeal Product Card Box ---------------- */
+.snapdeal-card {
+  background: #fff;              /* card bg white */
+  border: 1px solid #ddd;        /* हल्की border */
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+  text-align: left;              /* text left aligned */
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-weight: 300;              /* सभी text light */
+}
+
+.snapdeal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Product Image */
+.snapdeal-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  background: #fff;
+  padding: 5px;
+}
+
+/* Tag (Deal of the Day, Best Seller etc.) */
+.snapdeal-card .snapdeal-tag {
+  background: #d9534f;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: 300;
+}
+
+/* Title */
+.snapdeal-card h5 {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #999;
+  line-height: 1.3;
+
+  display: flex;
+  align-items: center;    /* बीच में adjust */
+  height: 36px;           /* fixed height (2 lines तक) */
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+/* Price */
+.snapdeal-card .price {
+  font-size: small;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 6px;
+}
+.snapdeal-card .price del {
+  color: #999;
+  margin-right: 5px;
+  font-weight: 300;
+}
+/* Product Title (Cloth Shades line) */
+.snapdeal-card h6 {
+  font-family: 'Roboto', sans-serif;  /* या कोई और font */
+  font-size: 1rem;
+  font-weight: 200;                  /* हल्का look */
+  margin-bottom: 10px;
+  color: #212121;
+  line-height: 1.4;
+  min-height: 40px;
+  overflow: hidden;
+}
+
+/* Offer Label (30% OFF) */
+.snapdeal-card .offer {
+ 
+  color: #03A66A;
+  font-size: 12px;
+  font-weight: 500;
+}
+.rating-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.rating-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: #03A66A; /* Meesho green */
+}
+
+.rating-box .star {
+  font-size: 12px;
+  color: #fff;
+}
+
+.reviews {
+  color: #999;
+  font-size: 13px;
+}
+.snapdeal-btn {
+  background: transparent;       /* no color by default */
+  color: #e40046;                /* red text */
+  border: 1px solid #e40046;     /* red border */
+  cursor: pointer;
+    font-size: 12px;
+  font-weight: 300;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  transition: all 0.3s ease;     
+   margin-left: 70px; 
+}
+
+.snapdeal-btn:hover {
+  background: #e40046;           /* hover पर fill red */
+  color: #fff;                   /* text white */
+  transform: scale(1.05);        /* हल्का zoom */
+  box-shadow: 0 4px 10px rgba(228,0,70,0.4); /* लाल glow */
+}
