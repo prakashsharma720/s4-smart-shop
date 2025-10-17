@@ -1,15 +1,11 @@
 <?php
 include('config.php');
-// ================== START SESSION ==================
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 $error = '';
 $success = '';
 
-// ================== LOGOUT ==================
+// Logout
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_unset();
     session_destroy();
@@ -17,7 +13,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     exit;
 }
 
-// ================== LOGIN ==================
+// Login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -34,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userData = $result->fetch_assoc();
 
             if (password_verify($password, $userData['password'])) {
-                // ✅ Store full user data including user_code in session
                 $_SESSION['user'] = [
                     'id' => $userData['id'],
                     'name' => $userData['name'],
@@ -44,8 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
 
                 $success = "Login successful!";
-                header("Location: index.php");
-                exit;
+                $_SESSION['login_redirect'] = $_GET['redirect'] ?? ($base_url . "index.php");
             } else {
                 $error = "Wrong password!";
             }
@@ -74,8 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div id="login-2">
         <h1>Please login to S4 Smart Shop!</h1>
 
-        <?php if($success) echo "<p style='color:green;text-align:center;'>$success</p>"; ?>
-        <?php if($error) echo "<p style='color:red;text-align:center;'>$error</p>"; ?>
+        <?php if($error): ?>
+          <div class="alert alert-danger text-center"><?= htmlspecialchars($error) ?></div>
+        <?php endif; ?>
 
         <form method="post" id="loginForm">
           <div class="box_form clearfix">
@@ -98,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
           </div>
         </form>
+
         <p class="text-center register-text">
           Do not have an account yet? <a href="register.php" class="register-link">Register now!</a>
         </p>
@@ -108,5 +104,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
+
+<!-- ✅ Success Popup Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h4 class="text-success mb-2"><i class="bi bi-check-circle-fill"></i> Login Successful!</h4>
+      <p>Redirecting, please wait...</p>
+    </div>
+  </div>
+</div>
+
+<?php if ($success): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('successModal'));
+    modal.show();
+    setTimeout(() => {
+        window.location.href = "<?= $_SESSION['login_redirect'] ?>";
+    }, 1500);
+});
+</script>
+<?php unset($_SESSION['login_redirect']); endif; ?>
+
 </body>
 </html>

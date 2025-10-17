@@ -907,3 +907,15 @@ section {
     background-color: #f1f1f1;
     border-color: #999;
 }
+
+.process-grid h4 { font-weight: 600; margin-bottom: 10px; }
+.process-grid p { font-size: 16px; line-height: 1.6; }
+.process-grid img { max-width: 100%; height: auto; }
+@media(max-width:991px){
+    .process-grid .order-lg-1, .process-grid .order-lg-2 { order: unset !important; }
+}
+.process-grid img {
+    width: 200px;   /* fixed width */
+    height: 200px;  /* fixed height */
+    object-fit: contain; /* maintain aspect ratio */
+}

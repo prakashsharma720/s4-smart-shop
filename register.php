@@ -6,7 +6,6 @@ $conn = new mysqli("localhost", "root", "", "s4shopdb");
 if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 $error = '';
-$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -40,12 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_insert->bind_param("ssss", $name, $email, $mobile, $hashed_password);
 
             if ($stmt_insert->execute()) {
-                $success = "Registration Successful! Redirecting to login...";
-                // Clear form fields
-                $_POST = [];
-
-                // Optional: Redirect to login after 3 seconds
-                header("refresh:3;url=login.php");
+                // ✅ Success message via session
+                $_SESSION['success_msg'] = "Registration Successful! Redirecting to login...";
+                echo "<script>
+                        alert('Registration Successful! Redirecting to login...');
+                        window.location.href='login.php';
+                      </script>";
+                exit; // stop further execution
             } else {
                 $error = "Registration failed. Try again.";
             }
@@ -62,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register - S4 Smart Shop</title>
     <?php include('head.php'); ?>
- 
 </head>
 <body>
     <?php include('navbar.php'); ?>
@@ -73,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Display messages -->
             <?php if(!empty($error)) echo "<p class='error'>$error</p>"; ?>
-            <?php if(!empty($success)) echo "<p class='success'>$success</p>"; ?>
 
             <input type="text" name="name" placeholder="Full Name" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" required>
             <input type="email" name="email" placeholder="Email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>" required>

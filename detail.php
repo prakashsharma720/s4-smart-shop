@@ -8,7 +8,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // ================== GET LOGGED-IN USER ==================
 $user = $_SESSION['user'] ?? null;
-// print_r($user);exit;
+
 // ================== GET PRODUCT BY SLUG ==================
 $product_slug = trim($_SERVER['PATH_INFO'] ?? '', '/');
 if (!$product_slug) die("No product specified.");
@@ -28,14 +28,12 @@ $product = $result->fetch_assoc();
 // Handle multiple images
 $product_images = !empty($product['image']) ? array_map('trim', explode(',', $product['image'])) : ['default.png'];
 
-// echo "<pre>";print_r($product);exit;
 // Handle multiple sizes
 $product_sizes = [];
-if (!empty($product['sizes'])) {  // <-- use 'sizes' column
+if (!empty($product['sizes'])) {
     $product_sizes = array_filter(array_map('trim', explode(',', $product['sizes'])));
 }
 $has_sizes = !empty($product_sizes);
-
 
 // ================== HANDLE ORDER ==================
 if ($user && isset($_POST['place_order'])) {
@@ -57,7 +55,25 @@ if ($user && isset($_POST['place_order'])) {
 
     if ($stmt2->execute()) {
         $order_id = $stmt2->insert_id;
-        header("Location: " . $base_url . "thankyou.php?product_id=$product_id&order_id=$order_id");
+
+        echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalBody = document.querySelector('#buyNowModal .modal-body');
+            if (modalBody) {
+                modalBody.innerHTML = `
+                    <div class='text-center p-4'>
+                        <h4 class='text-success mb-2'><i class=\"bi bi-check-circle-fill\"></i> Order placed successfully!</h4>
+                        <p>Redirecting to Thank You page...</p>
+                    </div>
+                `;
+            }
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('buyNowModal'));
+            modal.show();
+            setTimeout(() => {
+                window.location.href = '{$base_url}thankyou.php?product_id={$product_id}&order_id={$order_id}';
+            }, 2000);
+        });
+        </script>";
         exit;
     } else {
         echo "<script>alert('Failed to place order: " . $stmt2->error . "');</script>";
@@ -82,14 +98,14 @@ if ($user && isset($_POST['place_order'])) {
 
         <!-- Left: Images -->
         <div class="product-images">
-            <div class="thumbnails mb-2">
+            <!-- <div class="thumbnails mb-2">
                 <?php foreach($product_images as $i => $img): ?>
                 <img src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($img) ?>"
                     class="<?= $i === 0 ? 'active' : '' ?>"
                     onclick="changeImage(this)"
                     alt="<?= htmlspecialchars($product['name']) ?>">
                 <?php endforeach; ?>
-            </div>
+            </div> -->
             <div class="main-image">
                 <img id="productImage"
                     src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($product_images[0]) ?>"
@@ -100,36 +116,24 @@ if ($user && isset($_POST['place_order'])) {
         <!-- Right: Details -->
         <div class="product-details position-relative">
             <div class="product-name" style="width:73%;">
-            <h1 class="product-name mb-3"><?= htmlspecialchars($product['name']) ?></h1>
-
+                <h1 class="product-name mb-3"><?= htmlspecialchars($product['name']) ?></h1>
             </div>
 
             <!-- Share Icons -->
             <div class="dropdown share-icons-column position-absolute top-0 end-0 d-flex flex-column gap-2">
                 <a href="#" class="btn btn-outline-danger" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-share-fill"></i> Share
+                    <i class="bi bi-share-fill"></i> 
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="shareDropdown">
-                    <li>
-                        <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
-                            <i class="bi bi-whatsapp me-2"></i> WhatsApp
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
-                            <i class="bi bi-facebook me-2"></i> Facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
-                            <i class="bi bi-instagram me-2"></i> Instagram
-                        </a>
-                    </li>
+                    <li><a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;"><i class="bi bi-whatsapp me-2"></i> WhatsApp</a></li>
+                    <li><a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;"><i class="bi bi-facebook me-2"></i> Facebook</a></li>
+                    <li><a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;"><i class="bi bi-instagram me-2"></i> Instagram</a></li>
                 </ul>
             </div>
 
             <!-- Price -->
             <div class="price mb-2">Price: Rs. <span id="productPrice"><?= $product['price'] ?></span></div>
+
             <?php if($has_sizes): ?>
             <div class="size-section mb-2">
                 <strong>Size:</strong>
@@ -146,7 +150,6 @@ if ($user && isset($_POST['place_order'])) {
                 </div>
             </div>
             <?php endif; ?>
-
 
             <!-- Quantity -->
             <div class="quantity-section mb-2">
@@ -165,7 +168,7 @@ if ($user && isset($_POST['place_order'])) {
             <?php if($user): ?>
                 <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#buyNowModal">Buy Now</button>
             <?php else: ?>
-                <a href="<?= $base_url ?>login.php" class="btn btn-danger mt-3">Buy Now</a>
+                <button class="btn btn-danger mt-3" onclick="redirectToLogin()">Buy Now</button>
             <?php endif; ?>
 
             <!-- Description -->
@@ -204,7 +207,8 @@ if ($user && isset($_POST['place_order'])) {
                     <input type="text" name="customer_name" class="form-control" value="<?php echo $user['name'];?>"></div>
                     <div class="mb-3"><label class="form-label">Email</label>
                     <input type="email" name="customer_email" class="form-control" value="<?php echo $user['email'];?>"></div>
-                    <div class="mb-3"><label class="form-label">Mobile</label><input type="tel" name="customer_phone" class="form-control" required maxlength="10" pattern="[0-9]{10}" value="<?php echo $user['phone'];?>"></div>
+                    <div class="mb-3"><label class="form-label">Mobile</label>
+                    <input type="tel" name="customer_phone" class="form-control" required maxlength="10" pattern="[0-9]{10}" value="<?php echo $user['phone'];?>"></div>
                     <div class="mb-3"><label class="form-label">Shipping Address</label>(<i>Please enter full address</i>)
                     <textarea type="text" name="customer_address" class="form-control" required></textarea></div>
                 </div>
@@ -217,6 +221,7 @@ if ($user && isset($_POST['place_order'])) {
     </div>
 </div>
 <?php endif; ?>
+
 <script>
 const productURL = "<?= $base_url ?>detail.php/<?= $product['slug'] ?>";
 const productName = "<?= addslashes($product['name']) ?>";
@@ -243,7 +248,7 @@ function shareInstagram() {
     navigator.clipboard.writeText(text).then(() => alert("Product link copied! Share on Instagram."));
 }
 
-// Existing image & quantity JS
+// Image & Quantity JS
 function changeImage(img){
     document.getElementById('productImage').src = img.src;
     document.querySelectorAll('.thumbnails img').forEach(i=>i.classList.remove('active'));
@@ -277,6 +282,12 @@ function updateTotal(){
     document.getElementById('totalAmount').innerText = total;
     document.getElementById('formQuantity').value = qty;
     document.getElementById('formTotal').value = total;
+}
+
+// 🔁 Redirect to login and come back
+function redirectToLogin() {
+    const currentURL = window.location.href;
+    window.location.href = "<?= $base_url ?>login.php?redirect=" + encodeURIComponent(currentURL);
 }
 </script>
 

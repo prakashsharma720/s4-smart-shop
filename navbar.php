@@ -52,9 +52,9 @@ if (session_status() === PHP_SESSION_NONE) {
               <?= htmlspecialchars($_SESSION['user']['name']); ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="<?= $base_url ?>profile.php">Profile</a></li>
-              <li><a class="dropdown-item" href="<?= $base_url ?>Whislist.php">Wishlist</a></li>
-              <li><a class="dropdown-item" href="<?= $base_url ?>Notification.php">Notifications</a></li>
+              <li><a class="dropdown-item" href="<?= $base_url ?>back/index.php">Profile</a></li>
+              <li><a class="dropdown-item" href="<?= $base_url ?>back/index.php">Wishlist</a></li>
+              <li><a class="dropdown-item" href="<?= $base_url ?>back/index.php">Notifications</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="<?= $base_url ?>login.php?action=logout">Logout</a></li>
             </ul>
