@@ -79,7 +79,7 @@ if ($stmt) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $cat_name; ?> - Taste of Namkeen</title>
+    <title><?php echo $cat_name; ?> - Shop, Earn & Grow with S4 Smart Shop</title>
     <?php include('head.php'); ?>
 </head>
 <body>
@@ -115,12 +115,12 @@ if ($stmt) {
     <!-- Filter & Clear buttons -->
    <div class="col-md-4 col-sm-12 mb-2 d-flex gap-2">
     <button type="submit" class="btn btn-search w-50">Search</button>
-    <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-clear w-50">Clear</a>
+    <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-danger w-50">Clear</a>
 </div>
 
 </form>
 
-    <h2 class="mb-4 text-center"><?php echo $cat_name; ?></h2>
+    <!-- <h2 class="mb-4 text-center">All Products</h2> -->
 
     <div class="row g-4">
         <?php if ($result && $result->num_rows > 0): ?>

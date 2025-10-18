@@ -57,24 +57,24 @@ if ($user && isset($_POST['place_order'])) {
         $order_id = $stmt2->insert_id;
 
         echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modalBody = document.querySelector('#buyNowModal .modal-body');
-            if (modalBody) {
-                modalBody.innerHTML = `
-                    <div class='text-center p-4'>
-                        <h4 class='text-success mb-2'><i class=\"bi bi-check-circle-fill\"></i> Order placed successfully!</h4>
-                        <p>Redirecting to Thank You page...</p>
-                    </div>
-                `;
-            }
-            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('buyNowModal'));
-            modal.show();
-            setTimeout(() => {
-                window.location.href = '{$base_url}thankyou.php?product_id={$product_id}&order_id={$order_id}';
-            }, 2000);
-        });
-        </script>";
-        exit;
+                setTimeout(function() {
+                    const modalBody = document.querySelector('#buyNowModal .modal-body');
+                    if (modalBody) {
+                        modalBody.innerHTML = `
+                            <div class='text-center p-4'>
+                                <h4 class='text-success mb-2'><i class=\"bi bi-check-circle-fill\"></i> Order placed successfully!</h4>
+                                <p>Redirecting to Thank You page...</p>
+                            </div>
+                        `;
+                    }
+                    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('buyNowModal'));
+                    modal.show();
+                    setTimeout(() => {
+                        window.location.href = '{$base_url}thankyou.php?product_id={$product_id}&order_id={$order_id}';
+                    }, 2000);
+                }, 500);
+                </script>";
+
     } else {
         echo "<script>alert('Failed to place order: " . $stmt2->error . "');</script>";
     }
@@ -132,7 +132,7 @@ if ($user && isset($_POST['place_order'])) {
             </div>
 
             <!-- Price -->
-            <div class="price mb-2">Price: Rs. <span id="productPrice"><?= $product['price'] ?></span></div>
+            <div class="total-box mb-2">Price:  &#8377; <span id="productPrice"><?= $product['price'] ?></span></div>
 
             <?php if($has_sizes): ?>
             <div class="size-section mb-2">
@@ -162,7 +162,7 @@ if ($user && isset($_POST['place_order'])) {
             </div>
 
             <!-- Total -->
-            <div class="total-box">Total: Rs. <span id="totalAmount"><?= $product['price'] ?></span></div>
+            <div class="price total-box">Order Total: &#8377;<span id="totalAmount" style="color: green;"> <?= $product['price'] ?></span></div>
 
             <!-- Buy Now / Login -->
             <?php if($user): ?>
@@ -229,13 +229,21 @@ const userCode = "<?= $user['user_code'] ?? '' ?>";
 
 function getShareURL() {
     let url = productURL;
-    if(userCode) url += '?ref=' + userCode;
+    if (userCode) url += '?ref=' + userCode;
     return url;
 }
 
+
 function shareWhatsApp() {
-    const text = `${productName} - ${getShareURL()}`;
-    window.open(`https://web.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    const text = `${productName}\n${getShareURL()}`;  // No extra "Stylish Essentials"
+    const encodedText = encodeURIComponent(text);
+
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const baseURL = isMobile
+        ? 'https://api.whatsapp.com/send'
+        : 'https://web.whatsapp.com/send';
+
+    window.open(`${baseURL}?text=${encodedText}`, '_blank');
 }
 
 function shareFacebook() {

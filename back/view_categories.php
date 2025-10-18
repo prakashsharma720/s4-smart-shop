@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
+include('config.php');
 $result = $conn->query("SELECT * FROM categories");
 ?>
 <h2>All Categories</h2>

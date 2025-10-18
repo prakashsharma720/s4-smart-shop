@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Find easily a doctor and book online an appointment">
     <meta name="author" content="Ansonika">
-    <title>FIND A BEST NAMKEEN</title>
+    <title>Admin Portal || S4 Smart Shop</title>
       <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
   <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">

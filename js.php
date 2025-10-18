@@ -1,5 +1,6 @@
     <!-- COMMON SCRIPTS -->
     <script src="<?= $base_url ?>js/jquery-3.7.0.min.js"></script>
+
     <script src="<?= $base_url ?>js/common_scripts.min.js"></script>
     <script src="<?= $base_url ?>js/functions.js"></script>
 

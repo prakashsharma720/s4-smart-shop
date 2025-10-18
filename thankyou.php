@@ -1,5 +1,6 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
+include('config.php');
+
 if ($conn->connect_error) die("<h2>DB Error: " . $conn->connect_error . "</h2>");
 
 $order_id = $_GET['order_id'] ?? 0;
@@ -39,7 +40,7 @@ $conn->close();
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thank You - Taste of Namkeen</title>
+<title>Thank You - S4 Smart Shop</title>
 <?php include('head.php'); ?>
 <link rel="stylesheet" href="thankyou.css">
 </head>
@@ -58,7 +59,7 @@ $conn->close();
 <main class="thankyou-wrapper">
     <div class="thankyou-left">
         <h1>✅ Thank you for your order!</h1>
-        <p>Your Namkeen order has been received. We will process it within 24 hours and send the shipping details to your email.</p>
+        <p>Your  order has been received. We will process it within 24 hours and send the shipping details to your email.</p>
 
         <hr>
 
@@ -77,7 +78,7 @@ $conn->close();
 
         <div class="contact-options">
             <p><strong>Have a question or need assistance?</strong></p>
-            <p><strong>Contact Details:</strong> prakash@gmail.com, 9664100138</p>
+            <p><strong>Contact Details:</strong> <a href="mailto:help@s4smartshop.com">help@s4smartshop.com</a>, <a href="tel:8107875712" >8107875712</a></p>
         </div>
 
         <button class="download-btn" id="downloadReceiptBtn">Download Receipt</button>
@@ -93,7 +94,7 @@ $conn->close();
 
         <div class="order-products">
             <div class="order-item">
-                <img src="img/<?= htmlspecialchars($product_images[0]) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                <img src="<?php echo $base_url?>img/<?= htmlspecialchars($product_images[0]) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                 <div class="item-details">
                     <div><strong><?= htmlspecialchars($product['name']) ?></strong></div>
                     <?php if(!empty($order['size'])): ?>

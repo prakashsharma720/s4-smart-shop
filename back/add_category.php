@@ -1,7 +1,5 @@
 <?php
-// Connect to database
-$conn = new mysqli("localhost","root","","s4shopdb");
-if($conn->connect_error) die("Connection failed: ".$conn->connect_error);
+include('config.php');
 
 $msg = "";
 

@@ -1,6 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+include('config.php');
 
 // ✅ Update Payment Status & Screenshot via AJAX
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_payment'])) {
