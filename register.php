@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mobile = trim($_POST['phone']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
-
+    // echo "<pre>";print_r($_POST);exit;
     // Validation
     if (empty($name) || empty($email) || empty($mobile) || empty($password)) {
         $error = "All fields are required!";

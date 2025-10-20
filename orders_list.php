@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost","root","","s4shopdb");
+include('config.php');
 if($conn->connect_error) die("Connection failed: ".$conn->connect_error);
 
 // Fetch orders with product names

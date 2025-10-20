@@ -108,7 +108,7 @@ if ($user && isset($_POST['place_order'])) {
             </div> -->
             <div class="main-image">
                 <img id="productImage"
-                    src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($product_images[0]) ?>"
+                    src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($product['feature_img']) ?>"
                     alt="<?= htmlspecialchars($product['name']) ?>">
             </div>
         </div>
@@ -223,27 +223,29 @@ if ($user && isset($_POST['place_order'])) {
 <?php endif; ?>
 
 <script>
-const productURL = "<?= $base_url ?>detail.php/<?= $product['slug'] ?>";
+// const productURL = "<?= $base_url ?>detail.php/<?= $product['slug'] ?>";
+const productURL = "<?= rtrim($base_url, '/') ?>/detail.php/<?= $product['slug'] ?>";
+
 const productName = "<?= addslashes($product['name']) ?>";
 const userCode = "<?= $user['user_code'] ?? '' ?>";
 
 function getShareURL() {
-    let url = productURL;
+    let url = productURL.replace(/#$/, ''); // remove trailing #
     if (userCode) url += '?ref=' + userCode;
     return url;
 }
 
 
 function shareWhatsApp() {
-    const text = `${productName}\n${getShareURL()}`;  // No extra "Stylish Essentials"
+    const text = `${productName}\n${getShareURL()}`;
     const encodedText = encodeURIComponent(text);
 
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const baseURL = isMobile
-        ? 'https://api.whatsapp.com/send'
-        : 'https://web.whatsapp.com/send';
+    // const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    // const baseURL = isMobile
+    //     ? 'https://api.whatsapp.com/send'
+    //     : 'https://web.whatsapp.com/send';
 
-    window.open(`${baseURL}?text=${encodedText}`, '_blank');
+     window.open(`https://api.whatsapp.com/send?text=${encodedText}`, '_blank');
 }
 
 function shareFacebook() {

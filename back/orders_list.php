@@ -23,9 +23,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_payment'])) {
     // ✅ Update payment status
     $conn->query("UPDATE orders SET payment_status='$status' WHERE id=$id");
 
-    // Return JSON for AJAX update
-    echo json_encode(["success" => true, "status" => ucfirst($status)]);
-    exit;
+    echo "<script>
+          setTimeout(function() {
+              const modalBody = document.querySelector('#statusModal .modal-body');
+              if (modalBody) {
+                  modalBody.innerHTML = `
+                      <div class='text-center p-4'>
+                          <h4 class='text-success mb-2'>
+                              <i class=\"bi bi-check-circle-fill\"></i> Payment Updated successfully!
+                          </h4>
+                          <p>Your changes have been saved.</p>
+                      </div>
+                  `;
+              }
+
+            // Show modal
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal'));
+            modal.show();
+
+            // Optional: redirect after 2 seconds (if needed)
+            setTimeout(() => {
+                window.location.href = 'orders_list.php'; // change to your desired page
+            }, 2000);
+
+        }, 500);
+    </script>";
 }
 
 // Fetch all orders
@@ -158,6 +180,15 @@ $result = $conn->query("SELECT * FROM orders ORDER BY id DESC");
       </form>
     </div>
   </div>
+ <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <!-- Dynamic content will appear here -->
+            </div>
+            </div>
+        </div>
+    </div>
 
   <script>
     // Fill modal with order details

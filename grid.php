@@ -15,7 +15,7 @@ $cat_slug = isset($_GET['cat_slug']) ? trim($_GET['cat_slug']) : $cat_slug;
 $search = isset($_GET['search']) ? trim($_GET['search']) : "";
 
 $cat_id = 0; // Initialize ID
-$cat_name = "All Namkeen"; 
+$cat_name = "S4 Smart Shop"; 
 
 // Fetch categories (Include slug for dropdown linking)
 $categories = [];
@@ -115,7 +115,7 @@ if ($stmt) {
     <!-- Filter & Clear buttons -->
    <div class="col-md-4 col-sm-12 mb-2 d-flex gap-2">
     <button type="submit" class="btn btn-search w-50">Search</button>
-    <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-danger w-50">Clear</a>
+    <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-search w-50" style="background:red;">Clear</a>
 </div>
 
 </form>
@@ -129,7 +129,7 @@ if ($stmt) {
                     <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($row['slug']); ?>"
                         class="text-decoration-none">
                         <div class="product-card">
-                            <img src="<?= $base_url ?>back/uploads/<?php echo $row['feature-img']; ?>"
+                            <img src="<?= $base_url ?>back/uploads/<?php echo $row['feature_img']; ?>"
                                 alt="<?php echo htmlspecialchars($row['name']); ?>"
                                 class="img-fluid">
                             <div class="product-info mt-2 text-center">

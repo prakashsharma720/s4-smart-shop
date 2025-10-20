@@ -185,63 +185,63 @@
 	});
 
 
- src="https://code.jquery.com/jquery-3.6.0.min.js"
-document.addEventListener("DOMContentLoaded", function () {
-    // radio buttons ko target karo
-    const radios = document.querySelectorAll('.pricing-switcher input[type="radio"]');
+//  src="https://code.jquery.com/jquery-3.6.0.min.js"
+// document.addEventListener("DOMContentLoaded", function () {
+//     // radio buttons ko target karo
+//     const radios = document.querySelectorAll('.pricing-switcher input[type="radio"]');
 
-    radios.forEach(radio => {
-        radio.addEventListener("change", function () {
-            let selected = this.value; // monthly ya yearly
+//     radios.forEach(radio => {
+//         radio.addEventListener("change", function () {
+//             let selected = this.value; // monthly ya yearly
 
-            // sabhi plans ke monthly/yearly items reset karo
-            document.querySelectorAll(".pricing-wrapper li").forEach(li => {
-                li.classList.remove("is-visible");
-                li.classList.add("is-hidden");
-            });
+//             // sabhi plans ke monthly/yearly items reset karo
+//             document.querySelectorAll(".pricing-wrapper li").forEach(li => {
+//                 li.classList.remove("is-visible");
+//                 li.classList.add("is-hidden");
+//             });
 
-            // sirf selected type wale show karo
-            document.querySelectorAll('.pricing-wrapper li[data-type="' + selected + '"]').forEach(li => {
-                li.classList.remove("is-hidden");
-                li.classList.add("is-visible");
-            });
-        });
-    });
-});
+//             // sirf selected type wale show karo
+//             document.querySelectorAll('.pricing-wrapper li[data-type="' + selected + '"]').forEach(li => {
+//                 li.classList.remove("is-hidden");
+//                 li.classList.add("is-visible");
+//             });
+//         });
+//     });
+// });
 
-  const searchBtn = document.getElementById("searchBtn");
-  const specialization = document.getElementById("specialization");
-  const orderby = document.getElementById("orderby");
-  const typePatient = document.getElementsByName("type_patient");
+//   const searchBtn = document.getElementById("searchBtn");
+//   const specialization = document.getElementById("specialization");
+//   const orderby = document.getElementById("orderby");
+//   const typePatient = document.getElementsByName("type_patient");
 
-  function checkFilters() {
-    let typeSelected = Array.from(typePatient).some(radio => radio.checked);
-    let specializationSelected = specialization.value !== "";
-    let orderSelected = orderby.value !== "";
+//   function checkFilters() {
+//     let typeSelected = Array.from(typePatient).some(radio => radio.checked);
+//     let specializationSelected = specialization.value !== "";
+//     let orderSelected = orderby.value !== "";
 
-    if (typeSelected && specializationSelected && orderSelected) {
-      searchBtn.disabled = false;
-      searchBtn.style.cursor = "pointer";
-      searchBtn.style.background = "#28a745"; // green when active
-    } else {
-      searchBtn.disabled = true;
-      searchBtn.style.cursor = "not-allowed";
-      searchBtn.style.background = "#007bff"; // default blue
-    }
-  }
+//     if (typeSelected && specializationSelected && orderSelected) {
+//       searchBtn.disabled = false;
+//       searchBtn.style.cursor = "pointer";
+//       searchBtn.style.background = "#28a745"; // green when active
+//     } else {
+//       searchBtn.disabled = true;
+//       searchBtn.style.cursor = "not-allowed";
+//       searchBtn.style.background = "#007bff"; // default blue
+//     }
+//   }
 
   // Event listeners
-  specialization.addEventListener("change", checkFilters);
-  orderby.addEventListener("change", checkFilters);
-  typePatient.forEach(radio => radio.addEventListener("change", checkFilters));
+//   specialization.addEventListener("change", checkFilters);
+//   orderby.addEventListener("change", checkFilters);
+//   typePatient.forEach(radio => radio.addEventListener("change", checkFilters));
 
 
-    document.querySelectorAll('.size-option').forEach(option => {
-        option.addEventListener('click', () => {
-            document.querySelectorAll('.size-option').forEach(o => o.classList.remove('selected'));
-            option.classList.add('selected');
-        });
-    });
+//     document.querySelectorAll('.size-option').forEach(option => {
+//         option.addEventListener('click', () => {
+//             document.querySelectorAll('.size-option').forEach(o => o.classList.remove('selected'));
+//             option.classList.add('selected');
+//         });
+//     });
 	
   function updateQty(change) {
     let input = document.getElementById("qtyInput");

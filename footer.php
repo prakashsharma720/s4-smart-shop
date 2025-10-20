@@ -4,7 +4,7 @@
             <div class="col-lg-3 col-md-12">
                 <p>
                     <a href="index.php" title="Findoctor">
-                        <img src="img/s4smartshop.png" alt="" width="120" height="30" class="img-fluid">
+                        <img src="<?php echo $base_url; ?>img/s4smartshop.png" alt="" width="120" height="30" class="img-fluid">
                     </a>
                 <div class="follow_us">
                     <h5>Follow us</h5>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-lg-3 col-md-4 text-center">
                 <h5>Pay Here</h5>
-                <img src="img/WhatsApp Image 2025-10-17 at 15.56.21_f22bf529.jpg" alt="Pay Here QR"
+                <img src="<?php echo $base_url;?>img/payment-qr.jpg" alt="Pay Here QR"
                     class="img-fluid rounded shadow mb-2" style="width:120px; height:auto;">
                 <p><strong>Merchant:</strong> S4 SMART SHOP</p>
             </div>

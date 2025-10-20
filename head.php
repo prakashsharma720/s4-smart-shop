@@ -23,7 +23,7 @@ include('config.php');
  	<link href="<?= $base_url ?>css/new.css" rel="stylesheet">
     <!-- BASE CSS -->
     <link href="<?= $base_url ?>css/bootstrap.min.css" rel="stylesheet">
-        <!-- <link href="css/custom.css" rel="stylesheet"> -->
+    <link href="css/custom.css" rel="stylesheet"> 
     <link href="<?= $base_url ?>css/namkeen.css" rel="stylesheet">
     <link href="<?= $base_url ?>css/style.css" rel="stylesheet">
     <link href="<?= $base_url ?>css/menu.css" rel="stylesheet">
@@ -37,8 +37,7 @@ include('config.php');
     <link href="<?= $base_url ?>css/blog.css" rel="stylesheet">
     	<!-- <link href="css/new.css" rel="stylesheet"> -->
 	<link href="<?= $base_url ?>css/tables.css" rel="stylesheet">
-	<script src="<?= $base_url ?>js/modernizr_tables.js"></script>
-    <script src="<?= $base_url ?>js/new.js"></script>
+	
 
    
  

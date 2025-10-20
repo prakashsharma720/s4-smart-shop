@@ -20,18 +20,18 @@ $product_id = $order['product_id'] ?? 0;
 $product = null;
 $product_images = ['default.png'];
 if ($product_id) {
-    $ps = $conn->prepare("SELECT name, image FROM products WHERE id = ? LIMIT 1");
+    $ps = $conn->prepare("SELECT name, feature_img FROM products WHERE id = ? LIMIT 1");
     $ps->bind_param("i", $product_id);
     $ps->execute();
     $prod_result = $ps->get_result();
     if ($prod_result->num_rows > 0) {
         $product = $prod_result->fetch_assoc();
-        $product_images = !empty($product['image']) ? array_map('trim', explode(',', $product['image'])) : ['default.png'];
+        $product_images = !empty($product['feature_img']) ? array_map('trim', explode(',', $product['feature_img'])) : ['default.png'];
     }
     $ps->close();
 }
 
-$shipping = $order['shipping'] ?? 20;
+$shipping = $order['shipping'] ?? 0;
 $total_with_shipping = ($order['total'] ?? 0) + $shipping;
 $conn->close();
 ?>
@@ -88,13 +88,18 @@ $conn->close();
         <h2>Order Summary</h2>
         <div class="order-top">
             <div><strong>Date</strong><br><?= date('d M Y', strtotime($order['created_at'])) ?></div>
-            <div><strong>Order Number</strong><br><?= $order['id'] ?></div>
+            <div><strong>Order Number</strong><br> <?php
+                // Ensure 7-digit order number after 'S4'
+                $orderNumber = 'S4-' . str_pad($order['id'], 6, '0', STR_PAD_LEFT);
+                echo $orderNumber;
+                ?>
+            </div>
             <div><strong>Payment Method</strong><br><?= htmlspecialchars($order['payment_method'] ?? 'Cash on Delivery') ?></div>
         </div>
 
         <div class="order-products">
             <div class="order-item">
-                <img src="<?php echo $base_url?>img/<?= htmlspecialchars($product_images[0]) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                <img src="<?php echo $base_url?>back/uploads/<?= htmlspecialchars($product['feature_img']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
                 <div class="item-details">
                     <div><strong><?= htmlspecialchars($product['name']) ?></strong></div>
                     <?php if(!empty($order['size'])): ?>
@@ -107,11 +112,16 @@ $conn->close();
         </div>
 
         <div class="order-pricing">
-            <div class="price-row"><span>Sub Total</span><span>₹<?= number_format($order['total'],2) ?></span></div>
+            <div class="price-row"><span>Sub Total</span><span>₹<?= $order['total']; ?></span></div>
             <div class="price-row"><span>Shipping</span><span>₹<?= number_format($shipping,2) ?></span></div>
             <div class="price-total"><span>Order Total</span><span>₹<?= number_format($total_with_shipping,2) ?></span></div>
         </div>
+        <br>
+         <p><strong> Make Payment Here </strong></p>
+            <img src="<?php echo $base_url; ?>img/payment-qr.jpg" alt="Pay Here QR" class="img-fluid rounded shadow mb-2" style="width:200px; height:auto;">
     </div>
+    <p> Share Payment Receipt and order Invoice on this whatsapp Number</p> : <h2> 8529257675 </h2>
+   
 </main>
 
 <script>

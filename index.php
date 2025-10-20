@@ -7,7 +7,7 @@
     <meta name="description" content="Find easily a doctor and book online an appointment">
     <meta name="author" content="Ansonika">
     <title>S4 Smart Shop</title>
-    <?php include('head.php');?>
+    <?php include("head.php");?>
 
 </head>
 
@@ -111,7 +111,7 @@
                         <p>
                             <strong>S4 Smart Shop</strong> is a leading <strong>MLM-based eCommerce platform</strong>
                             founded by
-                            <strong>Mr. Mahendra Singh Rawar</strong> with a vision to redefine online shopping and
+                            <strong>Mr. Mahendra Singh Rawat</strong> with a vision to redefine online shopping and
                             income opportunities in India.
                             We bring together innovation, transparency, and growth to help individuals shop smarter and
                             earn more.
@@ -159,7 +159,7 @@
                                         <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
                                             class="text-decoration-none">
                                             <div class="product-card">
-                                                <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature-img']; ?>"
+                                                <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
                                                     alt="<?php echo htmlspecialchars($product['name']); ?>"
                                                     class="img-fluid">
                                                 <div class="product-info mt-2 text-center">
@@ -318,94 +318,7 @@
                         </div>
 
                         <!-- Right Column: Reviews Carousel -->
-                        <div class="col-lg-8">
-                            <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel"
-                                data-bs-interval="3500">
-                                <div class="carousel-inner">
-
-                                    <!-- Slide 1 -->
-                                    <div class="carousel-item active">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <div class="about-review p-3 border-0 rounded shadow bg-white h-100">
-                                                    <div class="rating mb-2 text-warning fs-5">★★★★★</div>
-                                                    <p>"Absolutely love the jackets! Premium quality and perfect fit
-                                                        every time."</p>
-                                                    <div class="user_review d-flex align-items-center mt-3">
-                                                        <img src="slides/user1.png" class="rounded-circle me-2"
-                                                            width="50" alt="User">
-                                                        <div>
-                                                            <strong>Dr. Joseph Luiss</strong><br><small>Fashion
-                                                                Enthusiast</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <div class="about-review p-3 border-0 rounded shadow bg-white h-100">
-                                                    <div class="rating mb-2 text-warning fs-5">★★★★★</div>
-                                                    <p>"The watches and belts are stylish and perfectly complete any
-                                                        outfit."</p>
-                                                    <div class="user_review d-flex align-items-center mt-3">
-                                                        <img src="slides/user2.png" class="rounded-circle me-2"
-                                                            width="50" alt="User">
-                                                        <div>
-                                                            <strong>Pablo Jemenez</strong><br><small>Style
-                                                                Blogger</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Slide 2 -->
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
-                                                <div class="about-review p-3 border-0 rounded shadow bg-white h-100">
-                                                    <div class="rating mb-2 text-warning fs-5">★★★★★</div>
-                                                    <p>"Every shirt feels premium and stylish. My wardrobe has never
-                                                        looked better!"</p>
-                                                    <div class="user_review d-flex align-items-center mt-3">
-                                                        <img src="slides/user3.png" class="rounded-circle me-2"
-                                                            width="50" alt="User">
-                                                        <div>
-                                                            <strong>Marc Twain</strong><br><small>Customer</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 mb-3">
-                                                <div class="about-review p-3 border-0 rounded shadow bg-white h-100">
-                                                    <div class="rating mb-2 text-warning fs-5">★★★★★</div>
-                                                    <p>"Quality is top-notch. The jackets and accessories are my
-                                                        favorite picks!"</p>
-                                                    <div class="user_review d-flex align-items-center mt-3">
-                                                        <img src="slides/user4.png" class="rounded-circle me-2"
-                                                            width="50" alt="User">
-                                                        <div>
-                                                            <strong>Dr. Julia Roberts</strong><br><small>Teacher</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- Carousel Controls -->
-                                <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel"
-                                    data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon"></span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel"
-                                    data-bs-slide="next">
-                                    <span class="carousel-control-next-icon"></span>
-                                </button>
-                            </div>
-                        </div>
+                       
 
                     </div>
 

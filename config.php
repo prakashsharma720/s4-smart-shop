@@ -1,6 +1,6 @@
 <?php 
 // $base_url = 'https://s4smartshop.com/';
-$base_url = 'http://localhost/CI/s4-smart-shop/';
+$base_url = 'http://localhost/php-project/s4-smart-shop/';
 
 $conn = new mysqli("localhost", "root", "", "s4shopdb");
 

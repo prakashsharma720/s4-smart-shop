@@ -87,7 +87,7 @@ CREATE TABLE `products` (
   `slug` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `feature-img` text NOT NULL,
+  `feature_img` text NOT NULL,
   `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -95,7 +95,7 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `name`, `sizes`, `slug`, `description`, `price`, `feature-img`, `image`) VALUES
+INSERT INTO `products` (`id`, `category_id`, `name`, `sizes`, `slug`, `description`, `price`, `feature_img`, `image`) VALUES
 (1, 1, 'S4 Smart Combo Pack 1 – Fashion Essentials', '', 's4-smart-combo-pack-1-fashion-essentials', '<p>Upgrade your style effortlessly with the <strong>S4 Smart Combo Pack</strong>! This all-in-one fashion kit includes premium <strong>fabric</strong>, a stylish <strong>watch</strong>, trendy <strong>shades</strong>, and a classic <strong>belt</strong>&mdash;everything you need to look sharp and confident. Perfect for daily wear or gifting, this combo is designed for those who love convenience without compromising on style.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<p><strong>Premium Fabric</strong> &ndash; High-quality material for comfortable and stylish wear</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Stylish Watch</strong> &ndash; Sleek design to complement any outfit</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Trendy Shades</strong> &ndash; Protect your eyes while staying fashionable</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Classic Belt</strong> &ndash; Durable and versatile to complete your look</p>\r\n	</li>\r\n</ul>\r\n', '620.00', 'ChatGPT-image-Oct.png', 'Screenshot 2025-10-16 202932.png'),
 (2, 1, 'S4 Smart Combo Pack 2 – Stylish Essentials', NULL, 's4-smart-combo-pack-2-stylish-essentials', '<p>Upgrade your style effortlessly with the <strong>S4 Smart Combo Pack</strong>! This all-in-one fashion kit includes premium <strong>fabric</strong>, a stylish <strong>watch</strong>, trendy <strong>shades</strong>, and a classic <strong>belt</strong>&mdash;everything you need to look sharp and confident. Perfect for daily wear or gifting, this combo is designed for those who love convenience without compromising on style.</p>\r\n\r\n<ul>\r\n	<li>\r\n	<p><strong>Premium Fabric</strong> &ndash; High-quality material for comfortable and stylish wear</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Stylish Watch</strong> &ndash; Sleek design to complement any outfit</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Trendy Shades</strong> &ndash; Protect your eyes while staying fashionable</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Classic Belt</strong> &ndash; Durable and versatile to complete your look</p>\r\n	</li>\r\n</ul>\r\n', '800.00', 'front-view-woman-with-shopping-bag-concept.jpg', 'front-view-woman-with-shopping-bag-concept.jpg'),
 (3, 1, 'S4 Smart Combo Pack 3 – Economy Essentials', NULL, 's4-smart-combo-pack-3-economy-essentials', '<p><strong>What&rsquo;s Included:</strong></p>\r\n\r\n<ul>\r\n	<li>\r\n	<p><strong>Premium Fabric</strong> &ndash; High-quality material for comfortable and stylish wear</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Stylish Watch</strong> &ndash; Sleek design to complement any outfit</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Trendy Shades</strong> &ndash; Protect your eyes while staying fashionable</p>\r\n	</li>\r\n	<li>\r\n	<p><strong>Classic Belt</strong> &ndash; Durable and versatile to complete your look</p>\r\n	</li>\r\n</ul>\r\n', '1000.00', 'Best-Network-Marketing-Tips-from-MLM-Leaders.jpg', 'Best-Network-Marketing-Tips-from-MLM-Leaders.jpg');

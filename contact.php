@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -25,8 +25,8 @@
     <?php include('navbar.php');?>
 	<main>
 <div class="banner-contact position-relative">
-    <img src="img/CONTACTEZ-NOUS (personnes du service d'assistance clientèle CONNECT) Appelez l'assistance clientèle _ Photo Premium.jpeg" 
-         alt="Hospital Banner" 
+    <img src="<?php echo $base_url;?>img/contact-us.jpeg" 
+         alt="Contact Us Banner" 
          class="img-fluid w-100" 
          style="height:400px; object-fit: cover;">
 </div>

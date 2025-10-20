@@ -8,9 +8,33 @@ $msg = "";
 if (isset($_GET['delete'])) {
     $id = intval($_GET['delete']);
     if ($conn->query("DELETE FROM products WHERE id=$id")) {
-        $msg = "🗑️ Product deleted successfully!";
-        header("Location: add_product.php?msg=" . urlencode($msg)); // ✅ fixed redirect path
-        exit;
+        echo "<script>
+            setTimeout(function() {
+                const modalBody = document.querySelector('#statusModal .modal-body');
+                if (modalBody) {
+                    modalBody.innerHTML = `
+                        <div class='text-center p-4'>
+                            <h4 class='text-success mb-2'>
+                                <i class=\"bi bi-check-circle-fill\"></i> Product deleted successfully!
+                            </h4>
+                            <p>Your changes have been saved.</p>
+                        </div>
+                    `;
+                }
+
+                // Show modal
+                const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal'));
+                modal.show();
+
+                // Optional: redirect after 2 seconds (if needed)
+                setTimeout(() => {
+                    window.location.href = 'add_product.php'; // change to your desired page
+                }, 2000);
+
+            }, 500);
+        </script>";
+
+     
     } else {
         die("Delete failed: " . $conn->error);
     }
@@ -31,13 +55,61 @@ if (isset($_POST['add_product'])) {
     if (!is_dir("uploads")) mkdir("uploads", 0777, true);
 
     if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-        $stmt = $conn->prepare("INSERT INTO products (category_id, name, slug, description, price, image) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO products (category_id, name, slug, description, price, feature_img) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("isssds", $category_id, $name, $slug, $description, $price, $image);
         $stmt->execute();
-        $msg = "✅ Product added successfully!";
+        echo "<script>
+        setTimeout(function() {
+            const modalBody = document.querySelector('#statusModal .modal-body');
+            if (modalBody) {
+                modalBody.innerHTML = `
+                    <div class='text-center p-4'>
+                        <h4 class='text-success mb-2'>
+                            <i class=\"bi bi-check-circle-fill\"></i> Product updated successfully!
+                        </h4>
+                        <p>Your changes have been saved.</p>
+                    </div>
+                `;
+            }
+
+            // Show modal
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal'));
+            modal.show();
+
+            // Optional: redirect after 2 seconds (if needed)
+            setTimeout(() => {
+                window.location.href = 'add_product.php'; // change to your desired page
+            }, 2000);
+
+        }, 500);
+    </script>";
         $stmt->close();
     } else {
-        $msg = "❌ Failed to upload image!";
+         echo "<script>
+        setTimeout(function() {
+            const modalBody = document.querySelector('#statusModal .modal-body');
+            if (modalBody) {
+                modalBody.innerHTML = `
+                    <div class='text-center p-4'>
+                        <h4 class='text-success mb-2'>
+                            <i class=\"bi bi-cancel-circle-fill\"></i> Operation Failed!
+                        </h4>
+                        <p>No changes.</p>
+                    </div>
+                `;
+            }
+
+            // Show modal
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal'));
+            modal.show();
+
+            // Optional: redirect after 2 seconds (if needed)
+            setTimeout(() => {
+                window.location.href = 'add_product.php'; // change to your desired page
+            }, 2000);
+
+        }, 500);
+    </script>";
     }
 }
 
@@ -55,14 +127,40 @@ if (isset($_POST['edit_product'])) {
         $target = "uploads/" . basename($image);
         move_uploaded_file($_FILES['image']['tmp_name'], $target); 
 
-        $stmt = $conn->prepare("UPDATE products SET category_id=?, name=?, description=?, price=?, image=?, sizes=? WHERE id=?");
+        $stmt = $conn->prepare("UPDATE products SET category_id=?, name=?, description=?, price=?, feature_img=?, sizes=? WHERE id=?");
         $stmt->bind_param("issdssi", $category_id, $name, $description, $price, $image, $sizes, $id);
     } else {
         $stmt = $conn->prepare("UPDATE products SET category_id=?, name=?, description=?, price=?, sizes=? WHERE id=?");
         $stmt->bind_param("issdsi", $category_id, $name, $description, $price, $sizes, $id);
     }
     $stmt->execute();
-    $msg = "✏️ Product updated successfully!";
+        echo "<script>
+        setTimeout(function() {
+            const modalBody = document.querySelector('#statusModal .modal-body');
+            if (modalBody) {
+                modalBody.innerHTML = `
+                    <div class='text-center p-4'>
+                        <h4 class='text-success mb-2'>
+                            <i class=\"bi bi-check-circle-fill\"></i> Product updated successfully!
+                        </h4>
+                        <p>Your changes have been saved.</p>
+                    </div>
+                `;
+            }
+
+            // Show modal
+            const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('statusModal'));
+            modal.show();
+
+            // Optional: redirect after 2 seconds (if needed)
+            setTimeout(() => {
+                window.location.href = 'add_product.php'; // change to your desired page
+            }, 2000);
+
+        }, 500);
+    </script>";
+
+    // $msg = "✏️ Product updated successfully!";
     $stmt->close();
 }
 
@@ -129,7 +227,7 @@ $result = $conn->query("
                                 <td>₹<?php echo $row['price']; ?></td>
                                 <td><?php echo htmlspecialchars($row['category_name']); ?></td>
                                 <!-- <td><?php //echo htmlspecialchars($row['sizes']); ?></td> -->
-                                <td><img src="uploads/<?php echo htmlspecialchars($row['image']); ?>" width="60" height="60" style="object-fit:cover;"></td>
+                                <td><img src="uploads/<?php echo htmlspecialchars($row['feature_img']); ?>" width="60" height="60" style="object-fit:cover;"></td>
                                 <td class="text-center">
                                     <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#viewModal<?php echo $row['id']; ?>"><i class="fa fa-eye"></i></button>
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $row['id']; ?>"><i class="fa fa-edit"></i></button>
@@ -145,7 +243,7 @@ $result = $conn->query("
 
                             <!-- View Modal -->
                             <div class="modal fade" id="viewModal<?php echo $row['id']; ?>" tabindex="-1">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header"><h5>View Product</h5></div>
                                         <div class="modal-body">
@@ -155,7 +253,9 @@ $result = $conn->query("
                                             <!-- <p><b>Sizes:</b> <?php //echo htmlspecialchars($row['sizes']); ?></p> -->
                                             <p><b>Description:</b></p>
                                             <div class="border p-2"><?php echo $row['description']; ?></div>
-                                            <img src="uploads/<?php echo htmlspecialchars($row['image']); ?>" class="img-fluid mt-3" alt="Product Image">
+                                            <div class="img" style="width: 500px;">
+                                                <img src="uploads/<?php echo htmlspecialchars($row['feature_img']); ?>" class="img-fluid mt-3" alt="Product Image">
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -294,6 +394,16 @@ $result = $conn->query("
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <!-- Dynamic content will appear here -->
+            </div>
             </div>
         </div>
     </div>
