@@ -223,7 +223,7 @@ strong {
   letter-spacing: -1px;
   font-size: 36px;
   margin: 0;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 @media (max-width: 767px) {
   .main_title h2 {

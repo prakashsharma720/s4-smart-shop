@@ -1608,3 +1608,64 @@ figure:hover .preview {
     .nk-card p { font-size: 1rem !important; color: #7f7f7f !important; line-height: 1.6 !important; }
     @media (max-width: 992px) { .nk-cards { gap: 20px !important; } }
     @media (max-width: 768px) { .nk-cards { flex-direction: column !important; align-items: center !important; } .nk-card { max-width: 85% !important; } }
+/* Carousel item spacing */
+#productCarousel .carousel-item {
+    padding: 15px 0;
+}
+
+/* Product card styling */
+.product-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Product image */
+.product-card img {
+    border-bottom: 1px solid #eee;
+}
+
+/* Product info */
+.product-info h5 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+/* Price */
+.from-price-middle {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Carousel indicators - circles */
+#productCarousel .carousel-indicators {
+    position: relative; /* Below the carousel items */
+    bottom: 0;
+    margin-top: 20px;
+}
+
+#productCarousel .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #999;
+    border: none;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+#productCarousel .carousel-indicators .active {
+    background-color: #007bff; /* Active circle color */
+}
+
+/* Remove default Bootstrap positioning for indicators so they stay below */
+#productCarousel .carousel-indicators {
+    bottom: -30px;
+}

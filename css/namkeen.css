@@ -919,3 +919,54 @@ section {
     height: 200px;  /* fixed height */
     object-fit: contain; /* maintain aspect ratio */
 }
+#shareDropdown {
+    color: var(--primary); /* Icon color */
+    border-color: var(--primary); /* Outline border color */
+}
+
+#shareDropdown:hover,
+#shareDropdown:focus {
+    color: #fff; /* Text/icon color on hover */
+    background-color: #113d56; /* Background on hover */
+    border-color: #113d56;
+}
+/* Smaller circular arrows, side positioned */
+#productCarousel .carousel-control-prev,
+#productCarousel .carousel-control-next {
+    width: 35px;
+    height: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3); /* subtle background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#productCarousel .carousel-control-prev:hover,
+#productCarousel .carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#productCarousel .carousel-control-prev-icon,
+#productCarousel .carousel-control-next-icon {
+    background-size: 50% 50%;
+}
+
+/* Make carousel-inner flex to slide continuously */
+#productCarousel .carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* Each carousel-item flex row */
+#productCarousel .carousel-item {
+    display: flex;
+    gap: 10px; /* small gap between cards */
+}
+
+/* Remove default margin */
+#productCarousel .carousel-item .col-md-4 {
+    margin-bottom: 0 !important;
+}
