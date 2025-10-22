@@ -138,26 +138,7 @@ INSERT INTO `users` (`id`, `user_code`, `name`, `email`, `phone`, `password`) VA
 (16, 'NAM016', 'Prakash Sharma', 'prakash@muskowl.com', '9664100138', '$2y$10$Pe46EaNduu1R1kEWPyOvyu8zD3hgXjyLdr74TWPfR48CYZA8dpLqi');
 
 --
--- Triggers `users`
---
-DELIMITER $$
-CREATE TRIGGER `before_insert_users` BEFORE INSERT ON `users` FOR EACH ROW BEGIN
-  DECLARE next_id INT;
 
-  -- Get next auto_increment ID
-  SELECT AUTO_INCREMENT INTO next_id
-  FROM information_schema.tables
-  WHERE table_name = 'users' AND table_schema = DATABASE();
-
-  -- Generate code like NAM001, NAM002, etc.
-  SET NEW.user_code = CONCAT('NAM', LPAD(next_id, 3, '0'));
-END
-$$
-DELIMITER ;
-
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `categories`

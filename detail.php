@@ -1,13 +1,16 @@
 <?php
 include('config.php');
-
+$referal_code ='';
 // ================== START SESSION ==================
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
+$referal_code = $_GET['ref'] ?? '';
+//  echo $_SESSION['user']['id'];exit;
 // ================== GET LOGGED-IN USER ==================
 $user = $_SESSION['user'] ?? null;
+
+$user_uniquecode = $_SESSION['user']['user_code'];
 
 // ================== GET PRODUCT BY SLUG ==================
 $product_slug = trim($_SERVER['PATH_INFO'] ?? '', '/');
@@ -48,10 +51,10 @@ if ($user && isset($_POST['place_order'])) {
     $referral   = trim($_POST['referral_code'] ?? '');
 
     $stmt2 = $conn->prepare("
-        INSERT INTO orders (product_id, name, address, email, phone, size, quantity, total, referral_code, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+        INSERT INTO orders (user_code,product_id, name, address, email, phone, size, quantity, total, referral_code, created_at)
+        VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
     ");
-    $stmt2->bind_param("isssssids", $product_id, $name, $address, $email, $phone, $size, $quantity, $total, $referral);
+    $stmt2->bind_param("sisssssids", $user_uniquecode,$product_id, $name, $address, $email, $phone, $size, $quantity, $total, $referral);
 
     if ($stmt2->execute()) {
         $order_id = $stmt2->insert_id;
@@ -198,7 +201,7 @@ if ($user && isset($_POST['place_order'])) {
 
                     <div class="mb-3">
                         <label class="form-label">Referral Code (Optional)</label>
-                        <input type="text" name="referral_code" class="form-control" placeholder="Enter referral code" value="<?= htmlspecialchars($user['user_code'] ?? '') ?>">
+                        <input type="text" name="referral_code" class="form-control" placeholder="Enter referral code" value="<?= htmlspecialchars( $referal_code ?? $user['user_code']) ?>">
                     </div>
 
                     <hr class="my-3">

@@ -1,7 +1,8 @@
 <?php
 include('config.php');
 if (session_status() === PHP_SESSION_NONE) session_start();
-
+$_SESSION['login_redirect'] = $_GET['redirect'] ?? ($base_url . "index.php");
+// echo $_GET['redirect'];exit;
 $error = '';
 $success = '';
 
@@ -95,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <p class="text-center register-text">
-          Do not have an account yet? <a href="register.php" class="register-link">Register now!</a>
+          Do not have an account yet? <a href="register.php?redirect=<?php echo $_SESSION['login_redirect'];?>" class="register-link">Register now!</a>
         </p>
       </div>
     </div>

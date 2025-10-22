@@ -1,10 +1,34 @@
 <?php
 session_start();
 include('config.php');
+if (session_status() === PHP_SESSION_NONE) session_start();
+// $_SESSION['login_redirect'] = $_GET['redirect'] ?? ($base_url . "index.php");
+ $referal_code = $_GET['redirect'];
+parse_str(parse_url($referal_code, PHP_URL_QUERY), $params);
 
+// Step 3: Extract 'ref' if available
+$ref_code = $params['ref'] ?? '';
+
+// echo htmlspecialchars($ref_code);exit;
 $error = '';
+$success = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $stmtCount = $conn->prepare("SELECT * FROM users");
+    $stmtCount->execute();
+    $stmtCount->store_result();
+    if($stmtCount->num_rows < 10){
+        $user_code = 'S40000'.$stmtCount->num_rows+100+1;
+    }else if($stmtCount->num_rows >= 10 || $stmtCount->num_rows < 100+1){
+          $user_code = 'S4000'.$stmtCount->num_rows+100+1;
+    }else if($stmtCount->num_rows >= 100 || $stmtCount->num_rows < 1000){
+          $user_code = 'S400'.$stmtCount->num_rows+1;
+    }else if($stmtCount->num_rows >= 1000 || $stmtCount->num_rows <= 10000){
+          $user_code = 'S40'.$stmtCount->num_rows+1;
+    }else{
+          $user_code = 'S4'.$stmtCount->num_rows+1;
+    }
+    // echo $user_code;exit;
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $mobile = trim($_POST['phone']);
@@ -26,23 +50,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->store_result();
+     
+      
 
         if ($stmt->num_rows > 0) {
             $error = "Email already registered!";
         } else {
             // Hash password and insert
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $stmt_insert = $conn->prepare("INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)");
-            $stmt_insert->bind_param("ssss", $name, $email, $mobile, $hashed_password);
+            $stmt_insert = $conn->prepare("INSERT INTO users (user_code,name, email, phone, password,referal_code) VALUES (?,?, ?, ?, ?,?)");
+            $stmt_insert->bind_param("ssssss", $user_code,$name, $email, $mobile, $hashed_password,$ref_code);
 
             if ($stmt_insert->execute()) {
+                $user_id = $stmt_insert->insert_id;
                 // ✅ Success message via session
-                $_SESSION['success_msg'] = "Registration Successful! Redirecting to login...";
-                echo "<script>
-                        alert('Registration Successful! Redirecting to login...');
-                        window.location.href='login.php';
-                      </script>";
-                exit; // stop further execution
+                $_SESSION['user'] = [
+                    'id' => $user_id,
+                    'name' => $name,
+                    'email' => $email,
+                    'phone' => $mobile,
+                    'user_code' => $user_code ?? '',
+                ];
+
+                $success = "Registration successful!";
+                $_SESSION['login_redirect'] = $_GET['redirect'] ?? ($base_url . "index.php");
+                // echo "<script>
+                //         alert('Registration Successful! Redirecting to login...');
+                //         window.location.href='login.php';
+                //       </script>";
+                // exit; // stop further execution
             } else {
                 $error = "Registration failed. Try again.";
             }
@@ -83,5 +119,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php include('footer.php'); ?>
     <?php include('js.php'); ?>
+    <!-- ✅ Success Popup Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h4 class="text-success mb-2"><i class="bi bi-check-circle-fill"></i> Registration Successful!</h4>
+      <p>Redirecting, please wait...</p>
+    </div>
+  </div>
+</div>
+
+<?php if ($success): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('successModal'));
+    modal.show();
+    setTimeout(() => {
+        window.location.href = "<?= $_SESSION['login_redirect'] ?>";
+    }, 1500);
+});
+</script>
+<?php unset($_SESSION['login_redirect']); endif; ?>
+
 </body>
 </html>
