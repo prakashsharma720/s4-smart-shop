@@ -79,9 +79,6 @@
             <p>The site provides materials "as is" without warranties. Maximum liability is limited to the invoice
                 value.
             </p>
-
-            <h2>Jurisdiction</h2>
-            <p>All disputes are subject to the jurisdiction of courts in Hyderabad, India.</p>
         </div>
     </main>
 </body>

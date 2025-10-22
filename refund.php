@@ -53,7 +53,9 @@
 
             <h2>Refund Policy</h2>
             <ul>
-                <li>No cash refunds; credit notes or exchanges are possible before dispatch.</li>
+                <li>Return / exchange/ damage/ replacement request must be raised in 30 days , Once we receive the request we will delivery new product In 7 business days 
+                Cancellation request must be raised in 24 hours </li>
+                <li>Shipping policy : order will be delivered In 6-7 business days</li>
                 <li>Damaged or wrong items will be replaced at no extra cost if reported within 24 hours with images.</li>
                 <li>Returns must be authorized by the Fabricbysinghanias team before shipping back.</li>
             </ul>

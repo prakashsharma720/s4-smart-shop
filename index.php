@@ -36,7 +36,7 @@
                         <!-- <div class="snack-icon"></div> -->
                         <h3 class="hero-subtitle">Trendy & Stylish</h3>
                         <h1 class="hero-title">Fabrics, Watches & Accessories</h1>
-                        <a href="<?= $base_url ?>products.html" class="btn-hero">Shop Now</a>
+                        <!--<a href="<?= $base_url ?>products.html" class="btn-hero">Shop Now</a>-->
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                         <div class="snack-icon"></div>
                         <h3 class="hero-subtitle">Trendy & Stylish</h3>
                         <h1 class="hero-title">Fabrics, Watches & Accessories</h1>
-                        <a href="<?= $base_url ?>products.html" class="btn-hero">Discover</a>
+                        <!--<a href="<?= $base_url ?>products.html" class="btn-hero">Discover</a>-->
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
                         <div class="snack-icon"></div>
                         <h3 class="hero-subtitle">Trendy & Stylish</h3>
                         <h1 class="hero-title">Fabrics, Watches & Accessories</h1>
-                        <a href="<?= $base_url ?>products.html" class="btn-hero">Explore More</a>
+                        <!--<a href="<?= $base_url ?>products.html" class="btn-hero">Explore More</a>-->
                     </div>
                 </div>
             </div>
@@ -117,14 +117,11 @@
                             earn more.
                         </p>
                         <p>
-                            Our platform offers a wide range of high-quality products across multiple categories,
-                            along with a rewarding referral system that allows members to build a stable source of
-                            income.
+                            Our platform offers a wide range of high-quality products across multiple categories.
                             What started as a dream to empower entrepreneurs has today evolved into a fast-growing
-                            digital network
-                            connecting smart shoppers across the nation.
+                            digital network connecting smart shoppers across the nation.
                         </p>
-                        <a href="<?= $base_url ?>#" class="btn-read">Read More</a>
+                        <!--<a href="<?= $base_url ?>#" class="btn-read">Read More</a>-->
                     </div>
             </section>
             <?php
@@ -243,54 +240,50 @@
             </div>
         </div>
 
-        <section class="why-choose-us py-5">
-            <div class="container text-center">
-                <h2 class="section-title mb-4">Why Choose Us</h2>
-                <p class="section-subtitle mb-5">
-                    S4 Smart Shop offers a trusted platform that combines smart shopping, referral rewards, and
-                    financial growth opportunities for everyone.
-                </p>
-                <div class="row g-4">
+        <!--<section class="why-choose-us py-5">-->
+        <!--    <div class="container text-center">-->
+        <!--        <h2 class="section-title mb-4">Why Choose Us</h2>-->
+        <!--        <p class="section-subtitle mb-5">-->
+        <!--            S4 Smart Shop offers a trusted platform that combines smart shopping, referral rewards, and-->
+        <!--            financial growth opportunities for everyone.-->
+        <!--        </p>-->
+        <!--        <div class="row g-4">-->
 
-                    <!-- Card 1 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="choose-card animate-left">
-                            <div class="icon-box"><i class="fas fa-shopping-cart"></i></div>
-                            <h4>Smart Shopping</h4>
-                            <p>Shop from a wide range of quality products at unbeatable prices.</p>
-                        </div>
-                    </div>
+        <!--            <div class="col-md-6 col-lg-3">-->
+        <!--                <div class="choose-card animate-left">-->
+        <!--                    <div class="icon-box"><i class="fas fa-shopping-cart"></i></div>-->
+        <!--                    <h4>Smart Shopping</h4>-->
+        <!--                    <p>Shop from a wide range of quality products at unbeatable prices.</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
 
-                    <!-- Card 2 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="choose-card animate-up">
-                            <div class="icon-box"><i class="fas fa-hand-holding-usd"></i></div>
-                            <h4>Earn While You Shop</h4>
-                            <p>Get rewarded for every purchase and referral through our MLM system.</p>
-                        </div>
-                    </div>
+        <!--            <div class="col-md-6 col-lg-3">-->
+        <!--                <div class="choose-card animate-up">-->
+        <!--                    <div class="icon-box"><i class="fas fa-hand-holding-usd"></i></div>-->
+        <!--                    <h4>Earn While You Shop</h4>-->
+        <!--                    <p>Get rewarded for every purchase and referral through our MLM system.</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
 
-                    <!-- Card 3 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="choose-card animate-down">
-                            <div class="icon-box"><i class="fas fa-users"></i></div>
-                            <h4>Strong Network</h4>
-                            <p>Build your own network and grow together with a supportive community.</p>
-                        </div>
-                    </div>
+        <!--            <div class="col-md-6 col-lg-3">-->
+        <!--                <div class="choose-card animate-down">-->
+        <!--                    <div class="icon-box"><i class="fas fa-users"></i></div>-->
+        <!--                    <h4>Strong Network</h4>-->
+        <!--                    <p>Build your own network and grow together with a supportive community.</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
 
-                    <!-- Card 4 -->
-                    <div class="col-md-6 col-lg-3">
-                        <div class="choose-card animate-right">
-                            <div class="icon-box"><i class="fas fa-chart-line"></i></div>
-                            <h4>Unlimited Growth</h4>
-                            <p>Enjoy consistent income and growth opportunities with full transparency.</p>
-                        </div>
-                    </div>
+        <!--            <div class="col-md-6 col-lg-3">-->
+        <!--                <div class="choose-card animate-right">-->
+        <!--                    <div class="icon-box"><i class="fas fa-chart-line"></i></div>-->
+        <!--                    <h4>Unlimited Growth</h4>-->
+        <!--                    <p>Enjoy consistent income and growth opportunities with full transparency.</p>-->
+        <!--                </div>-->
+        <!--            </div>-->
 
-                </div>
-            </div>
-        </section>
+        <!--        </div>-->
+        <!--    </div>-->
+        <!--</section>-->
 
 
 

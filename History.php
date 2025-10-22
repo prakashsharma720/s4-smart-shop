@@ -32,19 +32,10 @@
       <p>
         The name <strong>“S4 Smart Shop”</strong> stands for innovation, opportunity, and prosperity in the modern digital era. 
         Founded by <strong>Mr. Mahendra Singh Rawat</strong>, the company was built on a vision to empower individuals through 
-        smart shopping and a powerful income-generation system based on the <strong>MLM (Multi-Level Marketing)</strong> concept.
+        smart shopping.
       </p>
       <p>
-        At <strong>S4 Smart Shop</strong>, we combine the convenience of eCommerce with a rewarding referral structure that 
-        allows every member to earn income by sharing products and growing their network. Our platform offers a diverse range 
-        of quality products — from daily essentials to lifestyle needs — all designed to provide value to customers while creating 
-        earning opportunities for entrepreneurs across India.
-      </p>
-      <p>
-        Under the leadership of <strong>Mr. Mahendra Singh Rawat</strong>, S4 Smart Shop is not just an online store, but a 
-        growing community of smart shoppers, leaders, and dreamers working together to achieve financial freedom through 
-        ethical and transparent business practices.
-      </p>
+        Under the leadership of <strong>Mr. Mahendra Singh Rawat</strong>, S4 Smart Shop is just an online store.
   </div>
 
 
