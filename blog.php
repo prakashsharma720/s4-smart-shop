@@ -13,7 +13,7 @@
 <?php include('navbar.php'); ?>
 <div class="container my-5">
     <div class="main_title text-center mb-5">
-        <h2>Process</h2>
+        <h2>Our Process</h2>
     </div>
 
     <div class="row process-grid align-items-center mb-5">
@@ -52,17 +52,17 @@
 
     </div>
 
-    <div class="row process-grid align-items-center mb-5">
+    <!--<div class="row process-grid align-items-center mb-5">-->
         <!-- Step 4: Image Right, Text Left -->
-        <div class="col-lg-4 order-lg-2 wow animate__fadeInRight">
-            <img src="img/investment.png" class="img-fluid rounded shadow" alt="Grow & Earn">
-        </div>
-       <div class="col-lg-8 order-lg-1 wow animate__fadeInLeft">
-    <h4>Grow & Earn</h4>
-    <p>Build your network, increase your level, and enjoy lifelong income benefits. Expand your reach by inviting more members, share product recommendations, and earn higher rewards as your network grows. Track your progress and commissions easily, and watch your earnings increase steadily over time while helping others succeed.</p>
-</div>
+    <!--    <div class="col-lg-4 order-lg-2 wow animate__fadeInRight">-->
+    <!--        <img src="img/investment.png" class="img-fluid rounded shadow" alt="Grow & Earn">-->
+    <!--    </div>-->
+    <!--   <div class="col-lg-8 order-lg-1 wow animate__fadeInLeft">-->
+    <!--        <h4>Grow & Earn</h4>-->
+    <!--        <p>Build your network, increase your level, and enjoy lifelong income benefits. Expand your reach by inviting more members, share product recommendations, and earn higher rewards as your network grows. Track your progress and commissions easily, and watch your earnings increase steadily over time while helping others succeed.</p>-->
+    <!--    </div>-->
 
-    </div>
+    <!--</div>-->
 </div>
 
 <!-- Animate.css & WOW.js -->

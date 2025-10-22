@@ -196,13 +196,13 @@
         <div class="container my-5">
             <div class="main_title text-center mb-5">
                 <h2>How It Works</h2>
-                <p>Start your earning journey with S4 Smart Shop in 4 simple steps!</p>
+                <p>Start your earning journey with S4 Smart Shop in 3 simple steps!</p>
             </div>
 
             <div class="row text-center process-grid">
 
                 <!-- Step 1 -->
-                <div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">
+                <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/computer.jpg" alt="Register" class="process-img">
                         <h4>Register</h4>
@@ -211,7 +211,7 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">
+                <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/bag.jpg" alt="Shop Products" class="process-img">
                         <h4>Shop Products</h4>
@@ -220,7 +220,7 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">
+                <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/referral.png" alt="Refer & Earn" class="process-img">
                         <h4>Refer & Earn</h4>
@@ -229,13 +229,13 @@
                 </div>
 
                 <!-- Step 4 -->
-                <div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">
-                    <div class="process-step">
-                        <img src="img/investment.png" alt="Grow & Earn" class="process-img">
-                        <h4>Grow & Earn</h4>
-                        <p>Build your network, increase your level, and enjoy lifelong income benefits.</p>
-                    </div>
-                </div>
+                <!--<div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">-->
+                <!--    <div class="process-step">-->
+                <!--        <img src="img/investment.png" alt="Grow & Earn" class="process-img">-->
+                <!--        <h4>Grow & Earn</h4>-->
+                <!--        <p>Build your network, increase your level, and enjoy lifelong income benefits.</p>-->
+                <!--    </div>-->
+                <!--</div>-->
 
             </div>
         </div>
@@ -287,15 +287,15 @@
 
 
 
-        <section class="reviews-section py-5">
+        <section class="reviews-section py-1">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="row g-4">
 
                         <!-- Left Column: Why Choose S4 Smart Shop -->
-                        <div class="col-lg-4 mb-4">
-                            <div class="p-4 rounded shadow-sm text-dark" style="background:#fff3e0;">
-                                <h2 class="mb-3 text-danger fw-bold">Why Choose S4 Smart Shop</h2>
+                        <div class="col-lg-12 mb-4">
+                            <div class="p-4 rounded shadow-sm text-dark" style="background:#deedf7d6;">
+                                <h3 class="mb-3 brand-name" style="font-size:1.5rem;">Why Choose S4 Smart Shop</h3>
                                 <p>
                                     S4 Smart Shop brings you <strong>premium quality men’s clothing and
                                         accessories</strong>,

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,7 +26,7 @@
 	<main>
 <div class="banner-contact position-relative">
     <img src="<?php echo $base_url;?>img/contact-us.jpeg" 
-         alt="Contact Us Banner" 
+         alt="Hospital Banner" 
          class="img-fluid w-100" 
          style="height:400px; object-fit: cover;">
 </div>
@@ -38,14 +38,14 @@
 						<h3>Contacts info</h3>
 						<p>
 						Chittorgarh, Rajasthan 312203
-<br> + +918107875712<br>
+`                       <br> + +918107875712<br>
 							<a href="#">info@s4smartshop.com</a>
 						</p>
 						<h4>Get directions</h4>
 						<form action="http://maps.google.com/maps" method="get" target="_blank">
 							<div class="form-group">
 								<input type="text" name="saddr" placeholder="Enter your location" class="form-control styled">
-								<input type="hidden" name="daddr" value="New York, NY 11430">
+								<input type="hidden" name="daddr" value="Nangpura,Near Government Upper Primary School, Chittorgarh, Rajasthan 312203">
 								<!-- Write here your end point -->
 							</div>
 							<input type="submit" value="Get directions" class="btn_1 add_bottom_45">
@@ -67,15 +67,15 @@
 					<div class="box_general">
 						<h3>Contact us</h3>
 						<p>
-							Mussum ipsum cacilds, vidis litro abertis.
+							Fill the form to connect with us.
 						</p>
 						<div>
 							<div id="message-contact"></div>
-							<form method="post" action="assets/contact.php" id="contactform">
+							<form method="post" action="" id="contactform">
 								<div class="row">
 									<div class="col-md-6 col-sm-6">
 										<div class="form-group">
-											<input type="text" class="form-control" id="name_contact" name="name_contact" placeholder="Name">
+											<input type="text" class="form-control" id="name_contact" name="name_contact" placeholder="Name" required>
 										</div>
 									</div>
 									<div class="col-md-6 col-sm-6">
@@ -87,12 +87,12 @@
 								<div class="row">
 									<div class="col-md-6 col-sm-6">
 										<div class="form-group">
-											<input type="email" id="email_contact" name="email_contact" class="form-control" placeholder="Email">
+											<input type="email" id="email_contact" name="email_contact" class="form-control" placeholder="Email" >
 										</div>
 									</div>
 									<div class="col-md-6 col-sm-6">
 										<div class="form-group">
-											<input type="text" id="phone_contact" name="phone_contact" class="form-control" placeholder="Phone number">
+											<input type="text" id="phone_contact" name="phone_contact" class="form-control" placeholder="Phone number" required>
 										</div>
 									</div>
 								</div>
@@ -103,13 +103,13 @@
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<input type="text" id="verify_contact" class=" form-control" placeholder=" 3 + 1 =">
-										</div>
-									</div>
-								</div>
+								<!--<div class="row">-->
+								<!--	<div class="col-md-6">-->
+								<!--		<div class="form-group">-->
+								<!--			<input type="text" id="verify_contact" class=" form-control" placeholder=" 3 + 1 =">-->
+								<!--		</div>-->
+								<!--	</div>-->
+								<!--</div>-->
 								<input type="submit" value="Submit" class="btn_1 add_top_20" id="submit-contact">
 							</form>
 						</div>
