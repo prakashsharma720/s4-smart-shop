@@ -10,7 +10,7 @@ $referal_code = $_GET['ref'] ?? '';
 // ================== GET LOGGED-IN USER ==================
 $user = $_SESSION['user'] ?? null;
 
-$user_uniquecode = $_SESSION['user']['user_code'];
+$user_uniquecode = $_SESSION['user']['user_code'] ?? '';
 
 // ================== GET PRODUCT BY SLUG ==================
 $product_slug = trim($_SERVER['PATH_INFO'] ?? '', '/');
@@ -95,7 +95,14 @@ if ($user && isset($_POST['place_order'])) {
 </head>
 <body>
 <?php include('navbar.php'); ?>
-
+<div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li>Detail</li>
+            </ul>
+        </div>
+    </div>
 <div class="container">
     <div class="product-container">
 

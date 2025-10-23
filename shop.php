@@ -87,7 +87,14 @@ if ($stmt) {
 <div id="preloader"><div data-loader="circle-side"></div></div>
 
 <?php include('navbar.php'); ?>
-
+<div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li>Shop</li>
+            </ul>
+        </div>
+    </div>
 <div class="container my-5">
 
 <form method="get" class="row mb-4 g-2">

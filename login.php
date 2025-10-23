@@ -62,7 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <?php include('navbar.php'); ?>
-
+<div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li>login</li>
+            </ul>
+        </div>
+    </div>
 <main>
   <div class="bg_color_2">
     <div class="container margin_60_35">
@@ -74,12 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="post" id="loginForm">
-          <div class="box_form clearfix">
-            <div class="box_login">
-              <a href="#0" class="social_bt facebook">Login with Facebook</a>
-              <a href="#0" class="social_bt google">Login with Google</a>
-              <a href="#0" class="social_bt linkedin">Login with Linkedin</a>
-            </div>
+         <div class="box_form clearfix">
+  <div class="box_login text-center">
+    <img src="img/Login-rafiki.png" alt="Login" class="img-fluid mb-3" style="max-width:200px;">
+  </div>
+
             <div class="box_login last">
               <div class="form-group">
                 <input type="email" class="form-control" placeholder="Your email address" name="email" required>

@@ -98,7 +98,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <?php include('navbar.php'); ?>
-
+<div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li>Register</li>
+            </ul>
+        </div>
+    </div>
     <div class="form-container">
         <form method="post">
             <h2>Register</h2>

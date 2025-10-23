@@ -23,6 +23,14 @@
 
 
     <?php include('navbar.php');?>
+    <div id="breadcrumb">
+        <div class="container">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li>About Us</li>
+            </ul>
+        </div>
+    </div>
 <!-- About Prabhuji Pure Food Section -->
 <section class="about-section">
   <div class="container about-container">

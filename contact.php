@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES ('$name', '$lastname', '$email', '$phone', '$message')";
 
     if ($conn->query($sql) === TRUE) {
-        $success_msg = "Your message has been saved successfully!";
+        $success_msg = "Your message has been send successfully!";
     } else {
         $success_msg = "Error: " . $conn->error;
     }
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main>
 <div class="banner-contact position-relative">
-    <img src="<?php echo $base_url;?>img/contact-us.jpeg" 
+    <img src="<?php echo $base_url;?>img/AdobeStock_524039911_Preview (1).jpeg" 
          alt="Hospital Banner" 
          class="img-fluid w-100" 
          style="height:400px; object-fit: cover;">
@@ -81,14 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <a href="tel://003823932342">+918107875712</a><br>
                         <i class="bi bi-envelope-fill me-2"></i>
                         <a href="mailto:admin@s4smartshop.com">admin@s4smartshop.com</a><br>
-                        <small>24×7 Available</small>
+                        <small>24*7 Available</small>
                     </li>
                     <li><strong>General questions</strong><br>
                         <i class="bi bi-telephone-fill me-2"></i>
                         <a href="tel://003823932342">+918107875712</a><br>
                         <i class="bi bi-envelope-fill me-2"></i>
                         <a href="mailto:questions@s4smartshop.com">questions@s4smartshop.com</a><br>
-                        <small>24×7 Available</small>
+                        <small>24*7 Available</small>
                     </li>
                 </ul>
             </div>
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <textarea rows="5" id="message_contact" name="message_contact" class="form-control" style="height:100px;" placeholder="Hello world!"></textarea>
+                                    <textarea rows="5" id="message_contact" name="message_contact" class="form-control" style="height:100px;" placeholder="Message"></textarea>
                                 </div>
                             </div>
                         </div>

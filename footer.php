@@ -20,7 +20,7 @@
             <div class="col-lg-3 col-md-4">
                 <h5>About</h5>
                 <ul class="links">
-                    <li><a href="history.php">About us</a></li>
+                    <li><a href="AboutUs.php">About us</a></li>
                     <li><a href="refund.php">Refund & Return/Exchange Policy</a></li>
                     <!-- <li><a href="FAQ.php">FAQ</a></li> -->
                     <li>
