@@ -929,29 +929,41 @@ section {
     color: #fff; /* Text/icon color on hover */
     background-color: #113d56; /* Background on hover */
     border-color: #113d56;
-}
-/* Smaller circular arrows, side positioned */
+}/* Smaller circular arrows, side positioned */
 #productCarousel .carousel-control-prev,
 #productCarousel .carousel-control-next {
-    width: 35px;
-    height: 35px;
+    position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0.3); /* subtle background */
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 5; /* keep above images/cards */
 }
 
+/* Left and Right positioning */
+#productCarousel .carousel-control-prev {
+    left: -40px; /* adjust as needed */
+}
+
+#productCarousel .carousel-control-next {
+    right: -40px; /* adjust as needed */
+}
+
+/* Hover effect */
 #productCarousel .carousel-control-prev:hover,
 #productCarousel .carousel-control-next:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* Smaller arrow icons */
 #productCarousel .carousel-control-prev-icon,
 #productCarousel .carousel-control-next-icon {
-    background-size: 50% 50%;
+    background-size: 70% 70%;
 }
 
 /* Make carousel-inner flex to slide continuously */
