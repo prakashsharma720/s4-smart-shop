@@ -1,7 +1,7 @@
 <?php
-// // ================== Database Connection & Save ==================
-// $conn = new mysqli("localhost", "root", "", "s4shopdb");
-// if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+// ================== Database Connection & Save ==================
+$conn = new mysqli("localhost", "root", "", "s4shopdb");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
 // Success message variable
 $success_msg = '';
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             VALUES ('$name', '$lastname', '$email', '$phone', '$message')";
 
     if ($conn->query($sql) === TRUE) {
-        $success_msg = "Your message has been send successfully!";
+        $success_msg = "Your message has been sent successfully!";
     } else {
         $success_msg = "Error: " . $conn->error;
     }
@@ -99,12 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h3>Contact us</h3>
                 <p>Fill the form to connect with us.</p>
 
-                <?php if($success_msg != ''): ?>
-                    <div class="alert alert-success mt-3">
-                        <?php echo $success_msg; ?>
-                    </div>
-                <?php endif; ?>
-
                 <div>
                     <div id="message-contact"></div>
                     <form method="post" action="" id="contactform">
@@ -151,6 +145,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include('footer.php');?>
 <?php include('js.php');?>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h4 class="text-success mb-2"><i class="bi bi-check-circle-fill"></i> Success!</h4>
+      <p id="successModalMessage"></p>
+      <button type="button" class="btn btn-success mt-3" data-bs-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>
 
-</body>
-</html>
+<script>
+<?php if($success_msg != ''): ?>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set modal message
+        document.getElementById('successModalMessage').innerText = "<?php echo $success_msg; ?>";
+
+        // Show the modal
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+
+        // Redirect after 3 seconds
+        setTimeout(function() {
+            window.location.href = 'contact.php';
+        }, 3000);
+    });
+<?php endif; ?>
+</script>

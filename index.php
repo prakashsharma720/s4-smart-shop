@@ -124,75 +124,89 @@
                         <!--<a href="<?= $base_url ?>#" class="btn-read">Read More</a>-->
                     </div>
             </section>
-            <?php
-                // Fetch all products from DB
-                $product_sql = "SELECT * FROM products ORDER BY id ASC";
-                $product_result = $conn->query($product_sql);
+      <?php
+// Fetch all products
+$product_sql = "SELECT * FROM products ORDER BY id ASC";
+$product_result = $conn->query($product_sql);
 
-                // Prepare products array
-                $products = [];
-                if ($product_result && $product_result->num_rows > 0) {
-                    while($row = $product_result->fetch_assoc()) {
-                        $products[] = $row;
-                    }
-                }
-                // Chunk products into groups of 3 per slide
-                $slides = array_chunk($products, 3);
-            ?>
+$products = [];
+if ($product_result && $product_result->num_rows > 0) {
+    while($row = $product_result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
 
-            <div class="container margin_120_95">
-                <div class="main_title">
-                    <h2 class="mb-4">Our Products</h2>
+$total = count($products);
+$slides = [];
 
-                    <?php if(!empty($slides)): ?>
-                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
+if ($total > 0) {
+    if ($total <= 3) {
+        // If 3 or fewer products, just one slide
+        $slides[] = $products;
+    } else {
+        // More than 3 products → create overlapping slides
+        for ($i = 0; $i <= $total - 3; $i++) {
+            $slide = [];
+            for ($j = 0; $j < 3; $j++) {
+                $slide[] = $products[$i + $j];
+            }
+            $slides[] = $slide;
+        }
+    }
+}
+?>
 
-                            <?php foreach($slides as $index => $slide): ?>
-                            <div class="carousel-item <?php if($index === 0) echo 'active'; ?>">
-                                <div class="row g-4 justify-content-center">
-                                    <?php foreach($slide as $product): ?>
-                                    <div class="col-md-4 col-sm-6">
-                                        <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
-                                            class="text-decoration-none">
-                                            <div class="product-card">
-                                                <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
-                                                    alt="<?php echo htmlspecialchars($product['name']); ?>"
-                                                    class="img-fluid">
-                                                <div class="product-info mt-2 text-center">
-                                                    <h5><?php echo htmlspecialchars($product['name']); ?></h5>
-                                                    <div class="from-price-middle text-center mt-2">
-                                                        Price: ₹<?php echo $product['price']; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
+<div class="container margin_120_95">
+    <div class="main_title">
+        <h2 class="mb-4">Our Products</h2>
+
+        <?php if(!empty($slides)): ?>
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+            <div class="carousel-inner">
+
+                <?php foreach($slides as $index => $slide): ?>
+                <div class="carousel-item <?php if($index === 0) echo 'active'; ?>">
+                    <div class="row g-4 justify-content-center">
+                        <?php foreach($slide as $product): ?>
+                        <div class="col-md-4 col-sm-6">
+                            <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
+                                class="text-decoration-none">
+                                <div class="product-card">
+                                    <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
+                                        alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
+                                    <div class="product-info mt-2 text-center">
+                                        <h5><?php echo htmlspecialchars($product['name']); ?></h5>
+                                        <div class="from-price-middle text-center mt-2">
+                                            Price: ₹<?php echo $product['price']; ?>
+                                        </div>
                                     </div>
-                                    <?php endforeach; ?>
                                 </div>
-                            </div>
-                            <?php endforeach; ?>
-
+                            </a>
                         </div>
-
-              
-                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        <?php endforeach; ?>
                     </div>
-                    <?php else: ?>
-                    <p class="text-center">No products available.</p>
-                    <?php endif; ?>
                 </div>
+                <?php endforeach; ?>
+
             </div>
+
+            <!-- Circular Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
+        <?php else: ?>
+        <p class="text-center">No products available.</p>
+        <?php endif; ?>
+    </div>
+</div>
         <div class="container my-5">
             <div class="main_title text-center mb-5">
                 <h2>How It Works</h2>

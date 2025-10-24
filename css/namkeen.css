@@ -930,55 +930,51 @@ section {
     background-color: #113d56; /* Background on hover */
     border-color: #113d56;
 }/* Smaller circular arrows, side positioned */
+/* Circular Carousel Controls */
 #productCarousel .carousel-control-prev,
 #productCarousel .carousel-control-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.3); /* subtle background */
+    width: 40px;           /* circle width */
+    height: 40px;          /* circle height */
+    border-radius: 50%;    /* makes it a circle */
+    background-color: rgba(0, 0, 0, 0.3); /* subtle dark background */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 5; /* keep above images/cards */
+    z-index: 5;
+    transition: background-color 0.3s;
 }
 
-/* Left and Right positioning */
+/* Left and Right positions */
 #productCarousel .carousel-control-prev {
-    left: -40px; /* adjust as needed */
+    left: -20px; /* adjust distance from left */
 }
 
 #productCarousel .carousel-control-next {
-    right: -40px; /* adjust as needed */
+    right: -20px; /* adjust distance from right */
 }
 
 /* Hover effect */
 #productCarousel .carousel-control-prev:hover,
 #productCarousel .carousel-control-next:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-/* Smaller arrow icons */
+/* Arrow icon size inside circle */
 #productCarousel .carousel-control-prev-icon,
 #productCarousel .carousel-control-next-icon {
-    background-size: 70% 70%;
+    background-size: 60% 60%;
 }
 
-/* Make carousel-inner flex to slide continuously */
+/* Keep carousel-inner flex for layout */
 #productCarousel .carousel-inner {
     display: flex;
     flex-wrap: nowrap;
 }
 
-/* Each carousel-item flex row */
-#productCarousel .carousel-item {
-    display: flex;
-    gap: 10px; /* small gap between cards */
-}
-
-/* Remove default margin */
+/* Remove default margin from columns */
 #productCarousel .carousel-item .col-md-4 {
     margin-bottom: 0 !important;
 }
