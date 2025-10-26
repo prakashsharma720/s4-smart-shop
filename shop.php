@@ -19,7 +19,7 @@ $cat_name = "S4 Smart Shop";
 
 // Fetch categories (Include slug for dropdown linking)
 $categories = [];
-$cat_sql = "SELECT id, name, slug FROM categories ORDER BY name ASC";
+$cat_sql = "SELECT id, category_name, slug FROM categories ORDER BY category_name ASC";
 $cat_result = $conn->query($cat_sql);
 if ($cat_result && $cat_result->num_rows > 0) {
     while ($row = $cat_result->fetch_assoc()) {
@@ -29,7 +29,7 @@ if ($cat_result && $cat_result->num_rows > 0) {
 
 // CHANGE 2: Get ID and Name by SLUG securely
 if ($cat_slug != "") {
-    $current_cat_sql = "SELECT id, name FROM categories WHERE slug = ?";
+    $current_cat_sql = "SELECT id, category_name FROM categories WHERE slug = ?";
     $stmt = $conn->prepare($current_cat_sql);
     if ($stmt) {
         $stmt->bind_param("s", $cat_slug);
@@ -113,7 +113,7 @@ if ($stmt) {
             <?php foreach($categories as $cat): ?>
                 <option value="<?php echo htmlspecialchars($cat['slug']); ?>" 
                     <?php if($cat_slug == $cat['slug']) echo "selected"; ?>>
-                    <?php echo htmlspecialchars($cat['name']); ?>
+                    <?php echo htmlspecialchars($cat['category_name']); ?>
                 </option>
             <?php endforeach; ?>
         </select>
