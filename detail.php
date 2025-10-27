@@ -15,7 +15,7 @@ $product_slug = trim($_SERVER['PATH_INFO'] ?? '', '/');
 if (!$product_slug) die("No product specified.");
 
 $stmt = $conn->prepare("
-    SELECT p.*, c.name AS category_name, c.slug AS category_slug
+    SELECT p.*, c.category_name AS category_name, c.slug AS category_slug
     FROM products p
     JOIN categories c ON p.category_id = c.id
     WHERE p.slug = ? LIMIT 1
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         $_SESSION['last_product_id'] = $product_id;
         echo "<script>
             setTimeout(() => {
-                window.location.href = '{$base_url}confirmation.php';
+                window.location.href = '{$base_url}checkout.php';
             }, 1000);
         </script>";
     } else {
