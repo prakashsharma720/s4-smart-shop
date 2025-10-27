@@ -3,23 +3,19 @@ include('config.php');
 
 $cat_slug = '';
 $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$url_array = explode('/', $actual_link);
+$cat_slug = isset($url_array[5]) ? trim($url_array[5]) : ''; // fixed index
 
-$url_array = explode('/',$actual_link);
-$cat_slug = isset($url_array['5']) ? trim($url_array['5']) : '';
-// print_r($url_array);exit;
-
-
-// CHANGE 1: Get selected category SLUG
+// Get category slug & search keyword
 $cat_slug = isset($_GET['cat_slug']) ? trim($_GET['cat_slug']) : $cat_slug;
-// Get search keyword
-$search = isset($_GET['search']) ? trim($_GET['search']) : "";
+$search   = isset($_GET['search']) ? trim($_GET['search']) : "";
 
-$cat_id = 0; // Initialize ID
+$cat_id   = 0;
 $cat_name = "S4 Smart Shop"; 
 
-// Fetch categories (Include slug for dropdown linking)
+// ✅ FETCH CATEGORIES (use 'name' instead of 'category_name')
 $categories = [];
-$cat_sql = "SELECT id, category_name, slug FROM categories ORDER BY category_name ASC";
+$cat_sql = "SELECT id, name, slug FROM categories ORDER BY name ASC";
 $cat_result = $conn->query($cat_sql);
 if ($cat_result && $cat_result->num_rows > 0) {
     while ($row = $cat_result->fetch_assoc()) {
@@ -27,9 +23,9 @@ if ($cat_result && $cat_result->num_rows > 0) {
     }
 }
 
-// CHANGE 2: Get ID and Name by SLUG securely
+// ✅ Get ID and Name by SLUG securely
 if ($cat_slug != "") {
-    $current_cat_sql = "SELECT id, category_name FROM categories WHERE slug = ?";
+    $current_cat_sql = "SELECT id, name FROM categories WHERE slug = ?";
     $stmt = $conn->prepare($current_cat_sql);
     if ($stmt) {
         $stmt->bind_param("s", $cat_slug);
@@ -37,15 +33,15 @@ if ($cat_slug != "") {
         $current_cat_result = $stmt->get_result();
         if ($current_cat_result && $current_cat_result->num_rows > 0) {
             $cat_row = $current_cat_result->fetch_assoc();
-            $cat_id = $cat_row['id']; // Get the ID for product fetching
+            $cat_id = $cat_row['id'];
             $cat_name = htmlspecialchars($cat_row['name']);
         }
         $stmt->close();
     }
 }
 
-// Fetch products (category + search filter - uses $cat_id derived from $cat_slug)
-$product_sql = "SELECT * FROM products WHERE 1"; // SELECT * includes the 'slug' column
+// ✅ FETCH PRODUCTS
+$product_sql = "SELECT * FROM products WHERE 1";
 $params = [];
 $types = '';
 
@@ -62,7 +58,6 @@ if ($search != "") {
 }
 $product_sql .= " ORDER BY id ASC";
 
-// SECURITY FIX: Using prepared statements for product fetching
 $result = false;
 $stmt = $conn->prepare($product_sql);
 if ($stmt) {
@@ -72,14 +67,13 @@ if ($stmt) {
     $stmt->execute();
     $result = $stmt->get_result();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $cat_name; ?> - Shop with S4 Smart Shop</title>
+    <title><?php echo $cat_name; ?> - Shop, Earn & Grow with S4 Smart Shop</title>
     <?php include('head.php'); ?>
 </head>
 <body>
@@ -87,14 +81,16 @@ if ($stmt) {
 <div id="preloader"><div data-loader="circle-side"></div></div>
 
 <?php include('navbar.php'); ?>
+
 <div id="breadcrumb">
-        <div class="container">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li>Shop</li>
-            </ul>
-        </div>
+    <div class="container">
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li>Shop</li>
+        </ul>
     </div>
+</div>
+
 <div class="container my-5">
 
 <form method="get" class="row mb-4 g-2">
@@ -113,48 +109,46 @@ if ($stmt) {
             <?php foreach($categories as $cat): ?>
                 <option value="<?php echo htmlspecialchars($cat['slug']); ?>" 
                     <?php if($cat_slug == $cat['slug']) echo "selected"; ?>>
-                    <?php echo htmlspecialchars($cat['category_name']); ?>
+                    <?php echo htmlspecialchars($cat['name']); ?>
                 </option>
             <?php endforeach; ?>
         </select>
     </div>
 
     <!-- Filter & Clear buttons -->
-   <div class="col-md-4 col-sm-12 mb-2 d-flex gap-2">
-    <button type="submit" class="btn btn-search w-50">Search</button>
-    <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-search w-50" style="background:red;">Clear</a>
-</div>
+    <div class="col-md-4 col-sm-12 mb-2 d-flex gap-2">
+        <button type="submit" class="btn btn-search w-50">Search</button>
+        <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-search w-50" style="background:red;">Clear</a>
+    </div>
 
 </form>
 
-    <!-- <h2 class="mb-4 text-center">All Products</h2> -->
-
-    <div class="row g-4">
-        <?php if ($result && $result->num_rows > 0): ?>
-            <?php while($row = $result->fetch_assoc()): ?>
-                 <div class="col-md-4 col-sm-6">
-                    <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($row['slug']); ?>"
-                        class="text-decoration-none">
-                        <div class="product-card">
-                            <img src="<?= $base_url ?>back/uploads/<?php echo $row['feature_img']; ?>"
-                                alt="<?php echo htmlspecialchars($row['name']); ?>"
-                                class="img-fluid">
-                            <div class="product-info mt-2 text-center">
-                                <p><?php echo htmlspecialchars($row['name']); ?></p>
-                                <div class="from-price-middle text-center mt-2">
-                                   Price : ₹<?php echo $row['price']; ?>
-                                </div>
+<div class="row g-4">
+    <?php if ($result && $result->num_rows > 0): ?>
+        <?php while($row = $result->fetch_assoc()): ?>
+             <div class="col-md-4 col-sm-6">
+                <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($row['slug']); ?>"
+                    class="text-decoration-none">
+                    <div class="product-card">
+                        <img src="<?= $base_url ?>back/uploads/<?php echo $row['feature_img']; ?>"
+                            alt="<?php echo htmlspecialchars($row['name']); ?>"
+                            class="img-fluid">
+                        <div class="product-info mt-2 text-center">
+                            <p><?php echo htmlspecialchars($row['name']); ?></p>
+                            <div class="from-price-middle text-center mt-2">
+                               Price : ₹<?php echo $row['price']; ?>
                             </div>
                         </div>
-                    </a>
-                </div>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <div class="col-12 text-center">
-                <p>No products found.</p>
+                    </div>
+                </a>
             </div>
-        <?php endif; ?>
-    </div>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <div class="col-12 text-center">
+            <p>No products found.</p>
+        </div>
+    <?php endif; ?>
+</div>
 </div>
 
 <?php include('footer.php'); ?>
