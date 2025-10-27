@@ -1,6 +1,6 @@
 <?php
 // ================== DB CONNECT ==================
-include('config.php');
+include('../config.php');
 
 $msg = "";
 

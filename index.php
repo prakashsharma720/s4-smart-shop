@@ -124,89 +124,123 @@
                         <!--<a href="<?= $base_url ?>#" class="btn-read">Read More</a>-->
                     </div>
             </section>
-      <?php
-// Fetch all products
+ <?php
+// ================== Fetch Products ==================
 $product_sql = "SELECT * FROM products ORDER BY id ASC";
 $product_result = $conn->query($product_sql);
 
 $products = [];
 if ($product_result && $product_result->num_rows > 0) {
-    while($row = $product_result->fetch_assoc()) {
+    while ($row = $product_result->fetch_assoc()) {
         $products[] = $row;
-    }
-}
-
-$total = count($products);
-$slides = [];
-
-if ($total > 0) {
-    if ($total <= 3) {
-        // If 3 or fewer products, just one slide
-        $slides[] = $products;
-    } else {
-        // More than 3 products → create overlapping slides
-        for ($i = 0; $i <= $total - 3; $i++) {
-            $slide = [];
-            for ($j = 0; $j < 3; $j++) {
-                $slide[] = $products[$i + $j];
-            }
-            $slides[] = $slide;
-        }
     }
 }
 ?>
 
 <div class="container margin_120_95">
-    <div class="main_title">
-        <h2 class="mb-4">Our Products</h2>
-
-        <?php if(!empty($slides)): ?>
-        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
-            <div class="carousel-inner">
-
-                <?php foreach($slides as $index => $slide): ?>
-                <div class="carousel-item <?php if($index === 0) echo 'active'; ?>">
-                    <div class="row g-4 justify-content-center">
-                        <?php foreach($slide as $product): ?>
-                        <div class="col-md-4 col-sm-6">
-                            <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
-                                class="text-decoration-none">
-                                <div class="product-card">
-                                    <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
-                                        alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
-                                    <div class="product-info mt-2 text-center">
-                                        <h5><?php echo htmlspecialchars($product['name']); ?></h5>
-                                        <div class="from-price-middle text-center mt-2">
-                                            Price: ₹<?php echo $product['price']; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <?php endforeach; ?>
-
-            </div>
-
-            <!-- Circular Carousel Controls -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <?php else: ?>
-        <p class="text-center">No products available.</p>
-        <?php endif; ?>
+    <div class="main_title text-center mb-4">
+        <h2>Our Products</h2>
     </div>
+
+    <?php if (!empty($products)): ?>
+    <div class="product-carousel-wrapper position-relative">
+        <!-- Left Arrow -->
+        <button class="scroll-btn left" id="scrollLeft">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <!-- Product Scroll Container -->
+        <div class="product-scroll d-flex overflow-auto" id="productScroll">
+            <?php foreach ($products as $product): ?>
+            <div class="product-item flex-shrink-0">
+                <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
+                    class="text-decoration-none">
+                    <div class="product-card text-center shadow-sm p-3 rounded h-100">
+                        <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
+                            alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid rounded">
+                        <div class="product-info mt-3">
+                            <h5 class="fw-bold text-dark"><?php echo htmlspecialchars($product['name']); ?></h5>
+                            <div class="from-price-middle mt-2 text-muted">
+                                Price: ₹<?php echo $product['price']; ?>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <?php endforeach; ?>
+        </div>
+
+        <!-- Right Arrow -->
+        <button class="scroll-btn right" id="scrollRight">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+    <?php else: ?>
+    <p class="text-center">No products available.</p>
+    <?php endif; ?>
 </div>
+
+<style>
+
+/* ✅ 3 cards visible on desktop */
+.product-item {
+  scroll-snap-align: start;
+  flex: 0 0 calc(33.333% - 1rem);
+  box-sizing: border-box;
+}
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 992px) {
+  .product-item {
+    flex: 0 0 calc(50% - 0.8rem); /* 2 per view */
+  }
+}
+
+@media (max-width: 576px) {
+  .product-item {
+    flex: 0 0 90%; /* 1 per view */
+  }
+}
+
+/* ==== Arrows ==== */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+.scroll-btn.left { left: -15px; }
+.scroll-btn.right { right: -15px; }
+.scroll-btn span { filter: invert(1); }
+
+/* ==== Product Card ==== */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+</style>
+
+<script>
+document.getElementById('scrollLeft').addEventListener('click', function() {
+  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
+});
+document.getElementById('scrollRight').addEventListener('click', function() {
+  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
+});
+</script>
+
         <div class="container my-5">
             <div class="main_title text-center mb-5">
                 <h2>How It Works</h2>
@@ -367,6 +401,35 @@ if ($total > 0) {
             }
         });
     });
+// ======= Manual Scroll Buttons (keep existing) =======
+document.getElementById('scrollLeft').addEventListener('click', function() {
+  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
+});
+document.getElementById('scrollRight').addEventListener('click', function() {
+  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
+});
+
+// ======= 🔁 Auto 360° Continuous Scroll =======
+const scrollContainer = document.getElementById('productScroll');
+let scrollAmount = 0;
+
+function autoScroll() {
+  // Scroll to right smoothly
+  scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
+  scrollAmount += 1;
+
+  // If reached end, jump back to start
+  if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 2) {
+    scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
+  }
+
+  requestAnimationFrame(autoScroll);
+}
+
+// Start auto-scroll after page loads
+window.addEventListener('load', () => {
+  setTimeout(() => autoScroll(), 1500); // small delay before starting
+});
     </script>
     <?php include('footer.php');?>
     <?php include('js.php');?>

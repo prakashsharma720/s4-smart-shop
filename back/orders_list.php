@@ -1,5 +1,5 @@
 <?php
-include('config.php');
+include('../config.php');
 
 // ✅ Update Payment Status & Screenshot via AJAX
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_payment'])) {

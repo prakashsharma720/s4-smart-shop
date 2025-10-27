@@ -1,9 +1,14 @@
 <?php
 include('config.php');
+session_start();
 
-if ($conn->connect_error) die("<h2>DB Error: " . $conn->connect_error . "</h2>");
+// ✅ Check: prevent direct access
+if (!isset($_SESSION['last_order_id'])) {
+    header("Location: index.php");
+    exit;
+}
 
-$order_id = $_GET['order_id'] ?? 0;
+$order_id = $_SESSION['last_order_id'];
 
 // ================== FETCH ORDER ==================
 $stmt = $conn->prepare("SELECT * FROM orders WHERE id = ?");
@@ -13,7 +18,10 @@ $result = $stmt->get_result();
 $order = $result->fetch_assoc();
 $stmt->close();
 
-if (!$order) die("<h2>❌ Invalid Order</h2>");
+if (!$order) {
+    header("Location: index.php");
+    exit;
+}
 
 // ================== FETCH PRODUCT ==================
 $product_id = $order['product_id'] ?? 0;
@@ -26,13 +34,19 @@ if ($product_id) {
     $prod_result = $ps->get_result();
     if ($prod_result->num_rows > 0) {
         $product = $prod_result->fetch_assoc();
-        $product_images = !empty($product['feature_img']) ? array_map('trim', explode(',', $product['feature_img'])) : ['default.png'];
+        $product_images = !empty($product['feature_img'])
+            ? array_map('trim', explode(',', $product['feature_img']))
+            : ['default.png'];
     }
     $ps->close();
 }
 
 $shipping = $order['shipping'] ?? 0;
 $total_with_shipping = ($order['total'] ?? 0) + $shipping;
+
+// ✅ Once displayed, clear session so page won’t reopen on refresh
+unset($_SESSION['last_order_id']);
+
 $conn->close();
 ?>
 <!DOCTYPE html>
@@ -42,7 +56,6 @@ $conn->close();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thank You - S4 Smart Shop</title>
 <?php include('head.php'); ?>
-<link rel="stylesheet" href="thankyou.css">
 </head>
 <body>
 <?php include('navbar.php'); ?>
@@ -59,7 +72,7 @@ $conn->close();
 <main class="thankyou-wrapper">
     <div class="thankyou-left">
         <h1>✅ Thank you for your order!</h1>
-        <p>Your  order has been received. We will process it within 24 hours and send the shipping details to your email.</p>
+        <p>Your order has been received. We will process it within 24 hours and send the shipping details to your email.</p>
 
         <hr>
 
@@ -78,7 +91,10 @@ $conn->close();
 
         <div class="contact-options">
             <p><strong>Have a question or need assistance?</strong></p>
-            <p><strong>Contact Details:</strong> <a href="mailto:help@s4smartshop.com">help@s4smartshop.com</a>, <a href="tel:8107875712" >8107875712</a></p>
+            <p><strong>Contact Details:</strong> 
+               <a href="mailto:help@s4smartshop.com">help@s4smartshop.com</a>, 
+               <a href="tel:8107875712">8107875712</a>
+            </p>
         </div>
 
         <button class="download-btn" id="downloadReceiptBtn">Download Receipt</button>
@@ -88,10 +104,10 @@ $conn->close();
         <h2>Order Summary</h2>
         <div class="order-top">
             <div><strong>Date</strong><br><?= date('d M Y', strtotime($order['created_at'])) ?></div>
-            <div><strong>Order Number</strong><br> <?php
-                // Ensure 7-digit order number after 'S4'
-                $orderNumber = 'S4-' . str_pad($order['id'], 6, '0', STR_PAD_LEFT);
-                echo $orderNumber;
+            <div><strong>Order Number</strong><br>
+                <?php
+                    $orderNumber = 'S4-' . str_pad($order['id'], 6, '0', STR_PAD_LEFT);
+                    echo $orderNumber;
                 ?>
             </div>
             <div><strong>Payment Method</strong><br><?= htmlspecialchars($order['payment_method'] ?? 'Cash on Delivery') ?></div>
@@ -99,7 +115,8 @@ $conn->close();
 
         <div class="order-products">
             <div class="order-item">
-                <img src="<?php echo $base_url?>back/uploads/<?= htmlspecialchars($product['feature_img']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                <img src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($product['feature_img']) ?>" 
+                     alt="<?= htmlspecialchars($product['name']) ?>">
                 <div class="item-details">
                     <div><strong><?= htmlspecialchars($product['name']) ?></strong></div>
                     <?php if(!empty($order['size'])): ?>
@@ -117,11 +134,21 @@ $conn->close();
             <div class="price-total"><span>Order Total</span><span>₹<?= number_format($total_with_shipping,2) ?></span></div>
         </div>
         <br>
-         <p><strong> Make Payment Here </strong></p>
-            <img src="<?php echo $base_url; ?>img/payment-qr.jpg" alt="Pay Here QR" class="img-fluid rounded shadow mb-2" style="width:200px; height:auto;">
+
+        <p><strong>Make Payment Here</strong></p>
+        <img src="<?= $base_url; ?>img/payment-qr.jpg" alt="Pay Here QR" class="img-fluid rounded shadow mb-2" style="width:200px; height:auto;">
+        <p><strong>Merchant:</strong> S4 SMART SHOP</p>
+
+        <!-- WhatsApp Share Button right below QR/payment -->
+        <a href="https://wa.me/8529257675?text=Hello!%20I%20have%20completed%20my%20payment%20for%20Order%20<?= urlencode($orderNumber) ?>.%20Please%20confirm."
+           target="_blank" 
+           class="btn btn-success mt-2 d-flex align-items-center gap-2">
+           <img src="<?= $base_url; ?>img/whatsapp-icon.png" alt="WhatsApp" style="width:24px;height:24px;">
+           Send Payment Screenshot via WhatsApp
+        </a>
+
     </div>
-    <p> Share Payment Receipt and order Invoice on this whatsapp Number</p> : <h2> 8529257675 </h2>
-   
+
 </main>
 
 <script>

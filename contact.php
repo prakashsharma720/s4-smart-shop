@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main>
 <div class="banner-contact position-relative">
     <img src="<?php echo $base_url;?>img/AdobeStock_524039911_Preview (1).jpeg" 
-         alt="Hospital Banner" 
+         alt="Contact Banner" 
          class="img-fluid w-100" 
          style="height:400px; object-fit: cover;">
 </div>

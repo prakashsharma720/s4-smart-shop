@@ -2,19 +2,21 @@
 include('config.php');
 if (session_status() === PHP_SESSION_NONE) session_start();
 $_SESSION['login_redirect'] = $_GET['redirect'] ?? ($base_url . "index.php");
-// echo $_GET['redirect'];exit;
 $error = '';
 $success = '';
 
-// Logout
+// ✅ Logout (same modal style as login success)
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_unset();
     session_destroy();
+
+    session_start();
+    $_SESSION['logout_success'] = true; // flag for modal
     header("Location: login.php");
     exit;
 }
 
-// Login
+// ✅ Login
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -63,13 +65,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include('navbar.php'); ?>
 <div id="breadcrumb">
-        <div class="container">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li>login</li>
-            </ul>
-        </div>
-    </div>
+  <div class="container">
+    <ul>
+      <li><a href="index.php">Home</a></li>
+      <li>login</li>
+    </ul>
+  </div>
+</div>
 <main>
   <div class="bg_color_2">
     <div class="container margin_60_35">
@@ -81,10 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="post" id="loginForm">
-         <div class="box_form clearfix">
-  <div class="box_login text-center">
-    <img src="img/Login-rafiki.png" alt="Login" class="img-fluid mb-3" style="max-width:200px;">
-  </div>
+          <div class="box_form clearfix">
+            <div class="box_login text-center">
+              <img src="img/Login-rafiki.png" alt="Login" class="img-fluid mb-3" style="max-width:200px;">
+            </div>
 
             <div class="box_login last">
               <div class="form-group">
@@ -102,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
 
         <p class="text-center register-text">
-          Do not have an account yet? <a href="register.php?redirect=<?php echo $_SESSION['login_redirect'];?>" class="register-link">Register now!</a>
+          Do not have an account yet? 
+          <a href="register.php?redirect=<?php echo $_SESSION['login_redirect'];?>" class="register-link">Register now!</a>
         </p>
       </div>
     </div>
@@ -112,20 +115,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
 
-<!-- ✅ Success Popup Modal -->
+<!-- ✅ Success Popup Modal (used for both login + logout) -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4">
-      <h4 class="text-success mb-2"><i class="bi bi-check-circle-fill"></i> Login Successful!</h4>
-      <p>Redirecting, please wait...</p>
+      <h4 class="text-success mb-2"><i class="bi bi-check-circle-fill"></i> <span id="modalTitle"></span></h4>
+      <p id="modalText"></p>
     </div>
   </div>
 </div>
 
+<!-- ✅ Show Login Modal -->
 <?php if ($success): ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const modal = new bootstrap.Modal(document.getElementById('successModal'));
+    document.getElementById('modalTitle').textContent = 'Login Successful!';
+    document.getElementById('modalText').textContent = 'Redirecting, please wait...';
     modal.show();
     setTimeout(() => {
         window.location.href = "<?= $_SESSION['login_redirect'] ?>";
@@ -133,6 +139,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <?php unset($_SESSION['login_redirect']); endif; ?>
+
+<!-- ✅ Show Logout Modal -->
+<?php if (isset($_SESSION['logout_success'])): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = new bootstrap.Modal(document.getElementById('successModal'));
+    document.getElementById('modalTitle').textContent = 'Logout Successful!';
+    document.getElementById('modalText').textContent = 'Redirecting, please wait...';
+    modal.show();
+    setTimeout(() => {
+        window.location.href = "login.php";
+    }, 1500);
+});
+</script>
+<?php unset($_SESSION['logout_success']); endif; ?>
 
 </body>
 </html>
