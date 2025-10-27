@@ -134,30 +134,59 @@ $conn->close();
             <div class="price-total"><span>Order Total</span><span>₹<?= number_format($total_with_shipping,2) ?></span></div>
         </div>
         <br>
+         <p><strong> Make Payment Here </strong></p>
+            <button id="payBtn" style="padding: 10px 20px; background: #528FF0; color: #fff; border: none; border-radius: 4px;">Pay Now</button>
 
-        <p><strong>Make Payment Here</strong></p>
-        <img src="<?= $base_url; ?>img/payment-qr.jpg" alt="Pay Here QR" class="img-fluid rounded shadow mb-2" style="width:200px; height:auto;">
-        <p><strong>Merchant:</strong> S4 SMART SHOP</p>
-
-        <!-- WhatsApp Share Button right below QR/payment -->
-        <a href="https://wa.me/8529257675?text=Hello!%20I%20have%20completed%20my%20payment%20for%20Order%20<?= urlencode($orderNumber) ?>.%20Please%20confirm."
-           target="_blank" 
-           class="btn btn-success mt-2 d-flex align-items-center gap-2">
-           <img src="<?= $base_url; ?>img/whatsapp-icon.png" alt="WhatsApp" style="width:24px;height:24px;">
-           Send Payment Screenshot via WhatsApp
-        </a>
-
+            <img src="<?php echo $base_url; ?>img/payment-qr.jpg" alt="Pay Here QR" class="img-fluid rounded shadow mb-2" style="width:200px; height:auto;">
     </div>
 
 </main>
 
+
+
+<?php include('footer.php'); ?>
+<?php include('js.php'); ?>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+$('#payBtn').click(function(e){
+    var options = {
+        "key": "<?= RAZORPAY_KEY_ID; ?>", // from razorpay_config.php
+        "amount": 799 * 100, // amount in paise
+        "currency": "INR",
+        "name": "S4 Smart Shop",
+        "description": "Test Transaction",
+        "image": "https://s4smartshop.com/img/s4smartshop.png",
+        "handler": function (response){
+            $.ajax({
+                url: 'verify.php',
+                type: 'POST',
+                data: {
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    amount: 799
+                },
+                success: function(res){
+                    alert(res);
+                }
+            });
+        },
+        "prefill": {
+            "name": "Prakash Sharma",
+            "email": "prakashsharma720@gmail.com",
+            "contact": "9664100138"
+        },
+        "theme": {
+            "color": "#528FF0"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
+});
+</script>
 <script>
 document.getElementById('downloadReceiptBtn').addEventListener('click', () => {
     window.print();
 });
 </script>
-
-<?php include('footer.php'); ?>
-<?php include('js.php'); ?>
 </body>
 </html>
