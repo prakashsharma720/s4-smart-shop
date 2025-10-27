@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Process || Shop, Earn & Grow with S4 Smart Shop</title>
+    <title>Our Process || S4 Smart Shop</title>
     <?php include('head.php'); ?>
 </head>
 <body>

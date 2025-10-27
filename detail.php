@@ -56,7 +56,7 @@ if ($user && isset($_POST['buy_now'])) {
     if ($stmt2->execute()) {
         $_SESSION['last_order_id'] = $stmt2->insert_id;
         $_SESSION['last_product_id'] = $product_id;
-        header("Location: {$base_url}confirmation.php");
+        header("Location: {$base_url}checkout.php");
         exit;
     } else {
         echo "<script>alert('Order failed: " . $stmt2->error . "');</script>";

@@ -39,7 +39,7 @@ if (session_status() === PHP_SESSION_NONE) {
           <!--  </ul>-->
           <!--</li>-->
           <li class="nav-item"><a href="<?= $base_url ?>shop.php" class="nav-link">Shop</a></li>
-          <li class="nav-item"><a href="<?= $base_url ?>Ourprocess.php" class="nav-link">Our Process</a></li>
+          <li class="nav-item"><a href="<?= $base_url ?>our-process.php" class="nav-link">Our Process</a></li>
           <li class="nav-item"><a href="<?= $base_url ?>contact.php" class="nav-link">Contact Us</a></li>
         </ul>
       </div>

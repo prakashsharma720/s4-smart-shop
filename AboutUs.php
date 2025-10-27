@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Find easily a doctor and book online an appointment">
     <meta name="author" content="Ansonika">
-    <title>History || S4 Smart Shop</title>
+    <title>About Us || S4 Smart Shop</title>
     <?php include('head.php');?>
 
 </head>
@@ -35,16 +35,23 @@
 <section class="about-section">
   <div class="container about-container">
     <!-- Left Text -->
-  <div class="about-text">
-      <h2>About S4 Smart Shop</h2>
-      <p>
-        The name <strong>“S4 Smart Shop”</strong> stands for innovation, opportunity, and prosperity in the modern digital era. 
-        Founded by <strong>Mr. Mahendra Singh Rawat</strong>, the company was built on a vision to empower individuals through 
-        smart shopping.
-      </p>
-      <p>
-        Under the leadership of <strong>Mr. Mahendra Singh Rawat</strong>, S4 Smart Shop is just an online store.
-  </div>
+    <div class="about-text">
+        <h2>About S4 Smart Shop</h2>
+        <p>
+            The name <strong>“S4 Smart Shop”</strong> represents quality, style, and convenience in the world of online shopping. 
+            Founded by <strong>Mr. Mahendra Singh Rawat</strong>, our mission is to provide a seamless and enjoyable shopping experience 
+            for every customer.
+        </p>
+        <p>
+            At <strong>S4 Smart Shop</strong>, we offer a wide range of premium products, including <strong>fabrics, watches, goggles, 
+            hankies, mufflers, and more</strong>, carefully selected to combine style, comfort, and durability. 
+            Our commitment is to deliver products that meet your expectations for quality and value.
+        </p>
+        <p>
+            With a focus on reliability, customer satisfaction, and innovation, <strong>S4 Smart Shop</strong> continues to grow as 
+            a trusted online destination, bringing the best of fashion and lifestyle essentials directly to your doorstep.
+        </p>
+    </div>
 
 
     <!-- Right Logo -->

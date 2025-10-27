@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Find easily a doctor and book online an appointment">
     <meta name="author" content="Ansonika">
-    <title>S4 Smart Shop – Rajasthan’s Leading MLM-Based eCommerce Platform</title>
+    <title>Our Business Terms || S4 Smart Shop </title>
     <?php include('head.php');?>
 
 </head>

@@ -20,11 +20,11 @@
             <div class="col-lg-3 col-md-4">
                 <h5>About</h5>
                 <ul class="links">
-                    <li><a href="AboutUs.php">About us</a></li>
-                    <li><a href="refund.php">Refund & Return/Exchange Policy</a></li>
+                    <li><a href="<?= $base_url ?>AboutUs.php">About us</a></li>
+                    <li><a href="<?= $base_url ?>refund.php">Refund & Return/Exchange Policy</a></li>
                     <!-- <li><a href="FAQ.php">FAQ</a></li> -->
                     <li>
-                        <a href="login.php">Login</a> / <a href="register.php">Register</a>
+                        <a href="<?= $base_url ?>login.php">Login</a> / <a href="<?= $base_url ?>register.php">Register</a>
                     </li>
                 </ul>
             </div>
