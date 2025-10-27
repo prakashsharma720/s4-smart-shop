@@ -1,9 +1,5 @@
 <?php
 include('config.php');
-include('razorpay_config.php');
-require('razorpay/razorpay-php/Razorpay.php');
-use Razorpay\Api\Api;
-
 session_start();
 
 // ✅ Prevent direct access
@@ -11,6 +7,7 @@ if (!isset($_SESSION['last_order_id'])) {
     header("Location: index.php");
     exit;
 }
+
 $order_id = $_SESSION['last_order_id'];
 
 // ================== FETCH ORDER ==================
@@ -29,6 +26,7 @@ if (!$order) {
 // ================== FETCH PRODUCT ==================
 $product_id = $order['product_id'] ?? 0;
 $product = null;
+$product_images = ['default.png'];
 if ($product_id) {
     $ps = $conn->prepare("SELECT name, feature_img FROM products WHERE id = ? LIMIT 1");
     $ps->bind_param("i", $product_id);
@@ -36,6 +34,9 @@ if ($product_id) {
     $prod_result = $ps->get_result();
     if ($prod_result->num_rows > 0) {
         $product = $prod_result->fetch_assoc();
+        $product_images = !empty($product['feature_img'])
+            ? array_map('trim', explode(',', $product['feature_img']))
+            : ['default.png'];
     }
     $ps->close();
 }
@@ -43,34 +44,10 @@ if ($product_id) {
 $shipping = $order['shipping'] ?? 0;
 $total_with_shipping = ($order['total'] ?? 0) + $shipping;
 
-
-$api = new Api(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET);
-
-$orderData = [
-    'receipt'         => 'S4-' . str_pad($order['id'], 6, '0', STR_PAD_LEFT),
-    'amount'          => $total_with_shipping * 100,  // amount in paise
-    'currency'        => 'INR',
-    'payment_capture' => 1
-];
-
-$razorpayOrder = $api->order->create($orderData);
-$razorpayOrderId = $razorpayOrder['id'];
-
-// ================== CREATE RAZORPAY ORDER ==================
-$api = new Api(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET);
-
-$orderData = [
-    'receipt'         => 'S4-' . str_pad($order['id'], 6, '0', STR_PAD_LEFT),
-    'amount'          => $total_with_shipping * 100,  // amount in paise
-    'currency'        => 'INR',
-    'payment_capture' => 1
-];
-
-$razorpayOrder = $api->order->create($orderData);
-$razorpayOrderId = $razorpayOrder['id'];
+// ✅ Clear session after use
+// unset($_SESSION['last_order_id']);
 
 $conn->close();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -243,6 +220,7 @@ $conn->close();
         </div>
     </div>
 </main>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
@@ -250,37 +228,32 @@ $conn->close();
 <script>
 $('#payBtn').click(function(e){
     var options = {
-        "key": "<?= RAZORPAY_KEY_ID; ?>",
-        "amount": <?= $total_with_shipping * 100; ?>,
+        "key": "<?= RAZORPAY_KEY_ID; ?>", // from razorpay_config.php
+        "amount": 799 * 100, // amount in paise
         "currency": "INR",
         "name": "S4 Smart Shop",
-        "description": "Order <?= $orderNumber; ?>",
+        "description": "Test Transaction",
         "image": "https://s4smartshop.com/img/s4smartshop.png",
-        "order_id": "<?= $razorpayOrderId; ?>",  // ✅ newly added
         "handler": function (response){
             $.ajax({
                 url: 'verify.php',
                 type: 'POST',
                 data: {
                     razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature,
-                    order_id: <?= $order['id']; ?>,
-                    amount: <?= $total_with_shipping; ?>
+                    amount: 799
                 },
                 success: function(res){
-                    // alert(res);
-                     window.location.href = "thankyou.php";
+                    alert(res);
                 }
             });
         },
         "prefill": {
-            "name": "<?= addslashes($order['name']); ?>",
-            "email": "<?= addslashes($order['email']); ?>",
-            "contact": "<?= addslashes($order['phone']); ?>"
+            "name": "Prakash Sharma",
+            "email": "prakashsharma720@gmail.com",
+            "contact": "9664100138"
         },
         "theme": {
-            "color": "#113d56"
+            "color": "#528FF0"
         }
     };
     var rzp1 = new Razorpay(options);

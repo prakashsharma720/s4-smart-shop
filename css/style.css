@@ -178,9 +178,9 @@ p {
 }
 
 hr {
-  margin: 15px 0 30px 0;
-  border-color: var(--secondary) !important;
-  opacity: 1;
+  margin: 10px 0 10px 0;
+  border-color: var(--primary) !important;
+  opacity:0.5;
 }
 
 hr.double {
