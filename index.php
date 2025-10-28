@@ -141,58 +141,50 @@
                 $slides = array_chunk($products, 3);
             ?>
 
-            <div class="container margin_120_95">
-                <div class="main_title">
-                    <h2 class="mb-4">Our Products</h2>
+           <?php
+// ================== Fetch Products ==================
+$product_sql = "SELECT * FROM products ORDER BY id ASC";
+$product_result = $conn->query($product_sql);
 
-                    <?php if(!empty($slides)): ?>
-                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
+$products = [];
+if ($product_result && $product_result->num_rows > 0) {
+    while ($row = $product_result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
+?>
 
-                            <?php foreach($slides as $index => $slide): ?>
-                            <div class="carousel-item <?php if($index === 0) echo 'active'; ?>">
-                                <div class="row g-4 justify-content-center">
-                                    <?php foreach($slide as $product): ?>
-                                    <div class="col-md-4 col-sm-6">
-                                        <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
-                                            class="text-decoration-none">
-                                            <div class="product-card">
-                                                <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
-                                                    alt="<?php echo htmlspecialchars($product['name']); ?>"
-                                                    class="img-fluid">
-                                                <div class="product-info mt-2 text-center">
-                                                    <h5><?php echo htmlspecialchars($product['name']); ?></h5>
-                                                    <div class="from-price-middle text-center mt-2">
-                                                        Price: ₹<?php echo $product['price']; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <?php endforeach; ?>
-                                </div>
+<div class="container margin_120_95">
+    <div class="main_title text-center mb-4">
+        <h2>Our Products</h2>
+    </div>
+
+    <?php if (!empty($products)): ?>
+    <div class="product-carousel-wrapper position-relative">
+        <!-- Left Arrow -->
+        <button class="scroll-btn left" id="scrollLeft">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <!-- Product Scroll Container -->
+        <div class="product-scroll d-flex overflow-auto" id="productScroll">
+            <?php foreach ($products as $product): ?>
+            <div class="product-item flex-shrink-0">
+                <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
+                    class="text-decoration-none">
+                    <div class="product-card text-center shadow-sm p-3 rounded h-100">
+                        <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
+                            alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid rounded">
+                        <div class="product-info mt-3">
+                            <h5 class="fw-bold text-dark"><?php echo htmlspecialchars($product['name']); ?></h5>
+                            <div class="from-price-middle mt-2 text-muted">
+                                Price: ₹<?php echo $product['price']; ?>
                             </div>
-                            <?php endforeach; ?>
-
                         </div>
-
-                        <!-- Carousel Controls -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
-                    <?php else: ?>
-                    <p class="text-center">No products available.</p>
-                    <?php endif; ?>
-                </div>
+                </a>
             </div>
+            <?php endforeach; ?>
         </div>
 
         <!-- Right Arrow -->
@@ -204,9 +196,7 @@
     <p class="text-center">No products available.</p>
     <?php endif; ?>
 </div>
-
-
-        <div class="container my-5">
+     <div class="container my-5">
             <div class="main_title text-center mb-5">
                 <h2>How It Works</h2>
                 <p>Start your earning journey with S4 Smart Shop in 3 simple steps!</p>
@@ -367,6 +357,26 @@
         });
     });
     </script>
+    <script>
+// ======= Manual Scroll Buttons =======
+document.getElementById('scrollLeft').addEventListener('click', function() {
+  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
+});
+document.getElementById('scrollRight').addEventListener('click', function() {
+  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
+});
+
+// ======= 🔁 Auto Continuous Scroll =======
+const scrollContainer = document.getElementById('productScroll');
+function autoScroll() {
+  scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
+  if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 2) {
+    scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
+  }
+  requestAnimationFrame(autoScroll);
+}
+window.addEventListener('load', () => setTimeout(() => autoScroll(), 1500));
+</script>
     <?php include('footer.php');?>
     <?php include('js.php');?>
 </body>
