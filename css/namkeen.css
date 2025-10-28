@@ -978,3 +978,115 @@ section {
   transform: translateY(-6px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
+/* ==== Scroll Buttons ==== */
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+.scroll-btn.left { left: -15px; }
+.scroll-btn.right { right: -15px; }
+
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.product-scroll {
+  overflow-x: auto;           
+  overflow-y: hidden;         
+  -ms-overflow-style: none;   
+}
+.product-scroll::-webkit-scrollbar {
+  display: none;             
+}
+
+.product-item {
+  width: 250px;               
+  margin-right: 20px;
+}
+
+@media print {
+
+  #downloadReceiptBtn,
+  #payBtn,
+  .btn-success,
+  .contact-options,
+  label[for="downloadReceiptBtn"],
+  label[for="whatsappShare"],
+  .row.mb-2.mt-3,
+  nav,
+  #breadcrumb,
+  footer {
+    display: none !important;
+  }
+
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: capitalize;
+    font-size: 14px;
+    color: #fff;
+}
+.status-paid {
+    background-color: #28a745; /* Green */
+}
+.status-pending {
+    background-color: #ffc107; /* Orange */
+    color: #000;
+}
+.status-failed {
+    background-color: #dc3545; /* Red */
+}
+
+#loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.loader-box {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.spinner-border {
+    border-width: 5px;
+    animation: spin 1s linear infinite;
+}
+#loader-text {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #113d56;
+    font-weight: 600;
+}
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

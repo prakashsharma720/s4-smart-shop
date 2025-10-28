@@ -180,66 +180,6 @@ if ($product_result && $product_result->num_rows > 0) {
     <?php endif; ?>
 </div>
 
-<style>
-
-/* ✅ 3 cards visible on desktop */
-.product-item {
-  scroll-snap-align: start;
-  flex: 0 0 calc(33.333% - 1rem);
-  box-sizing: border-box;
-}
-
-/* ✅ Responsive Adjustments */
-@media (max-width: 992px) {
-  .product-item {
-    flex: 0 0 calc(50% - 0.8rem); /* 2 per view */
-  }
-}
-
-@media (max-width: 576px) {
-  .product-item {
-    flex: 0 0 90%; /* 1 per view */
-  }
-}
-
-/* ==== Arrows ==== */
-.scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: rgba(0,0,0,0.4);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-}
-.scroll-btn.left { left: -15px; }
-.scroll-btn.right { right: -15px; }
-.scroll-btn span { filter: invert(1); }
-
-/* ==== Product Card ==== */
-.product-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-</style>
-
-<script>
-document.getElementById('scrollLeft').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
-});
-document.getElementById('scrollRight').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
-});
-</script>
 
         <div class="container my-5">
             <div class="main_title text-center mb-5">

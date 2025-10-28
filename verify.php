@@ -20,12 +20,24 @@ if (!empty($_POST['razorpay_payment_id']) && !empty($_POST['razorpay_order_id'])
         $payment = $api->payment->fetch($_POST['razorpay_payment_id']);
 
         // ✅ Update order in database
-        $stmt = $conn->prepare("UPDATE orders SET payment_status='Paid', payment_id=?, payment_method='Razorpay' WHERE id=?");
-        $stmt->bind_param("si", $_POST['razorpay_payment_id'], $_POST['order_id']);
+        $stmt = $conn->prepare("UPDATE orders 
+            SET payment_status = 'Paid', 
+                order_id = ?, 
+                payment_id = ?, 
+                payment_method = 'Razorpay' 
+            WHERE id = ?");
+
+        $stmt->bind_param("ssi", $_SESSION['orderNumber'], $_POST['razorpay_payment_id'], $_POST['order_id']);
         $stmt->execute();
         $stmt->close();
 
+        // $stmt = $conn->prepare("UPDATE orders SET payment_status='Paid', order_id= $_POST['order_number'],payment_id=?, payment_method='Razorpay' WHERE id=?");
+        // $stmt->bind_param("sis", $_POST['razorpay_payment_id'], $_POST['order_id'],$_POST['order_number']);
+        // $stmt->execute();
+        // $stmt->close();
+
         echo "✅ Payment verified successfully! Payment ID: " . $_POST['razorpay_payment_id'];
+        $_SESSION['orderNumber'] ='';
     } catch (Exception $e) {
         echo "❌ Payment verification failed: " . $e->getMessage();
     }

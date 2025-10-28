@@ -147,6 +147,13 @@ if ($stmt) {
         <div class="col-12 text-center">
             <p>No products found.</p>
         </div>
+        <div id="loader-overlay">
+    <div class="loader-box text-center">
+        <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo" class="mb-3" style="width:80px;height:auto;">
+        <div class="spinner-border" role="status" style="width:4rem; height:4rem; color:#113d56;"></div>
+        <div id="loader-text">Processing your payment, please wait...</div>
+    </div>
+</div>
     <?php endif; ?>
 </div>
 </div>

@@ -122,7 +122,6 @@ $conn->close();
                     <strong>Phone:</strong><br>
                     <?= htmlspecialchars($order['phone']) ?>
                 </div>
-                
             </div>
         </div>
         <!-- ✅ END BILLING BOX -->
@@ -161,7 +160,23 @@ $conn->close();
                     echo $orderNumber;
                 ?>
             </div>
-            <div><strong>Payment Status</strong><?= htmlspecialchars($order['payment_status'] ?? 'Pending') ?></div>
+<?php
+$payment_status = strtolower($order['payment_status'] ?? 'pending');
+
+$class = 'status-pending';
+if ($payment_status === 'paid' || $payment_status === 'success') {
+    $class = 'status-paid';
+} elseif ($payment_status === 'failed' || $payment_status === 'failure') {
+    $class = 'status-failed';
+}
+?>
+
+<div>
+    <strong>Payment Status:</strong>
+    <span class="status-badge <?= $class ?>">
+        <?= htmlspecialchars($payment_status) ?>
+    </span>
+</div>
         </div>
          <div class="order-top d-flex justify-content-between flex-wrap mb- ">
             <div><strong>Payment ID</strong>
@@ -172,7 +187,7 @@ $conn->close();
                 <?= htmlspecialchars($order['referral_code']) ?>
             <?php endif; ?>
             </div>
-            <div><strong>Remark</strong><?= htmlspecialchars($order['referal_remark'] ?? 'NA') ?></div>
+            <div><strong>Remark</strong><?= htmlspecialchars($order['referal_remark'] ?? 'N/A') ?></div>
         </div>
 
         <div class="order-products">
@@ -199,8 +214,6 @@ $conn->close();
 
 </main>
 
-
-
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
 
@@ -208,6 +221,33 @@ $conn->close();
 document.getElementById('downloadReceiptBtn').addEventListener('click', () => {
     window.print();
 });
+
+// 🎉 Confetti Celebration (4 seconds)
+const script = document.createElement("script");
+script.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js";
+document.body.appendChild(script);
+script.onload = function() {
+    const duration = 4 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
+    })();
+};
 </script>
 </body>
 </html>
