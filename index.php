@@ -83,8 +83,7 @@
 
         <!-- ✅ Marquee Section (After Carousel) -->
         <marquee behavior="scroll" direction="left" scrollamount="6" class="marquee-text">
-            🛍️ Welcome to <b>S4 Smart Shop</b> | 💰 Shop Smart, Earn Smarter | 🌐 Join Our Fast-Growing Network | 🚀
-            Empowering Digital Entrepreneurs Across India | 🤝 Shopping That Rewards You!
+            🛍️ Welcome to <b>S4 Smart Shop</b> | 💰 Shop More, Save More🚀| 🤝 Shopping That Rewards You!
         </marquee>
 
 
@@ -109,138 +108,92 @@
                     <div class="welcome-right slide-right">
                         <h1>Welcome to S4 Smart Shop</h1>
                         <p>
-                            <strong>S4 Smart Shop</strong> is a leading <strong>MLM-based eCommerce platform</strong>
-                            founded by
-                            <strong>Mr. Mahendra Singh Rawat</strong> with a vision to redefine online shopping and
-                            income opportunities in India.
-                            We bring together innovation, transparency, and growth to help individuals shop smarter and
-                            earn more.
+                            <strong>S4 Smart Shop</strong> is a trusted online shopping destination offering premium-quality 
+                            <strong>fabrics, watches, goggles, hankies, mufflers, and more</strong>. We bring together 
+                            style, comfort, and quality to deliver products that suit your everyday lifestyle.
                         </p>
                         <p>
-                            Our platform offers a wide range of high-quality products across multiple categories.
-                            What started as a dream to empower entrepreneurs has today evolved into a fast-growing
-                            digital network connecting smart shoppers across the nation.
+                            Founded by <strong>Mr. Mahendra Singh Rawat</strong>, S4 Smart Shop is built on a vision to provide 
+                            an easy, reliable, and affordable online shopping experience for every customer. Our focus is on 
+                            offering carefully selected products that combine fashion with functionality.
                         </p>
-                        <!--<a href="<?= $base_url ?>#" class="btn-read">Read More</a>-->
+                        <p>
+                            Discover new trends, shop confidently, and experience quality with <strong>S4 Smart Shop</strong> — 
+                            your one-stop destination for smart and stylish essentials.
+                        </p>
+                        <!--<a href="<?= $base_url ?>about-us.php" class="btn-read">Read More</a>-->
                     </div>
+
             </section>
- <?php
-// ================== Fetch Products ==================
-$product_sql = "SELECT * FROM products ORDER BY id ASC";
-$product_result = $conn->query($product_sql);
+            <?php
+                // Fetch all products from DB
+                $product_sql = "SELECT * FROM products ORDER BY id ASC";
+                $product_result = $conn->query($product_sql);
 
-$products = [];
-if ($product_result && $product_result->num_rows > 0) {
-    while ($row = $product_result->fetch_assoc()) {
-        $products[] = $row;
-    }
-}
-?>
+                // Prepare products array
+                $products = [];
+                if ($product_result && $product_result->num_rows > 0) {
+                    while($row = $product_result->fetch_assoc()) {
+                        $products[] = $row;
+                    }
+                }
+                // Chunk products into groups of 3 per slide
+                $slides = array_chunk($products, 3);
+            ?>
 
-<div class="container margin_120_95">
-    <div class="main_title text-center mb-4">
-        <h2>Our Products</h2>
-    </div>
+            <div class="container margin_120_95">
+                <div class="main_title">
+                    <h2 class="mb-4">Our Products</h2>
 
-    <?php if (!empty($products)): ?>
-    <div class="product-carousel-wrapper position-relative">
-        <!-- Left Arrow -->
-        <button class="scroll-btn left" id="scrollLeft">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
+                    <?php if(!empty($slides)): ?>
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
 
-        <!-- Product Scroll Container -->
-        <div class="product-scroll d-flex overflow-auto" id="productScroll">
-            <?php foreach ($products as $product): ?>
-            <div class="product-item flex-shrink-0">
-                <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
-                    class="text-decoration-none">
-                    <div class="product-card text-center shadow-sm p-3 rounded h-100">
-                        <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
-                            alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid rounded">
-                        <div class="product-info mt-3">
-                            <h5 class="fw-bold text-dark"><?php echo htmlspecialchars($product['name']); ?></h5>
-                            <div class="from-price-middle mt-2 text-muted">
-                                Price: ₹<?php echo $product['price']; ?>
+                            <?php foreach($slides as $index => $slide): ?>
+                            <div class="carousel-item <?php if($index === 0) echo 'active'; ?>">
+                                <div class="row g-4 justify-content-center">
+                                    <?php foreach($slide as $product): ?>
+                                    <div class="col-md-4 col-sm-6">
+                                        <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
+                                            class="text-decoration-none">
+                                            <div class="product-card">
+                                                <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
+                                                    alt="<?php echo htmlspecialchars($product['name']); ?>"
+                                                    class="img-fluid">
+                                                <div class="product-info mt-2 text-center">
+                                                    <h5><?php echo htmlspecialchars($product['name']); ?></h5>
+                                                    <div class="from-price-middle text-center mt-2">
+                                                        Price: ₹<?php echo $product['price']; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
+                            <?php endforeach; ?>
+
                         </div>
+
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                </a>
+                    <?php else: ?>
+                    <p class="text-center">No products available.</p>
+                    <?php endif; ?>
+                </div>
             </div>
-            <?php endforeach; ?>
         </div>
-
-        <!-- Right Arrow -->
-        <button class="scroll-btn right" id="scrollRight">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-    <?php else: ?>
-    <p class="text-center">No products available.</p>
-    <?php endif; ?>
-</div>
-
-<style>
-
-/* ✅ 3 cards visible on desktop */
-.product-item {
-  scroll-snap-align: start;
-  flex: 0 0 calc(33.333% - 1rem);
-  box-sizing: border-box;
-}
-
-/* ✅ Responsive Adjustments */
-@media (max-width: 992px) {
-  .product-item {
-    flex: 0 0 calc(50% - 0.8rem); /* 2 per view */
-  }
-}
-
-@media (max-width: 576px) {
-  .product-item {
-    flex: 0 0 90%; /* 1 per view */
-  }
-}
-
-/* ==== Arrows ==== */
-.scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: rgba(0,0,0,0.4);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-}
-.scroll-btn.left { left: -15px; }
-.scroll-btn.right { right: -15px; }
-.scroll-btn span { filter: invert(1); }
-
-/* ==== Product Card ==== */
-.product-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-</style>
-
-<script>
-document.getElementById('scrollLeft').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
-});
-document.getElementById('scrollRight').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
-});
-</script>
-
         <div class="container my-5">
             <div class="main_title text-center mb-5">
                 <h2>How It Works</h2>
@@ -272,7 +225,7 @@ document.getElementById('scrollRight').addEventListener('click', function() {
                     <div class="process-step">
                         <img src="img/referral.png" alt="Refer & Earn" class="process-img">
                         <h4>Refer & Earn</h4>
-                        <p>Invite others to join S4 Smart Shop and earn referral rewards instantly.</p>
+                        <p>Invite others to S4 Smart Shop and earn referral rewards instantly.</p>
                     </div>
                 </div>
 
@@ -401,35 +354,6 @@ document.getElementById('scrollRight').addEventListener('click', function() {
             }
         });
     });
-// ======= Manual Scroll Buttons (keep existing) =======
-document.getElementById('scrollLeft').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
-});
-document.getElementById('scrollRight').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
-});
-
-// ======= 🔁 Auto 360° Continuous Scroll =======
-const scrollContainer = document.getElementById('productScroll');
-let scrollAmount = 0;
-
-function autoScroll() {
-  // Scroll to right smoothly
-  scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
-  scrollAmount += 1;
-
-  // If reached end, jump back to start
-  if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 2) {
-    scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
-  }
-
-  requestAnimationFrame(autoScroll);
-}
-
-// Start auto-scroll after page loads
-window.addEventListener('load', () => {
-  setTimeout(() => autoScroll(), 1500); // small delay before starting
-});
     </script>
     <?php include('footer.php');?>
     <?php include('js.php');?>
