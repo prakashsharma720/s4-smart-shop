@@ -203,7 +203,7 @@
             <div class="row text-center process-grid">
 
                 <!-- Step 1 -->
-                <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
+                <div class="col-lg-6 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/computer.jpg" alt="Register" class="process-img">
                         <h4>Register</h4>
@@ -212,7 +212,7 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
+                <div class="col-lg-6 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/bag.jpg" alt="Shop Products" class="process-img">
                         <h4>Shop Products</h4>
@@ -221,13 +221,13 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
+                <!-- <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/referral.png" alt="Refer & Earn" class="process-img">
                         <h4>Refer & Earn</h4>
                         <p>Invite others to S4 Smart Shop and earn referral rewards instantly.</p>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Step 4 -->
                 <!--<div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">-->
