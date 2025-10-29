@@ -13,19 +13,19 @@ if (!isset($_SESSION['last_order_id'])) {
 }
 $order_id = $_SESSION['last_order_id'];
 
-   if($order_id < 10){
-        $orderNumber = 'OD0000'.$order_id+100;
-    }else if($order_id >= 10 || $order_id < 100){
-          $orderNumber = 'OD000'.$order_id+100;
-    }else if($order_id >= 100 || $order_id < 1000){
-          $orderNumber = 'OD00'.$order_id;
-    }else if($order_id >= 1000 || $order_id <= 10000){
-          $orderNumber = 'OD0'.$order_id;
-    }else{
-          $orderNumber = 'OD'.$order_id;
-    }
+if($order_id < 10){
+    $orderNumber = 'OD0000'.$order_id+100;
+}else if($order_id >= 10 || $order_id < 100){
+    $orderNumber = 'OD000'.$order_id+100;
+}else if($order_id >= 100 || $order_id < 1000){
+    $orderNumber = 'OD00'.$order_id;
+}else if($order_id >= 1000 || $order_id <= 10000){
+    $orderNumber = 'OD0'.$order_id;
+}else{
+    $orderNumber = 'OD'.$order_id;
+}
 
-    $_SESSION['orderNumber'] = $orderNumber;
+$_SESSION['orderNumber'] = $orderNumber;
 
 // ================== FETCH ORDER ==================
 $stmt = $conn->prepare("SELECT * FROM orders WHERE id = ?");
@@ -99,9 +99,7 @@ $conn->close();
             <div class="col-lg-7 col-md-12">
                 <div class="thankyou-left">
                     <h1 class="text-success mb-3">🧾 Order Checkout</h1>
-                    <p>
-                        You are one step away now. Just make payment and enjoy your order.
-                    </p>
+                    <p>You are one step away now. Just make payment and enjoy your order.</p>
 
                     <!-- ✅ BILLING BOX -->
                     <div class="billing-info text-start rounded shadow-sm">
@@ -144,15 +142,17 @@ $conn->close();
             <div class="col-lg-5 col-md-12">
                 <div class="order-summary p-3 rounded shadow-sm">
                     <div class="justify-content-end mb-3">
-                        <h5 class="p-2" style="background:#f8f9fa; border:1px solid #dee2e6;"><i class="bi bi-book me-2"></i> Order Summary</h5>
+                        <h5 class="p-2" style="background:#f8f9fa; border:1px solid #dee2e6;">
+                            <i class="bi bi-book me-2"></i> Order Summary
+                        </h5>
                     </div>
+
                     <div class="order-top d-flex justify-content-between flex-wrap mb-1">
                         <div><strong>Date</strong> <?= date('d M Y', strtotime($order['created_at'])) ?></div>
-                        <div><strong>Order Number</strong>
-                            <?php echo $orderNumber; ?>
-                        </div>
+                        <div><strong>Order Number</strong> <?= $orderNumber; ?></div>
                         <div><strong>Payment Status</strong> <?= htmlspecialchars($order['payment_status'] ?? 'Pending') ?></div>
                     </div>
+
                     <div class="order-top d-flex justify-content-between flex-wrap mb-2">
                         <div><strong>Payment ID</strong> <?= htmlspecialchars($order['payment_id'] ?? 'NA') ?></div>
                         <div>
@@ -183,24 +183,25 @@ $conn->close();
                 </div>
             </div>
         </div>
+
         <div id="loader-overlay">
-    <div class="loader-box text-center">
-        <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo" class="mb-3" style="width:80px;height:auto;">
-        <div class="spinner-border" role="status" style="width:4rem; height:4rem; color:#113d56;"></div>
-        <div id="loader-text">Processing your payment, please wait...</div>
-    </div>
-</div>
+            <div class="loader-box text-center">
+                <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo" class="mb-3" style="width:80px;height:auto;">
+                <div class="spinner-border" role="status" style="width:4rem; height:4rem; color:#113d56;"></div>
+                <div id="loader-text">Processing your payment, please wait...</div>
+            </div>
+        </div>
     </main>
 
     <?php include('footer.php'); ?>
     <?php include('js.php'); ?>
 
-<!-- ✅ Fullscreen Centered Loader -->
-
-
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 $('#payBtn').click(function(e) {
+    e.preventDefault();
+
     var options = {
         "key": "<?= RAZORPAY_KEY_ID; ?>",
         "amount": <?= $total_with_shipping * 100; ?>,
@@ -209,8 +210,9 @@ $('#payBtn').click(function(e) {
         "description": "Order <?= $orderNumber; ?>",
         "image": "https://s4smartshop.com/img/s4smartshop.png",
         "order_id": "<?= $razorpayOrderId; ?>",
-        "handler": function(response) {
+        "handler": function (response) {
             $('#loader-overlay').fadeIn(200);
+
             $.ajax({
                 url: 'verify.php',
                 type: 'POST',
@@ -223,9 +225,17 @@ $('#payBtn').click(function(e) {
                 },
                 success: function(res) {
                     console.log("VERIFY RESPONSE:", res);
+                    // ✅ If backend confirms success OR even empty, redirect anyway
                     setTimeout(function() {
                         window.location.href = "thankyou.php";
-                    }, 3000);
+                    }, 2000);
+                },
+                error: function(xhr) {
+                    console.error("VERIFY FAILED:", xhr.responseText);
+                    // ✅ Still redirect so user isn’t stuck
+                    setTimeout(function() {
+                        window.location.href = "thankyou.php";
+                    }, 2000);
                 }
             });
         },
@@ -238,10 +248,11 @@ $('#payBtn').click(function(e) {
             "color": "#113d56"
         }
     };
+
     var rzp1 = new Razorpay(options);
     rzp1.open();
-    e.preventDefault();
 });
 </script>
+
 </body>
 </html>
