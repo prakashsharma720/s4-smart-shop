@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     $total          = floatval($_POST['total']);
     $size           = $_POST['size'] ?? '';
     $referral_code  = trim($_POST['referral_code']);
-    $referal_remark = trim($_POST['referal_remark']);
+    $referal_remark = trim($_POST['referal_remark']); // ✅ new line
 
     // ✅ Address fields
     $address1 = trim($_POST['address1'] ?? '');
@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
+    // ✅ Bind parameters (15 total)
     $stmt2->bind_param(
         "sssisisdsssssss",
         $user_uniquecode,
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         $quantity,
         $total,
         $referral_code,
-        $referal_remark,
+        $referal_remark, // ✅ added here
         $address1,
         $address2,
         $city,
@@ -87,8 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         $_SESSION['last_order_id'] = $stmt2->insert_id;
         $_SESSION['last_product_id'] = $product_id;
         echo "<script>
-            document.getElementById('loader-overlay').style.display = 'flex';
-            document.getElementById('loader-text').innerText = 'Processing your order...';
             setTimeout(() => {
                 window.location.href = '{$base_url}checkout.php';
             }, 1000);
@@ -98,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     }
     $stmt2->close();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 
 <div class="container">
     <div class="product-container">
+
         <!-- Left: Image -->
         <div class="product-images">
             <div class="main-image">
@@ -187,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         <h5 class="modal-title">Shipping Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-     <form method="POST" onsubmit="showLoader()">
+     <form method="POST">
   <div class="modal-body">
 
     <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
@@ -278,34 +279,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     </div>
   </div>
 </div>
-<?php endif; ?>
-
-<!-- ✅ Loader Overlay -->
-<div id="loader-overlay">
-  <div class="loader-box text-center">
-    <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo" class="mb-3" style="width:80px;height:auto;">
-    <div class="spinner-border" role="status" style="width:4rem; height:4rem; color:#113d56;"></div>
-    <div id="loader-text" class="mt-3 text-dark">Loading, please wait...</div>
-  </div>
+<!-- ===== Loader Overlay (same as checkout) ===== -->
+<div id="loader-overlay" style="
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(255,255,255,0.95);
+    z-index:9999;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+">
+    <div class="loader-box text-center">
+        <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo"
+             class="mb-3" style="width:80px;height:auto;">
+        <div class="spinner-border" role="status"
+             style="width:4rem; height:4rem; color:#113d56;"></div>
+        <div id="loader-text" class="mt-3 fw-bold text-dark">
+            Processing your order, please wait...
+        </div>
+    </div>
 </div>
 
-<style>
-#loader-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-}
-.loader-box {
-  text-align: center;
-}
-</style>
+<?php endif; ?>
 
 <script>
 document.getElementById('increase').onclick = ()=>updateQuantity(1);
@@ -328,18 +325,11 @@ function selectSize(btn){
 }
 
 function redirectToLogin(){
-    document.getElementById('loader-overlay').style.display = 'flex';
-    document.getElementById('loader-text').innerText = 'Redirecting to login...';
     window.location.href = "<?= $base_url ?>login.php?redirect=" + encodeURIComponent(window.location.href);
-}
-
-function showLoader(){
-    document.getElementById('loader-overlay').style.display = 'flex';
-    document.getElementById('loader-text').innerText = 'Placing your order...';
 }
 </script>
 
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
 </body>
-</html>
+</html>  
