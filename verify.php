@@ -1,4 +1,5 @@
 <?php
+session_start();
 require('razorpay/razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
 include('razorpay_config.php');
@@ -19,6 +20,11 @@ if (!empty($_POST['razorpay_payment_id']) && !empty($_POST['razorpay_order_id'])
         // ✅ Optional: fetch the payment details
         $payment = $api->payment->fetch($_POST['razorpay_payment_id']);
 
+         // ✅ Verify session
+        if (empty($_SESSION['orderNumber'])) {
+            throw new Exception("Session order number missing.");
+        }
+
         // ✅ Update order in database
         $stmt = $conn->prepare("UPDATE orders 
             SET payment_status = 'Paid', 
@@ -37,7 +43,7 @@ if (!empty($_POST['razorpay_payment_id']) && !empty($_POST['razorpay_order_id'])
         // $stmt->close();
 
         echo "✅ Payment verified successfully! Payment ID: " . $_POST['razorpay_payment_id'];
-        $_SESSION['orderNumber'] ='';
+        // $_SESSION['orderNumber'] ='';
     } catch (Exception $e) {
         echo "❌ Payment verification failed: " . $e->getMessage();
     }

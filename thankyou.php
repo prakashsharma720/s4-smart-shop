@@ -155,10 +155,7 @@ $conn->close();
             <div><strong>Date</strong>
             <?= date('d M Y', strtotime($order['created_at'])) ?></div>
             <div><strong>Order Number</strong>
-                <?php
-                    $orderNumber = 'S4-' . str_pad($order['id'], 6, '0', STR_PAD_LEFT);
-                    echo $orderNumber;
-                ?>
+                <?php echo $_SESSION['orderNumber']; ?>
             </div>
 <?php
 $payment_status = strtolower($order['payment_status'] ?? 'pending');
