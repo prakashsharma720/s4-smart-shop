@@ -41,21 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     $total          = floatval($_POST['total']);
     $size           = $_POST['size'] ?? '';
     $referral_code  = trim($_POST['referral_code']);
-    $referal_remark = trim($_POST['referal_remark']); // ✅ new line
+    $referal_remark = trim($_POST['referal_remark']);
 
-    // ✅ Address fields
     $address1 = trim($_POST['address1'] ?? '');
     $address2 = trim($_POST['address2'] ?? '');
     $city     = trim($_POST['city'] ?? '');
     $state    = trim($_POST['state'] ?? '');
     $pincode  = trim($_POST['pincode'] ?? '');
 
-    // ✅ Hidden user info
     $name   = trim($_POST['customer_name']);
     $email  = trim($_POST['customer_email']);
     $phone  = trim($_POST['customer_phone']);
 
-    // ✅ Prepare SQL (now includes referal_remark)
     $stmt2 = $conn->prepare("
         INSERT INTO orders (
             user_code, name, email, phone, product_id, size, quantity, total,
@@ -64,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ");
 
-    // ✅ Bind parameters (15 total)
     $stmt2->bind_param(
         "sssisisdsssssss",
         $user_uniquecode,
@@ -76,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         $quantity,
         $total,
         $referral_code,
-        $referal_remark, // ✅ added here
+        $referal_remark,
         $address1,
         $address2,
         $city,
@@ -87,17 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     if ($stmt2->execute()) {
         $_SESSION['last_order_id'] = $stmt2->insert_id;
         $_SESSION['last_product_id'] = $product_id;
+
         echo "<script>
-            setTimeout(() => {
-                window.location.href = '{$base_url}checkout.php';
-            }, 1000);
+            localStorage.setItem('redirect_checkout', '1');
+            window.location.href = window.location.href; // reload same page to show loader
         </script>";
+        exit;
     } else {
         echo "<script>alert('Failed to place order: " . $stmt2->error . "');</script>";
     }
     $stmt2->close();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -142,7 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                         <button type="button"
                             class="btn btn-outline-danger <?= $index === 0 ? 'active' : '' ?> "
                             data-size="<?= htmlspecialchars($size) ?>"
-                            data-price="<?= $product['price'] ?>"
                             onclick="selectSize(this)">
                             <?= htmlspecialchars($size) ?>
                         </button>
@@ -151,7 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             </div>
             <?php endif; ?>
 
-            <!-- Quantity -->
             <div class="quantity-section mb-2">
                 <strong>Quantity:</strong>
                 <div class="quantity">
@@ -161,10 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 </div>
             </div>
 
-            <!-- Total -->
             <div class="price total-box">Order Total: ₹ <span id="totalAmount" style="color: green;"><?= $product['price'] ?></span></div>
 
-            <!-- Buy Now -->
             <?php if($user): ?>
                 <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#buyNowModal">Buy Now</button>
             <?php else: ?>
@@ -200,14 +192,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <input type="hidden" name="customer_email" value="<?= htmlspecialchars($user['email']); ?>">
     <input type="hidden" name="customer_phone" value="<?= htmlspecialchars($user['phone']); ?>">
 
-    <!-- Referral Code -->
     <div class="mb-3">
         <label class="form-label">Referral Code (Optional)</label>
         <input type="text" name="referral_code" class="form-control"
                value="<?= htmlspecialchars($referal_code ?? $user['user_code']) ?>">
     </div>
 
-    <!-- Referral Remark -->
     <div class="mb-3">
         <label class="form-label">Referral Remark (Optional)</label>
         <textarea name="referal_remark" class="form-control" rows="2"
@@ -217,21 +207,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <hr class="my-3">
     <h6 class="text-danger mb-2">Shipping Address</h6>
 
-    <!-- Address Line 1 -->
     <div class="mb-3">
       <label class="form-label">Address Line 1</label>
-      <input type="text" name="address1" class="form-control"
-             placeholder="House No. / Building / Street / Area" required>
+      <input type="text" name="address1" class="form-control" required>
     </div>
 
-    <!-- Address Line 2 -->
     <div class="mb-3">
       <label class="form-label">Address Line 2</label>
-      <input type="text" name="address2" class="form-control"
-             placeholder="Nearby Landmark / Apartment / Block">
+      <input type="text" name="address2" class="form-control">
     </div>
 
-    <!-- City and State -->
     <div class="row">
       <div class="col-md-6 mb-3">
         <label class="form-label">City</label>
@@ -261,11 +246,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
       </div>
     </div>
 
-    <!-- Pincode -->
     <div class="mb-3">
       <label class="form-label">Pincode</label>
       <input type="text" name="pincode" class="form-control" maxlength="6"
-             pattern="[0-9]{6}" placeholder="e.g. 313001" required>
+             pattern="[0-9]{6}" required>
     </div>
 
   </div>
@@ -279,29 +263,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     </div>
   </div>
 </div>
-<!-- ===== Loader Overlay (same as checkout) ===== -->
-<div id="loader-overlay" style="
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(255,255,255,0.95);
-    z-index:9999;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-">
-    <div class="loader-box text-center">
-        <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo"
-             class="mb-3" style="width:80px;height:auto;">
-        <div class="spinner-border" role="status"
-             style="width:4rem; height:4rem; color:#113d56;"></div>
-        <div id="loader-text" class="mt-3 fw-bold text-dark">
-            Processing your order, please wait...
-        </div>
-    </div>
-</div>
 
+<!-- ✅ Fullscreen Centered Loader -->
+<style>
+#loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.9);
+    z-index: 9999;
+    display: none;
+}
+.loader-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#loader-text {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #113d56;
+    font-weight: 600;
+}
+</style>
+
+<div id="loader-overlay">
+  <div class="loader-box text-center">
+      <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo" class="mb-3" style="width:80px;height:auto;">
+      <div class="spinner-border" role="status" style="width:4rem;height:4rem;color:#113d56;"></div>
+      <div id="loader-text">Processing your order, please wait...</div>
+  </div>
+</div>
 <?php endif; ?>
 
 <script>
@@ -327,9 +319,34 @@ function selectSize(btn){
 function redirectToLogin(){
     window.location.href = "<?= $base_url ?>login.php?redirect=" + encodeURIComponent(window.location.href);
 }
+
+document.addEventListener('DOMContentLoaded', function(){
+  const loader = document.getElementById('loader-overlay');
+  const loaderText = document.getElementById('loader-text');
+  const form = document.querySelector('#buyNowModal form');
+
+  // ✅ When placing order
+  if(form){
+    form.addEventListener('submit', function(){
+      loader.style.display = 'block';
+      loaderText.textContent = "Placing your order, please wait...";
+    });
+  }
+
+  // ✅ After reload → redirect to checkout
+  if(localStorage.getItem('redirect_checkout') === '1'){
+    loader.style.display = 'block';
+    loaderText.textContent = "Redirecting to checkout, please wait...";
+    localStorage.removeItem('redirect_checkout');
+
+    setTimeout(()=>{
+      window.location.href = "<?= $base_url ?>checkout.php";
+    }, 2000);
+  }
+});
 </script>
 
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
 </body>
-</html>  
+</html>
