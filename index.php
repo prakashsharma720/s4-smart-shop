@@ -199,7 +199,7 @@ if ($product_result && $product_result->num_rows > 0) {
      <div class="container my-5">
             <div class="main_title text-center mb-5">
                 <h2>How It Works</h2>
-                <p>Start your earning journey with S4 Smart Shop in 3 simple steps!</p>
+                <p>Start your earning journey with S4 Smart Shop in 2 simple steps!</p>
             </div>
 
             <div class="row text-center process-grid">
@@ -357,26 +357,63 @@ if ($product_result && $product_result->num_rows > 0) {
         });
     });
     </script>
-    <script>
-// ======= Manual Scroll Buttons =======
-document.getElementById('scrollLeft').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: -300, behavior: 'smooth' });
+  <script>
+// ======= Scroll Arrows + Auto Scroll =======
+const scrollContainer = document.getElementById('productScroll');
+const leftBtn = document.getElementById('scrollLeft');
+const rightBtn = document.getElementById('scrollRight');
+
+let autoScrollActive = true;
+let scrollSpeed = 1.2; // speed in pixels/frame
+
+// Manual Scroll Buttons
+leftBtn.addEventListener('click', () => {
+  scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
 });
-document.getElementById('scrollRight').addEventListener('click', function() {
-  document.getElementById('productScroll').scrollBy({ left: 300, behavior: 'smooth' });
+rightBtn.addEventListener('click', () => {
+  scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
 });
 
-// ======= 🔁 Auto Continuous Scroll =======
-const scrollContainer = document.getElementById('productScroll');
+// Auto Scroll Function
 function autoScroll() {
-  scrollContainer.scrollBy({ left: 1, behavior: 'smooth' });
+  if (!autoScrollActive) return;
+
+  scrollContainer.scrollBy({ left: scrollSpeed, behavior: 'smooth' });
+
+  // Reset when end reached
   if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 2) {
     scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
   }
+
   requestAnimationFrame(autoScroll);
 }
-window.addEventListener('load', () => setTimeout(() => autoScroll(), 1500));
+
+// Pause auto-scroll when user interacts
+scrollContainer.addEventListener('mouseenter', () => (autoScrollActive = false));
+scrollContainer.addEventListener('mouseleave', () => {
+  if (!autoScrollActive) {
+    autoScrollActive = true;
+    requestAnimationFrame(autoScroll);
+  }
+});
+
+// Also pause when clicking arrows (resume after short delay)
+[leftBtn, rightBtn].forEach(btn => {
+  btn.addEventListener('click', () => {
+    autoScrollActive = false;
+    setTimeout(() => {
+      autoScrollActive = true;
+      requestAnimationFrame(autoScroll);
+    }, 3000);
+  });
+});
+
+// Start Auto Scroll
+window.addEventListener('load', () => {
+  setTimeout(() => requestAnimationFrame(autoScroll), 1500);
+});
 </script>
+
     <?php include('footer.php');?>
     <?php include('js.php');?>
 </body>
