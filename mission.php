@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Find easily a doctor and book online an appointment">
-  <meta name="author" content="Ansonika">
-  <title>S4 Smart Shop – Rajasthan’s Leading MLM-Based eCommerce Platform</title>
+  <meta name="description" content="S4 Smart Shop">
+  <meta name="author" content="prakash">
+  <title>S4 Smart Shop </title>
   <?php include('head.php');?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -52,7 +52,7 @@
         <div class="glass-card text-center p-4 rounded">
           <i class="fas fa-users fa-3x mb-3"></i>
           <h5>Referral Rewards</h5>
-          <p>Encouraging people to grow together through a fair and transparent MLM network.</p>
+          <p>Encouraging people to grow together through a fair and transparent.</p>
         </div>
       </div>
       <div class="col-md-4">

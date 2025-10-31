@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Hash password and insert
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-$stmt_insert = $conn->prepare("INSERT INTO users (user_code, name, email, phone, password, referal_code) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt_insert = $conn->prepare("INSERT INTO users (user_code, name, email, phone, password, referal_code) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt_insert->bind_param("ssssss", $user_code,$name, $email, $mobile, $hashed_password,$ref_code);
 
             if ($stmt_insert->execute()) {
