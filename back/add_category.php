@@ -168,7 +168,7 @@ $result = $conn->query("SELECT * FROM categories ORDER BY id DESC");
                         <?php if($result->num_rows>0){ $i=1; while($row=$result->fetch_assoc()){ ?>
                             <tr>
                                 <td><?= $i++; ?></td>
-                                <td><?= htmlspecialchars($row['name']); ?></td>
+                                <td><?= htmlspecialchars($row['category_name']); ?></td>
                                 <td><?= htmlspecialchars($row['slug']); ?></td> <td><?= htmlspecialchars($row['description']); ?></td>
                                 <td><img src="uploads/<?= $row['image']; ?>" width="60" height="60" alt=""></td>
                                 <td>

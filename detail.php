@@ -157,11 +157,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 
             <div class="price total-box">Order Total: ₹ <span id="totalAmount" style="color: green;"><?= $product['price'] ?></span></div>
 
-            <?php if($user): ?>
-                <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#buyNowModal">Buy Now</button>
-            <?php else: ?>
-                <button class="btn btn-danger mt-3" onclick="redirectToLogin()">Buy Now</button>
-            <?php endif; ?>
+         <?php if($user): ?>
+    <button class="btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#buyNowModal">
+        Order Now
+    </button>
+<?php else: ?>
+    <button class="btn btn-danger mt-3" onclick="redirectToLogin()">
+        Buy Now
+    </button>
+<?php endif; ?>
+
 
             <div class="description mt-3">
                 <h3>Description:</h3>

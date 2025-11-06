@@ -404,7 +404,7 @@ scrollContainer.addEventListener('mouseleave', () => {
     setTimeout(() => {
       autoScrollActive = true;
       requestAnimationFrame(autoScroll);
-    }, 3000);
+    }, 2000);
   });
 });
 
