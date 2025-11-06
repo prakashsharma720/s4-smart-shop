@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Find easily a doctor and book online an appointment">
-    <meta name="author" content="Ansonika">
+    <meta name="description" content="S4 Smart Shop">
+    <meta name="author" content="prakash">
     <title>S4 Smart Shop</title>
     <?php include("head.php");?>
 
@@ -243,50 +243,7 @@ if ($product_result && $product_result->num_rows > 0) {
             </div>
         </div>
 
-        <!--<section class="why-choose-us py-5">-->
-        <!--    <div class="container text-center">-->
-        <!--        <h2 class="section-title mb-4">Why Choose Us</h2>-->
-        <!--        <p class="section-subtitle mb-5">-->
-        <!--            S4 Smart Shop offers a trusted platform that combines smart shopping, referral rewards, and-->
-        <!--            financial growth opportunities for everyone.-->
-        <!--        </p>-->
-        <!--        <div class="row g-4">-->
-
-        <!--            <div class="col-md-6 col-lg-3">-->
-        <!--                <div class="choose-card animate-left">-->
-        <!--                    <div class="icon-box"><i class="fas fa-shopping-cart"></i></div>-->
-        <!--                    <h4>Smart Shopping</h4>-->
-        <!--                    <p>Shop from a wide range of quality products at unbeatable prices.</p>-->
-        <!--                </div>-->
-        <!--            </div>-->
-
-        <!--            <div class="col-md-6 col-lg-3">-->
-        <!--                <div class="choose-card animate-up">-->
-        <!--                    <div class="icon-box"><i class="fas fa-hand-holding-usd"></i></div>-->
-        <!--                    <h4>Earn While You Shop</h4>-->
-        <!--                    <p>Get rewarded for every purchase and referral through our MLM system.</p>-->
-        <!--                </div>-->
-        <!--            </div>-->
-
-        <!--            <div class="col-md-6 col-lg-3">-->
-        <!--                <div class="choose-card animate-down">-->
-        <!--                    <div class="icon-box"><i class="fas fa-users"></i></div>-->
-        <!--                    <h4>Strong Network</h4>-->
-        <!--                    <p>Build your own network and grow together with a supportive community.</p>-->
-        <!--                </div>-->
-        <!--            </div>-->
-
-        <!--            <div class="col-md-6 col-lg-3">-->
-        <!--                <div class="choose-card animate-right">-->
-        <!--                    <div class="icon-box"><i class="fas fa-chart-line"></i></div>-->
-        <!--                    <h4>Unlimited Growth</h4>-->
-        <!--                    <p>Enjoy consistent income and growth opportunities with full transparency.</p>-->
-        <!--                </div>-->
-        <!--            </div>-->
-
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--</section>-->
+       
 
 
 

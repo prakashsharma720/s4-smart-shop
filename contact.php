@@ -1,7 +1,6 @@
 <?php
 // ================== Database Connection & Save ==================
-$conn = new mysqli("localhost", "root", "", "s4shopdb");
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+include('config.php');
 
 // Success message variable
 $success_msg = '';
@@ -30,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Find easily a doctor and book online an appointment">
-    <meta name="author" content="Ansonika">
+    <meta name="description" content="contact us for any enquiry about shooping">
+    <meta name="author" content="prakash">
     <title>Contact Us || S4 Smart Shop</title>
     <?php include('head.php');?>
 </head>
