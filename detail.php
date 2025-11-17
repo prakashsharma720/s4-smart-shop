@@ -125,9 +125,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             </div>
         </div>
 
-        <!-- Right: Details -->
-        <div class="product-details position-relative">
+           <div class="product-details position-relative">
+            <div class="product-name" style="width:73%;">
             <h1 class="product-name mb-3"><?= htmlspecialchars($product['name']) ?></h1>
+
+            </div>
+
+            <!-- Share Icons -->
+            <div class="dropdown share-icons-column position-absolute top-0 end-0 d-flex flex-column gap-2">
+                <a href="#" class="btn btn-outline-" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-share-fill"></i> Share
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="shareDropdown">
+                    <li>
+                        <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
+                            <i class="bi bi-whatsapp me-2"></i> WhatsApp
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
+                            <i class="bi bi-facebook me-2"></i> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
+                            <i class="bi bi-instagram me-2"></i> Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
             <div class="total-box mb-2">Price: ₹ <span id="productPrice"><?= $product['price'] ?></span></div>
 
             <?php if($has_sizes): ?>
@@ -269,28 +295,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
   </div>
 </div>
 
-<!-- ✅ Fullscreen Centered Loader -->
-<style>
-#loader-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,0.9);
-    z-index: 9999;
-    display: none;
-}
-.loader-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-#loader-text {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #113d56;
-    font-weight: 600;
-}
-</style>
+
 
 <div id="loader-overlay">
   <div class="loader-box text-center">
@@ -302,6 +307,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 <?php endif; ?>
 
 <script>
+    const productURL = "<?= $base_url ?>detail.php/<?= $product['slug'] ?>";
+const productName = "<?= addslashes($product['name']) ?>";
+const userCode = "<?= $user['user_code'] ?? '' ?>";
+
+function getShareURL() {
+    let url = productURL;
+    if(userCode) url += '?ref=' + userCode;
+    return url;
+}
+
+function shareWhatsApp() {
+    const text = `${productName} - ${getShareURL()}`;
+window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function shareFacebook() {
+    const text = `${productName} - ${getShareURL()}`;
+window.open(
+  "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(getShareURL()),
+  "_blank"
+);
+}
+
+function shareInstagram() {
+    const text = `${productName} - ${getShareURL()}`;
+    navigator.clipboard.writeText(text).then(() => alert("Product link copied! Share on Instagram."));
+}
+
 document.getElementById('increase').onclick = ()=>updateQuantity(1);
 document.getElementById('decrease').onclick = ()=>updateQuantity(-1);
 
