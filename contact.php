@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>
                 Chittorgarh, Rajasthan 312203<br>
                 <i class="bi bi-telephone-fill me-2"></i>
-                <a href="tel:+918107875712" class="text-dark text-decoration-none">+91 8107875712</a>
+                <a href="tel:+919116841049" class="text-dark text-decoration-none">+91 8107875712</a>
                 <br>
                 <i class="bi bi-envelope-fill me-2"></i>
                 <a href="mailto:info@s4smartshop.com" class="text-dark text-decoration-none">info@s4smartshop.com</a>
@@ -77,14 +77,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <ul>
                     <li><strong>Administration</strong><br>
                         <i class="bi bi-telephone-fill me-2"></i>
-                        <a href="tel://003823932342">+918107875712</a><br>
+                        <a href="tel://003823932342">+91 9116841049</a><br>
                         <i class="bi bi-envelope-fill me-2"></i>
                         <a href="mailto:admin@s4smartshop.com">admin@s4smartshop.com</a><br>
                         <small>24*7 Available</small>
                     </li>
                     <li><strong>General questions</strong><br>
                         <i class="bi bi-telephone-fill me-2"></i>
-                        <a href="tel://003823932342">+918107875712</a><br>
+                        <a href="tel://003823932342">+91 9116841049</a><br>
                         <i class="bi bi-envelope-fill me-2"></i>
                         <a href="mailto:questions@s4smartshop.com">questions@s4smartshop.com</a><br>
                         <small>24*7 Available</small>

@@ -1669,3 +1669,70 @@ figure:hover .preview {
 #productCarousel .carousel-indicators {
     bottom: -30px;
 }
+
+#loader-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.9);
+    z-index: 9999;
+    display: none;
+}
+.loader-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#loader-text {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #113d56;
+    font-weight: 600;
+}
+
+/* WhatsApp Floating Position */
+.wa-float {
+    position: fixed;
+    bottom: 90px;       /* footer ke upar */
+    right: 20px;
+    z-index: 999999;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* WhatsApp Icon CSS */
+.wa-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;  /* WhatsApp Green */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* WhatsApp icon shape using CSS */
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    
+    animation: pulse 1.5s infinite; /* Animation */
+}
+
+/* WhatsApp Icon - White Symbol */
+.wa-icon::before {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    /* SVG ICON BASE64 (White WhatsApp Logo) */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyBmaWxsPSJ3aGl0ZSIgdmVyc2lvbj0iMSIgaGVpZ2h0PSIyNCIgd2lkdGg9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGQ9Ik0xMiAwQzUuMzczIDAgMCA1LjM3MyAwIDEyYzAgMi4xMjMuNTg2IDQuMTM1IDEuNjg4IDUuOTM0TDAgMjRsNi4yMTQtMS42ODZDNy44NjUgMjMuNDEzIDkuODg5IDI0IDEyIDI0YzYuNjI3IDAgMTItNS4zNzMgMTItMTJTMjQuNjI3IDAgMTIgMHptNi41MzkgMTYuNDg2Yy0uMjczLjgwMS0xLjM2NSAxLjUyOS0yLjEyMiAxLjcyLS41NjguMTQxLTEuMjc0LjI1Ni0zLjcwNi0uNzkxLTQuMzg5LTEuODkyLTcuMjIzLTYuMTctNy40NDYtNi40NDJzLTEuNzYtMi4zNTMgMS4xMjUtNC41NjJjMi45MTQtMi4yMzEgMy4yNjMtMS44MDkgMy44NDYtMS43NTkuNTYyLjA0NyAxLjgzNS43NDYgMi4xMTQgMS40MThzLjI4MiAxLjI0OC4xNDIgMS41MDZjLS4xNDIuMjU4LS4yMTkgLjQxNy0uNDI2LjY1NmMtLjIxMy4yNDUtLjQ0LjUzMy0uNjE4LjcxNi0uMjA3LjIxOS0uNDA3LjQ1My0uNjgzLjQzN2MtLjI3Ny0uMDE2LS44NzktLjI4Mi0yLjMzMS0xLjAxNGE2LjI3OCA2LjI3OCAwIDAgMC0yLjcwNy0zLjQxNWMtLjI3My0uNDYyLS4wMDQtLjcxNS4yMDMtLjkzN2MuMjI0LS4yMzcuNzg1LS45My45OTgtMS4yNTYuMjE0LS4zMjguNDQ5LS42ODYuNjc2LTEuMDI0LjIxMS0uMzIuNDQ0LS40OC43NTQtLjY0NWMuMzE0LS4xNjIuNTc3LS4yNjQuODY5LS4wODJsLjQwNy4yMzZjLjEyLjA4NC42MDIuNDA2LjcwOS41MjcuMTA3LjEyLjE3OC4yMDUuMjYyLjM0LjA4NS4xMzguMDg1LjIzNi0uMDEyLjM5NmMtLjA5Ni4xNi0uMTY4LjI3MS0uMjcyLjQxMmwtLjM3OC41MzFjLS4wOTMuMTYtLjE5OC4zMDEtLjMwNi40NDJsLS4xNzguMjM4YTYuOTE5IDYuOTE5IDAgMCAwIDEuMjM5IDIuMTE0YzEuMDYzIDEuOTAzIDIuMzE4IDIuNjQgMi42NzMgMi44MDQuMzU1LjE2LjU2Ny4xMzQuODAzLS4wODguMjIxLS4yMDcuNzE5LS43NDEgMS4wMzMtMS4xMTQuMzE0LS4zNzIuNjgyLS40MjIuOTMzLS4yODMuMjQ0LjEzNiAxLjU0Ny43MiAxLjgxNy44NDRzLjQ0NS4yMDcuNTAzLjMyMmMuMDYyLjExNS4wNjIuODEyLS4yMTIuMTk3eiIvPjwvc3ZnPg==');
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}

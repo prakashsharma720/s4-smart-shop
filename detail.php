@@ -119,11 +119,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <div class="product-container">
 
         <!-- Left: Image -->
-        <div class="product-images">
-            <div class="main-image">
-                <img id="productImage" src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($product['feature_img']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
-            </div>
-        </div>
+  <!-- PRODUCT IMAGES -->
+<div class="product-images">
+
+<?php
+// Thumbnails from DB (comma-separated)
+$thumbs = [];
+
+// If gallery images exist in DB
+if (!empty($product['thumbnails'])) {
+    $thumbs = array_filter(array_map('trim', explode(',', $product['thumbnails'])));
+}
+
+// Always add feature image at first
+array_unshift($thumbs, $product['feature_img']);
+
+// Remove duplicates
+$thumbs = array_unique($thumbs);
+
+// Limit 5 images
+$thumbs = array_slice($thumbs, 0, 5);
+?>
+
+<!-- Thumbnails -->
+<div class="thumbnails mb-2 d-flex gap-2">
+    <?php foreach ($thumbs as $index => $image): ?>
+        <img src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($image) ?>"
+             class="thumb-img <?= $index === 0 ? 'active' : '' ?>"
+             onclick="changeImage(this)"
+             alt="Thumbnail">
+    <?php endforeach; ?>
+</div>
+
+<!-- MAIN IMAGE -->
+<div class="main-image">
+    <img id="productImage"
+         src="<?= $base_url ?>back/uploads/<?= htmlspecialchars($thumbs[0]) ?>"
+         alt="<?= htmlspecialchars($product['name']) ?>">
+</div>
+
+</div>
+
+
 
            <div class="product-details position-relative">
             <div class="product-name" style="width:73%;">
@@ -382,6 +419,17 @@ document.addEventListener('DOMContentLoaded', function(){
     }, 2000);
   }
 });
+
+function changeImage(img) {
+    document.getElementById("productImage").src = img.src;
+
+    document.querySelectorAll('.thumb-img')
+        .forEach(el => el.classList.remove('active'));
+
+    img.classList.add('active');
+}
+
+
 </script>
 
 <?php include('footer.php'); ?>
