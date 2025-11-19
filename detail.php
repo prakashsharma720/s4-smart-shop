@@ -429,6 +429,32 @@ function changeImage(img) {
     img.classList.add('active');
 }
 
+// =================== THUMBNAIL CLICK ===================
+function changeImage(img) {
+    const main = document.getElementById("productImage");
+    main.src = img.src;
+
+    // Active thumbnail
+    document.querySelectorAll('.thumb-img').forEach(x => x.classList.remove('active'));
+    img.classList.add('active');
+}
+
+// =================== ZOOM ON HOVER ===================
+const zoomImg = document.getElementById("productImage");
+
+zoomImg.addEventListener("mousemove", function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width * 100;
+    const y = (e.clientY - rect.top) / rect.height * 100;
+
+    this.style.transformOrigin = `${x}% ${y}%`;
+    this.style.transform = "scale(2)";   // Zoom level
+});
+
+zoomImg.addEventListener("mouseleave", function() {
+    this.style.transformOrigin = "center center";
+    this.style.transform = "scale(1)";
+});
 
 </script>
 

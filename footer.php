@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 <a href="https://wa.me/7023980687?text=Hi"
    class="whatsapp-float"
    target="_blank">

@@ -1,0 +1,143 @@
+body {
+  background: #f1f3f6;
+}
+
+.card {
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.cart-item {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.cart-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.btn-warning {
+  background-color: ##2e2f61!important;
+  border: none;
+  color: #fff !important;
+}
+
+                <!-- Styles -->
+                <style>
+                .thumb-img {
+                    cursor: pointer;
+                    border: 2px solid transparent;
+                    transition: all 0.2s ease;
+                }
+
+                .thumb-img:hover {
+                    border-color: #000;
+                }
+
+                .thumb-img.active {
+                    border-color: #000;
+                    /* highlight selected thumbnail */
+                }
+/* Add to Cart - Purple */
+.btn-addcart {
+    background-color: #6cc5b2!important; /* Purple */
+    border-color: #6cc5b2 !important;
+    color: #fff !important;
+}
+
+.product-details, .seller-details {
+    font-size: 15px;   /* default 13px se bada */
+    color: #333;       /* halka grey ki jagah dark */
+}
+
+
+.btn-addcart:hover,
+.btn-addcart:focus,
+.btn-addcart:active {
+    background-color: #6cc5b2 !important;
+    border-color: #6cc5b2 !important;
+    box-shadow: none !important;
+}
+
+/* Buy Now - Soft Green */
+.btn-buynow {
+    background-color: ###2e2f61!important; /* Soft green */
+    border-color: ###2e2f61!important;
+    color: #fff !important;
+}
+
+.btn-buynow:hover,
+.btn-buynow:focus,
+.btn-buynow:active {
+    background-color: ###2e2f61!important;
+    border-color: ###2e2f61!important;
+    box-shadow: none !important;
+}
+
+
+                .size-option {
+                    display: inline-block;
+                    padding: 10px 20px;
+                    /* padding बढ़ाई */
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    /* rounded थोड़ा ज्यादा */
+                    cursor: pointer;
+                    font-weight: 300;
+                    font-size: 15px;
+                    /* text बड़ा */
+                    background: #fff;
+                    transition: all 0.2s ease;
+                    min-width: 50px;
+                    /* button बराबर दिखे */
+                    text-align: center;
+                }
+
+                .qty-box {
+                    display: flex;
+                    align-items: center;
+                    background: #fff;
+                }
+
+                .qty-btn {
+                    width: 35px;
+                    height: 35px;
+                    font-weight: bold;
+                    border-radius: 0;
+                }
+
+                .qty-box input {
+                    height: 35px;
+                    font-weight: 500;
+                }
+
+                .size-option:hover {
+                    border-color: #000;
+                }
+
+                .size-option.selected {
+                    border: 2px solid #000;
+                    background: #f8f9fa;
+                    font-weight: 600;
+                }
+
+                /* Color options bigger */
+                .color-option {
+                    width: 40px;
+                    /* circle बड़ा */
+                    height: 40px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    border: 2px solid #ddd;
+                    transition: all 0.2s ease;
+                }
+
+                .color-option:hover {
+                    border-color: #000;
+                }
+
+                .color-option.selected {
+                    border-color: #000;
+                }

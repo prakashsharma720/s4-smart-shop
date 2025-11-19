@@ -59,9 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div id="contact_info">
                 <h3>Contacts info</h3>
                 <p>
-                Chittorgarh, Rajasthan 312203<br>
+                                        Nangpura,Near Government Upper Primary School, Dindoli Rashmi Chittogarh, Rajasthan 312203
+<br>
                 <i class="bi bi-telephone-fill me-2"></i>
-                <a href="tel:+919116841049" class="text-dark text-decoration-none">+91 8107875712</a>
+                <a href="tel:+919116841049" class="text-dark text-decoration-none">+91 9116841049</a>
                 <br>
                 <i class="bi bi-envelope-fill me-2"></i>
                 <a href="mailto:info@s4smartshop.com" class="text-dark text-decoration-none">info@s4smartshop.com</a>
