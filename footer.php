@@ -1,43 +1,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<a href="https://wa.me/7023980687?text=Hi"
+<a href="https://wa.me/9116841049?text=Hi"
    class="whatsapp-float"
    target="_blank">
     <i class="bi bi-whatsapp wa-icon"></i>
 </a>
-
-<style>
-.whatsapp-float {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 9999;
-    background: #25D366;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 32px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.15);
-}
-
-.wa-icon {
-    animation: bounce 1.2s infinite ease-in-out;
-}
-
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-</style>
 
 <footer>
     <div class="container margin_60_35">

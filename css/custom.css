@@ -1741,3 +1741,49 @@ figure:hover .preview {
   cursor: zoom-in;
   transform: scale(1); /* initial scale = normal */
 }
+
+.product-img-box {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+}
+
+.pro-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 3 Dot Share Button */
+.share-btn-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 10;
+}
+
+
+.shop-now-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #113d56;
+    color: #fff;
+    padding: 10px 30px;   /* Wider Button */
+    border-radius: 30px;
+    font-size: 15px;
+    text-decoration: none;
+    display: none;
+}
+
+
+/* Hover to Show */
+.product-img-box:hover .shop-now-btn {
+    display: inline-block;
+}
+
+

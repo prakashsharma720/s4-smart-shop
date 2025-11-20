@@ -86,12 +86,7 @@
             🛍️ Welcome to <b>S4 Smart Shop</b> | 💰 Shop More, Save More🚀| 🤝 Shopping That Rewards You!
         </marquee>
 
-
-        <div class="namkeen-section">
-
-
-
-
+  <div class="namkeen-section">
             <section class=" mt-3 welcome-section ">
                 <div class="container">
                     <div class="welcome-left slide-left">
@@ -113,7 +108,7 @@
                             style, comfort, and quality to deliver products that suit your everyday lifestyle.
                         </p>
                         <p>
-                            Founded by <strong>Mr. Mahendra Singh Rawat</strong>, S4 Smart Shop is built on a vision to provide 
+                            Founded by <strong>Mr. MAHENDRA SINGH BAHDOT</strong>, S4 Smart Shop is built on a vision to provide 
                             an easy, reliable, and affordable online shopping experience for every customer. Our focus is on 
                             offering carefully selected products that combine fashion with functionality.
                         </p>
@@ -166,26 +161,96 @@ if ($product_result && $product_result->num_rows > 0) {
             <span class="carousel-control-prev-icon"></span>
         </button>
 
-        <!-- Product Scroll Container -->
-        <div class="product-scroll d-flex overflow-auto" id="productScroll">
-            <?php foreach ($products as $product): ?>
-            <div class="product-item flex-shrink-0">
-                <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($product['slug']); ?>"
-                    class="text-decoration-none">
-                    <div class="product-card text-center shadow-sm p-3 rounded h-100">
-                        <img src="<?= $base_url ?>back/uploads/<?php echo $product['feature_img']; ?>"
-                            alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid rounded">
-                        <div class="product-info mt-3">
-                            <h5 class="fw-bold text-dark"><?php echo htmlspecialchars($product['name']); ?></h5>
-                            <div class="from-price-middle mt-2 text-muted">
-                                Price: ₹<?php echo $product['price']; ?>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <?php endforeach; ?>
+<!-- Product Scroll Container -->
+<div class="product-scroll d-flex overflow-auto gap-3 py-2" id="productScroll">
+<?php foreach ($products as $product): ?>
+
+
+<div class="product-item flex-shrink-0" style="width: 180px;">
+
+    <div class="product-card p-2 rounded bg-white pro-hover shadow-sm">
+
+        <div class="product-img-box position-relative">
+
+            <!-- IMAGE -->
+            <img src="<?= $base_url ?>back/uploads/<?= $product['feature_img']; ?>"
+                alt="<?= htmlspecialchars($product['name']); ?>"
+                class="img-fluid pro-image">
+
+            <!-- SHOP NOW -->
+            <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>"
+               class="shop-now-btn">
+               Shop Now
+            </a>
         </div>
+
+        <!-- NAME + SHARE BUTTON -->
+        <div class="d-flex justify-content-between align-items-center mt-1">
+
+            <!-- NAME -->
+            <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>" 
+               class="text-decoration-none flex-grow-1">
+               <!-- PRODUCT NAME (Center, wraps if long) -->
+<h6 class="fw-semibold text-muted text-center mt-3 mb-1">
+    <?= htmlspecialchars($product['name']); ?>
+</h6>
+
+<!-- PRICE (Center) -->
+<?php 
+$price = $product['price']; 
+$cut = round($price + ($price * 0.20)); 
+?>
+<div class="text-center" style="font-size:18px;">
+    <span style="color:rgb(53, 53, 67); font-weight:700;">₹<?= $price ?></span>
+    <span style="text-decoration:line-through; color:#777; margin:0 6px;">₹<?= $cut ?></span>
+    <span style="color:green; font-weight:600;">20% OFF</span>
+</div>
+
+<!-- SHARE BUTTON (Center, Small Square) -->
+<!-- SHARE BUTTON --><div class="text-center mt-2">
+    <div class="dropdown d-inline-block">
+        <button class="btn btn-light p-1 border rounded" 
+                style="width:28px; height:28px; line-height:0;" 
+                data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-share-fill" style="font-size:14px;"></i>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+            <li>
+                <a class="dropdown-item text-success"
+                   href="#"
+                   onclick="shareWhatsAppProduct('<?= $product['slug']; ?>','<?= addslashes($product['name']); ?>'); return false;">
+                   <i class="bi bi-whatsapp me-2"></i> WhatsApp
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-primary"
+                   href="#"
+                   onclick="shareFacebookProduct('<?= $product['slug']; ?>','<?= addslashes($product['name']); ?>'); return false;">
+                   <i class="bi bi-facebook me-2"></i> Facebook
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-danger"
+                   href="#"
+                   onclick="shareInstagramProduct('<?= $product['slug']; ?>','<?= addslashes($product['name']); ?>'); return false;">
+                   <i class="bi bi-instagram me-2"></i> Instagram
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<?php endforeach; ?>
+</div>
 
         <!-- Right Arrow -->
         <button class="scroll-btn right" id="scrollRight">
@@ -369,8 +434,37 @@ scrollContainer.addEventListener('mouseleave', () => {
 window.addEventListener('load', () => {
   setTimeout(() => requestAnimationFrame(autoScroll), 1500);
 });
-</script>
+ function getProductURL(slug) {
+    let url = "<?= $base_url ?>detail.php/" + slug;
+    const userCode = "<?= $user['user_code'] ?? '' ?>";
+    if(userCode) url += '?ref=' + userCode;
+    return url;
+}
 
+function shareWhatsAppProduct(slug, name){
+    let url = getProductURL(slug);
+    let text = name + " - " + url;
+    window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(text), "_blank");
+}
+
+function shareFacebookProduct(slug, name){
+    let url = getProductURL(slug);
+    window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url), "_blank");
+}
+
+function shareInstagramProduct(slug, name){
+    let url = getProductURL(slug);
+    let text = name + " - " + url;
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Instagram sharing not allowed.\nProduct link copied to clipboard!");
+    }).catch(() => {
+        alert("Product link: " + text);
+    });
+}
+
+
+
+</script>
     <?php include('footer.php');?>
     <?php include('js.php');?>
 </body>
