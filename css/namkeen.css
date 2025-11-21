@@ -920,7 +920,7 @@ section {
     object-fit: contain; /* maintain aspect ratio */
 }
 #shareDropdown {
-    color: var(--primary); /* Icon color */
+    color: white; /* Icon color */
     border-color: var(--primary); /* Outline border color */
 }
 

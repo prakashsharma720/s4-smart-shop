@@ -209,36 +209,29 @@ $cut = round($price + ($price * 0.20));
 <!-- SHARE BUTTON (Center, Small Square) -->
 <!-- SHARE BUTTON --><div class="text-center mt-2">
     <div class="dropdown d-inline-block">
-        <button class="btn btn-light p-1 border rounded" 
-                style="width:28px; height:28px; line-height:0;" 
-                data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-share-fill" style="font-size:14px;"></i>
-        </button>
+        
 
-        <ul class="dropdown-menu dropdown-menu-end shadow">
-            <li>
-                <a class="dropdown-item text-success"
-                   href="#"
-                   onclick="shareWhatsAppProduct('<?= $product['slug']; ?>','<?= addslashes($product['name']); ?>'); return false;">
-                   <i class="bi bi-whatsapp me-2"></i> WhatsApp
+       <a href="#" class="btn btn-outline-" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-share-fill"></i>
                 </a>
-            </li>
-            <li>
-                <a class="dropdown-item text-primary"
-                   href="#"
-                   onclick="shareFacebookProduct('<?= $product['slug']; ?>','<?= addslashes($product['name']); ?>'); return false;">
-                   <i class="bi bi-facebook me-2"></i> Facebook
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item text-danger"
-                   href="#"
-                   onclick="shareInstagramProduct('<?= $product['slug']; ?>','<?= addslashes($product['name']); ?>'); return false;">
-                   <i class="bi bi-instagram me-2"></i> Instagram
-                </a>
-            </li>
-        </ul>
-    </div>
+                <ul class="dropdown-menu" aria-labelledby="shareDropdown">
+                    <li>
+                        <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
+                            <i class="bi bi-whatsapp me-2"></i> WhatsApp
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
+                            <i class="bi bi-facebook me-2"></i> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
+                            <i class="bi bi-instagram me-2"></i> Instagram
+                        </a>
+                    </li>
+                </ul>
+            </div>
 </div>
 
 
@@ -434,36 +427,33 @@ scrollContainer.addEventListener('mouseleave', () => {
 window.addEventListener('load', () => {
   setTimeout(() => requestAnimationFrame(autoScroll), 1500);
 });
- function getProductURL(slug) {
-    let url = "<?= $base_url ?>detail.php/" + slug;
-    const userCode = "<?= $user['user_code'] ?? '' ?>";
+  const productURL = "<?= $base_url ?>detail.php/<?= $product['slug'] ?>";
+const productName = "<?= addslashes($product['name']) ?>";
+const userCode = "<?= $user['user_code'] ?? '' ?>";
+
+function getShareURL() {
+    let url = productURL;
     if(userCode) url += '?ref=' + userCode;
     return url;
 }
 
-function shareWhatsAppProduct(slug, name){
-    let url = getProductURL(slug);
-    let text = name + " - " + url;
-    window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(text), "_blank");
+function shareWhatsApp() {
+    const text = `${productName} - ${getShareURL()}`;
+window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
 }
 
-function shareFacebookProduct(slug, name){
-    let url = getProductURL(slug);
-    window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url), "_blank");
+function shareFacebook() {
+    const text = `${productName} - ${getShareURL()}`;
+window.open(
+  "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(getShareURL()),
+  "_blank"
+);
 }
 
-function shareInstagramProduct(slug, name){
-    let url = getProductURL(slug);
-    let text = name + " - " + url;
-    navigator.clipboard.writeText(text).then(() => {
-        alert("Instagram sharing not allowed.\nProduct link copied to clipboard!");
-    }).catch(() => {
-        alert("Product link: " + text);
-    });
+function shareInstagram() {
+    const text = `${productName} - ${getShareURL()}`;
+    navigator.clipboard.writeText(text).then(() => alert("Product link copied! Share on Instagram."));
 }
-
-
-
 </script>
     <?php include('footer.php');?>
     <?php include('js.php');?>
