@@ -1487,6 +1487,11 @@ figure:hover .preview {
 .view-btn:hover {
     background: #c77d00;
 }
+
+
+
+
+
 .container {
     width: 100%;
     max-width: 1200px;
@@ -1684,36 +1689,6 @@ figure:hover .preview {
     font-weight: 600;
 }
 
-.whatsapp-float {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 9999;
-    background: #25D366;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 32px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-    transition: 0.3s;
-}
-
-.whatsapp-float:hover {
-    transform: scale(1.15);
-}
-
-.wa-icon {
-    animation: bounce 1.2s infinite ease-in-out;
-}
-
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
 
 
 /* Pulse Animation */
@@ -1751,23 +1726,15 @@ figure:hover .preview {
     border-radius: 10px;
 }
 
-/* 3 Dot Share Button */
-.share-btn-dot {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    z-index: 10;
-}
-
 
 .shop-now-btn {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #113d56;
+    background:var(--primary);
     color: #fff;
-    padding: 10px 30px;   /* Wider Button */
+    padding: 10px 30px;   
     border-radius: 30px;
     font-size: 15px;
     text-decoration: none;
@@ -1778,6 +1745,62 @@ figure:hover .preview {
 /* Hover to Show */
 .product-img-box:hover .shop-now-btn {
     display: inline-block;
+   color: #fff;
 }
 
+ 
+.wa-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 32px;
+    z-index: 10;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.5);
+    overflow: visible;
+}
 
+/* Big circle */
+.wa-bg.big {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: rgba(37, 211, 102, 0.20);
+    border-radius: 50%;
+    top: -35px;
+    left: -35px;
+    z-index: -2;
+    animation: zoomBig 2.5s infinite ease-in-out;
+}
+
+/* Small circle */
+.wa-bg.small {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: rgba(37, 211, 102, 0.35);
+    border-radius: 50%;
+    top: -15px;
+    left: -15px;
+    z-index: -1;
+    animation: zoomSmall 2.5s infinite ease-in-out;
+}
+
+@keyframes zoomBig {
+    0%   { transform: scale(0.85); opacity: 0.6; }
+    50%  { transform: scale(1.05); opacity: 0.3; }
+    100% { transform: scale(0.85); opacity: 0.6; }
+}
+
+@keyframes zoomSmall {
+    0%   { transform: scale(0.9); opacity: 0.7; }
+    50%  { transform: scale(1.1); opacity: 0.4; }
+    100% { transform: scale(0.9); opacity: 0.7; }
+}

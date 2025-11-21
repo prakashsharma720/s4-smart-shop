@@ -915,22 +915,21 @@ section {
     .process-grid .order-lg-1, .process-grid .order-lg-2 { order: unset !important; }
 }
 .process-grid img {
-    width: 200px;   /* fixed width */
-    height: 200px;  /* fixed height */
-    object-fit: contain; /* maintain aspect ratio */
+    width: 200px;   
+    height: 200px;  
+    object-fit: contain; 
 }
 #shareDropdown {
-    color: white; /* Icon color */
-    border-color: var(--primary); /* Outline border color */
+    /* color: var(--primary);  */
+    border-color: var(--primary); 
 }
 
-#shareDropdown:hover,
+/* #shareDropdown:hover, */
 #shareDropdown:focus {
-    color: #fff; /* Text/icon color on hover */
-    background-color: #113d56; /* Background on hover */
+    color: #fff; 
+    background-color: #113d56; 
     border-color: #113d56;
-}
-
+} 
 /* ✅ 3 cards visible on desktop */
 .product-item {
   scroll-snap-align: start;

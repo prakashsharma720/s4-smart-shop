@@ -187,51 +187,58 @@ if ($product_result && $product_result->num_rows > 0) {
         <!-- NAME + SHARE BUTTON -->
         <div class="d-flex justify-content-between align-items-center mt-1">
 
-            <!-- NAME -->
-            <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>" 
-               class="text-decoration-none flex-grow-1">
-               <!-- PRODUCT NAME (Center, wraps if long) -->
-<h6 class="fw-semibold text-muted text-center mt-3 mb-1">
-    <?= htmlspecialchars($product['name']); ?>
-</h6>
+           <!-- PRODUCT NAME -->
+<a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>" class="text-decoration-none flex-grow-1">
 
-<!-- PRICE (Center) -->
-<?php 
-$price = $product['price']; 
-$cut = round($price + ($price * 0.20)); 
-?>
-<div class="text-center" style="font-size:18px;">
-    <span style="color:rgb(53, 53, 67); font-weight:700;">₹<?= $price ?></span>
-    <span style="text-decoration:line-through; color:#777; margin:0 6px;">₹<?= $cut ?></span>
-    <span style="color:green; font-weight:600;">20% OFF</span>
-</div>
+    <!-- PRODUCT NAME (Center) -->
+    <h6 class="fw-semibold text-muted text-center mt-3 mb-1">
+        <?= htmlspecialchars($product['name']); ?>
+    </h6>
 
-<!-- SHARE BUTTON (Center, Small Square) -->
-<!-- SHARE BUTTON --><div class="text-center mt-2">
+    <!-- PRICE SECTION -->
+    <?php 
+        $price = $product['price']; 
+        $cut = round($price + ($price * 0.20)); 
+    ?>
+    <div class="text-center" style="font-size:18px;">
+        <span style="color:#353543; font-weight:700;">₹<?= $price ?></span>
+        <span style="text-decoration:line-through; color:#777; margin:0 6px;">₹<?= $cut ?></span>
+        <span style="color:green; font-weight:600;">20% OFF</span>
+    </div>
+
+</a>
+
+<!-- SHARE BUTTON -->
+<div class="text-center mt-2">
     <div class="dropdown d-inline-block">
-        
 
-       <a href="#" class="btn btn-outline-" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-share-fill"></i>
+        <!-- Curved Share Icon -->
+        <a href="#" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false" 
+            class="btn btn-light p-1 border rounded shadow-sm" 
+           style="width:32px; height:32px; line-height:22px;">
+            <i class="fa-solid fa-share fa-sm"></i>
+        </a>
+
+        <!-- Dropdown Menu -->
+        <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="shareDropdown">
+            <li>
+                <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
+                    <i class="bi bi-whatsapp me-2"></i> WhatsApp
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="shareDropdown">
-                    <li>
-                        <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
-                            <i class="bi bi-whatsapp me-2"></i> WhatsApp
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
-                            <i class="bi bi-facebook me-2"></i> Facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
-                            <i class="bi bi-instagram me-2"></i> Instagram
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            </li>
+            <li>
+                <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
+                    <i class="bi bi-facebook me-2"></i> Facebook
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
+                    <i class="bi bi-instagram me-2"></i> Instagram
+                </a>
+            </li>
+        </ul>
+
+    </div>
 </div>
 
 

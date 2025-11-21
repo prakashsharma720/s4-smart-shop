@@ -1,10 +1,69 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<div class="wa-wrapper">
+    <a href="https://wa.me/9116841049?text=Hi" class="wa-btn" target="_blank">
+        <span class="wa-bg big"></span>
+        <span class="wa-bg small"></span>
+        <i class="bi bi-whatsapp"></i>
+    </a>
+   
 
-<a href="https://wa.me/9116841049?text=Hi"
-   class="whatsapp-float"
-   target="_blank">
-    <i class="bi bi-whatsapp wa-icon"></i>
-</a>
+<style>
+.wa-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 32px;
+    z-index: 10;
+    box-shadow: 0 4px 18px rgba(37, 211, 102, 0.5);
+    overflow: visible;
+}
+
+/* Big circle */
+.wa-bg.big {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: rgba(37, 211, 102, 0.20);
+    border-radius: 50%;
+    top: -35px;
+    left: -35px;
+    z-index: -2;
+    animation: zoomBig 2.5s infinite ease-in-out;
+}
+
+/* Small circle */
+.wa-bg.small {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: rgba(37, 211, 102, 0.35);
+    border-radius: 50%;
+    top: -15px;
+    left: -15px;
+    z-index: -1;
+    animation: zoomSmall 2.5s infinite ease-in-out;
+}
+
+@keyframes zoomBig {
+    0%   { transform: scale(0.85); opacity: 0.6; }
+    50%  { transform: scale(1.05); opacity: 0.3; }
+    100% { transform: scale(0.85); opacity: 0.6; }
+}
+
+@keyframes zoomSmall {
+    0%   { transform: scale(0.9); opacity: 0.7; }
+    50%  { transform: scale(1.1); opacity: 0.4; }
+    100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+</style>
 
 <footer>
     <div class="container margin_60_35">
