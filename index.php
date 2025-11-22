@@ -213,11 +213,14 @@ if ($product_result && $product_result->num_rows > 0) {
     <div class="dropdown d-inline-block">
 
         <!-- Curved Share Icon -->
-        <a href="#" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false" 
-            class="btn btn-light p-1 border rounded shadow-sm" 
-           style="width:32px; height:32px; line-height:22px;">
-            <i class="fa-solid fa-share fa-sm"></i>
-        </a>
+<a href="#" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false" 
+    class="btn p-1 border rounded shadow-sm"
+    style="width:32px; height:32px; line-height:22px; 
+           background-color:#113d56; 
+           color:#ffffff; 
+           border-color:#113d56;">
+    <i class="fa-solid fa-share fa-sm"></i>
+</a>
 
         <!-- Dropdown Menu -->
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="shareDropdown">
@@ -240,10 +243,6 @@ if ($product_result && $product_result->num_rows > 0) {
 
     </div>
 </div>
-
-
-
-
         </div>
 
     </div>

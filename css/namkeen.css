@@ -920,8 +920,13 @@ section {
     object-fit: contain; 
 }
 #shareDropdown {
-    /* color: var(--primary);  */
+    color: var(--primary);  
     border-color: var(--primary); 
+}
+.share-btn {
+    background-color: #113d56 !important;
+    color: #ffffff !important;
+    border-color: #113d56 !important;
 }
 
 /* #shareDropdown:hover, */
