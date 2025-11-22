@@ -8,3 +8,5 @@ ALTER TABLE `orders` ADD `order_id` VARCHAR(250) NOT NULL AFTER `user_code`;
 -- 30-10-2025
 ALTER TABLE `users` ADD `placement_id` INT(10) NOT NULL AFTER `referal_code`, ADD `position` ENUM('left','right') NOT NULL AFTER `placement_id`, ADD `joining_date` DATE NULL DEFAULT NULL AFTER `position`;
 ALTER TABLE `users` ADD `level` INT(11) NOT NULL AFTER `joining_date`, ADD `wallet_balance` DECIMAL(10,2) NOT NULL AFTER `level`;
+
+ALTER TABLE `products` ADD `thumbnails` TEXT NULL AFTER `image`;
