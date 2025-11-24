@@ -1,10 +1,13 @@
 <?php
+// phpinfo();
 include('config.php');
 include('razorpay_config.php');
 require('razorpay/razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
 
 session_start();
+
+
 
 // ✅ Prevent direct access
 if (!isset($_SESSION['last_order_id'])) {
@@ -35,10 +38,50 @@ $result = $stmt->get_result();
 $order = $result->fetch_assoc();
 $stmt->close();
 
-if (!$order) {
-    header("Location: index.php");
-    exit;
+
+
+$apiKey = "626a8b3cdf06d42c98ef6a280b8efa21fa71010d";
+$baseUrl = "https://staging-express.delhivery.com/api/cmu/invoice/charge/";
+
+// Build Query Parameters
+$params = [
+    "md"     => "S",            // Surface
+    "ss"     => "Delivered",    // Status
+    "d_pin"  => $order['pincode'],       // Destination Pincode
+    "o_pin"  => "312203",       // Origin Pincode
+    "cgm"    => "1000",           // Weight in grams
+    "pt"     => "Pre-paid"      // Payment type
+];
+
+$url = "https://track.delhivery.com/api/kinko/v1/invoice/charges/.json?" . http_build_query($params);
+
+// HTTP Request Context
+$options = [
+    "http" => [
+        "method"  => "GET",
+        "header"  =>
+            "Authorization: Token $apiKey\r\n" .
+            "Content-Type: application/json\r\n",
+        "timeout" => 30
+    ]
+];
+
+$context = stream_context_create($options);
+$response = @file_get_contents($url, false, $context);
+
+// Response Handling
+if ($response === false) {
+    echo "<h3>Shipment Cost API Request Failed</h3>";
+    echo "<pre>";
+    print_r(error_get_last());
+    echo "</pre>";
+} else {
+    $data = json_decode($response, true);
+    $shippingCharges = $data[0]['total_amount'];
 }
+
+
+
 
 // ================== FETCH PRODUCT ==================
 $product_id = $order['product_id'] ?? 0;
@@ -53,9 +96,13 @@ if ($product_id) {
     }
     $ps->close();
 }
-
-$shipping = $order['shipping'] ?? 0;
-$total_with_shipping = ($order['total'] ?? 0) + $shipping;
+if($shippingCharges > 50){
+    $shipping = $shippingCharges-50 ?? 0;
+    $total_with_shipping = ($order['total'] ?? 0) + $shipping;
+}else{
+    $shipping = $shippingCharges ?? 0;
+    $total_with_shipping = ($order['total'] ?? 0);  
+}
 
 $api = new Api(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET);
 
@@ -175,7 +222,24 @@ $conn->close();
 
                     <div class="order-pricing mt-3">
                         <div class="d-flex justify-content-between"><span>Sub Total</span><span>₹<?= $order['total']; ?></span></div>
-                        <div class="d-flex justify-content-between"><span>Shipping</span><span>₹<?= number_format($shipping,2) ?></span></div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>Shipping<sub style="color:green;font-size:0.7rem;">&nbsp;(Free shipping upto ₹50)</sub></span>
+                            <span>
+                                <?php if($shipping < $shippingCharges): ?>
+                                    <span style="text-decoration: line-through; opacity:0.6;">
+                                        ₹<?= number_format($shippingCharges, 2); ?>
+                                    </span>
+                                    <span style="margin-left:6px;">
+                                        ₹<?= number_format($shipping, 2); ?>
+                                    </span>
+                                    <div style="font-size:0.75rem; color: #27ae60; text-align:right;">
+                                        You saved ₹<?= $shippingCharges - $shipping ?>
+                                    </div>
+                                <?php else: ?>
+                                    ₹<?= number_format($shippingCharges, 2); ?>
+                                <?php endif; ?>
+                            </span>
+                        </div>
                         <div class="d-flex justify-content-between fw-bold"><span>Order Total</span><span>₹<?= number_format($total_with_shipping,2) ?></span></div>
                     </div>
                     <hr>
