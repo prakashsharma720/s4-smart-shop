@@ -1,164 +1,209 @@
 <?php
 include('config.php');
 
-$cat_slug = '';
-$actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-$url_array = explode('/', $actual_link);
-$cat_slug = isset($url_array[5]) ? trim($url_array[5]) : ''; // fixed index
-
-// Get category slug & search keyword
-$cat_slug = isset($_GET['cat_slug']) ? trim($_GET['cat_slug']) : $cat_slug;
-$search   = isset($_GET['search']) ? trim($_GET['search']) : "";
+// ---- GET CATEGORY ----
+$cat_slug = $_GET['cat_slug'] ?? '';
+$search   = $_GET['search'] ?? "";
 
 $cat_id   = 0;
-$cat_name = "S4 Smart Shop"; 
+$cat_name = "S4 Smart Shop";
 
-// ✅ FETCH CATEGORIES (use 'name' instead of 'category_name')
+// ---- FETCH CATEGORIES ----
 $categories = [];
 $cat_sql = "SELECT id, category_name, slug FROM categories ORDER BY category_name ASC";
 $cat_result = $conn->query($cat_sql);
-if ($cat_result && $cat_result->num_rows > 0) {
-    while ($row = $cat_result->fetch_assoc()) {
-        $categories[] = $row;
-    }
+while ($cat = $cat_result->fetch_assoc()) {
+    $categories[] = $cat;
 }
 
-// ✅ Get ID and Name by SLUG securely
+// ---- FIND CATEGORY NAME ----
 if ($cat_slug != "") {
-    $current_cat_sql = "SELECT id, category_name FROM categories WHERE slug = ?";
-    $stmt = $conn->prepare($current_cat_sql);
-    if ($stmt) {
-        $stmt->bind_param("s", $cat_slug);
-        $stmt->execute();
-        $current_cat_result = $stmt->get_result();
-        if ($current_cat_result && $current_cat_result->num_rows > 0) {
-            $cat_row = $current_cat_result->fetch_assoc();
-            $cat_id = $cat_row['id'];
-            $cat_name = htmlspecialchars($cat_row['name']);
-        }
-        $stmt->close();
+    $stmt = $conn->prepare("SELECT id, category_name FROM categories WHERE slug=? LIMIT 1");
+    $stmt->bind_param("s", $cat_slug);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($res->num_rows > 0) {
+        $c = $res->fetch_assoc();
+        $cat_id = $c['id'];
+        $cat_name = $c['category_name'];
     }
 }
 
-// ✅ FETCH PRODUCTS
-$product_sql = "SELECT * FROM products WHERE 1";
+// ---- FETCH PRODUCTS ----
+$sql = "SELECT * FROM products WHERE 1";
 $params = [];
-$types = '';
+$types  = "";
 
 if ($cat_id > 0) {
-    $product_sql .= " AND category_id = ?";
-    $types .= "i";
+    $sql .= " AND category_id=?";
     $params[] = $cat_id;
+    $types .= "i";
 }
-if ($search != "") {
-    $product_sql .= " AND name LIKE ?";
-    $types .= "s";
-    $search_term = "%" . $search . "%";
-    $params[] = $search_term;
-}
-$product_sql .= " ORDER BY id ASC";
 
-$result = false;
-$stmt = $conn->prepare($product_sql);
-if ($stmt) {
-    if (!empty($params)) {
-        $stmt->bind_param($types, ...$params);
-    }
-    $stmt->execute();
-    $result = $stmt->get_result();
+if (!empty($search)) {
+    $sql .= " AND name LIKE ?";
+    $params[] = "%".$search."%";
+    $types .= "s";
 }
+
+$sql .= " ORDER BY id DESC";
+
+$stmt = $conn->prepare($sql);
+if (!empty($params)) {
+    $stmt->bind_param($types, ...$params);
+}
+$stmt->execute();
+$products = $stmt->get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $cat_name; ?> - Shop, Earn & Grow with S4 Smart Shop</title>
+    <title><?php echo $cat_name; ?> - Shop Now</title>
     <?php include('head.php'); ?>
 </head>
+
 <body>
+
 <div class="layer"></div>
-<div id="preloader"><div data-loader="circle-side"></div></div>
-
 <?php include('navbar.php'); ?>
-
-<div id="breadcrumb">
-    <div class="container">
-        <ul>
-            <li><a href="index.php">Home</a></li>
-            <li>Shop</li>
-        </ul>
-    </div>
-</div>
 
 <div class="container my-5">
 
-<form method="get" class="row mb-4 g-2">
+<!-- FILTERS -->
+<form method="get" class="row g-2 mb-4">
 
-    <!-- Search by name -->
-    <div class="col-md-4 col-sm-6 mb-2">
-        <input type="text" name="search" class="form-control" 
-               placeholder="Search products..." 
+    <div class="col-md-4 col-6">
+        <input type="text" name="search" class="form-control"
+               placeholder="Search products..."
                value="<?php echo htmlspecialchars($search); ?>">
     </div>
 
-    <!-- Category dropdown -->
-    <div class="col-md-4 col-sm-6 mb-2">
+    <div class="col-md-4 col-6">
         <select name="cat_slug" class="form-select">
             <option value="">All Categories</option>
             <?php foreach($categories as $cat): ?>
-                <option value="<?php echo htmlspecialchars($cat['slug']); ?>" 
+                <option value="<?php echo $cat['slug']; ?>"
                     <?php if($cat_slug == $cat['slug']) echo "selected"; ?>>
-                    <?php echo htmlspecialchars($cat['category_name']); ?>
+                    <?php echo $cat['category_name']; ?>
                 </option>
             <?php endforeach; ?>
         </select>
     </div>
 
-    <!-- Filter & Clear buttons -->
-    <div class="col-md-4 col-sm-12 mb-2 d-flex gap-2">
-        <button type="submit" class="btn btn-search w-50">Search</button>
-        <a href="<?= $_SERVER['PHP_SELF']; ?>" class="btn btn-search w-50" style="background:red;">Clear</a>
+    <div class="col-md-4 col-12 d-flex gap-2">
+        <button class="btn btn-primary w-50">Search</button>
+        <a href="shop.php" class="btn btn-danger w-50">Clear</a>
     </div>
 
 </form>
 
+<!-- PRODUCT GRID -->
 <div class="row g-4">
-    <?php if ($result && $result->num_rows > 0): ?>
-        <?php while($row = $result->fetch_assoc()): ?>
-             <div class="col-md-4 col-sm-6">
-                <a href="<?= $base_url ?>detail.php/<?php echo htmlspecialchars($row['slug']); ?>"
-                    class="text-decoration-none">
-                    <div class="product-card">
-                        <img src="<?= $base_url ?>back/uploads/<?php echo $row['feature_img']; ?>"
-                            alt="<?php echo htmlspecialchars($row['name']); ?>"
-                            class="img-fluid">
-                        <div class="product-info mt-2 text-center">
-                            <p><?php echo htmlspecialchars($row['name']); ?></p>
-                            <div class="from-price-middle text-center mt-2">
-                               Price : ₹<?php echo $row['price']; ?>
-                            </div>
-                        </div>
+<?php if ($products->num_rows > 0): ?>
+<?php while($p = $products->fetch_assoc()): 
+
+    // ---------- INDEX STYLE CALCULATION ----------
+    $main_price   = $p['price'];  
+    $cut_price    = round($main_price + ($main_price * 0.20)); 
+?>
+    <div class="col-md-4 col-sm-6">
+        <div class="product-card bg-white p-2 rounded shadow-sm">
+
+            <!-- IMAGE + SHOP NOW -->
+            <div class="product-img-box position-relative">
+                <a href="<?php echo $base_url.'detail.php/'.$p['slug']; ?>">
+                    <img src="<?php echo $base_url.'back/uploads/'.$p['feature_img']; ?>"
+                         class="img-fluid pro-image" alt="">
+                </a>
+                <a href="<?php echo $base_url.'detail.php/'.$p['slug']; ?>"
+                   class="shop-now-btn">Shop Now</a>
+            </div>
+
+            <!-- NAME + PRICE + SHARE -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+
+                <a href="<?php echo $base_url.'detail.php/'.$p['slug']; ?>"
+                   class="text-decoration-none text-center flex-grow-1">
+
+                    <h6 class="fw-semibold text-muted mb-1"><?php echo $p['name']; ?></h6>
+
+                    <div style="font-size:18px;">
+                        <span style="font-weight:700;">₹<?php echo $main_price; ?></span>
+                        <span style="text-decoration:line-through; color:#888; margin:0 6px;">
+                            ₹<?php echo $cut_price; ?>
+                        </span>
+                        <span style="color:green; font-weight:600;">20% OFF</span>
                     </div>
                 </a>
+
+                <!-- SHARE BUTTON (INDEX SAME POSITION) -->
+                <?php if(isset($_SESSION['user'])): ?>
+                <div class="dropdown ms-2">
+                    <a class="btn p-1 border rounded"
+                       data-bs-toggle="dropdown"
+                       style="background:#113d56; color:#fff; width:32px; height:32px;">
+                        <i class="fa-solid fa-share"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                        <li><a class="dropdown-item text-success"
+                               href="#"
+                               onclick="shareWhatsApp('<?php echo $p['name']; ?>','<?php echo $p['slug']; ?>')">
+                               WhatsApp</a></li>
+
+                        <li><a class="dropdown-item text-primary"
+                               href="#"
+                               onclick="shareFacebook('<?php echo $p['name']; ?>','<?php echo $p['slug']; ?>')">
+                               Facebook</a></li>
+
+                        <li><a class="dropdown-item text-danger"
+                               href="#"
+                               onclick="shareInstagram('<?php echo $p['name']; ?>','<?php echo $p['slug']; ?>')">
+                               Instagram</a></li>
+                    </ul>
+                </div>
+                <?php endif; ?>
+
             </div>
-        <?php endwhile; ?>
-    <?php else: ?>
-        <div class="col-12 text-center">
-            <p>No products found.</p>
+
         </div>
-        <div id="loader-overlay">
-    <div class="loader-box text-center">
-        <img src="https://s4smartshop.com/img/s4smartshop.png" alt="S4 Smart Shop Logo" class="mb-3" style="width:80px;height:auto;">
-        <div class="spinner-border" role="status" style="width:4rem; height:4rem; color:#113d56;"></div>
-        <div id="loader-text">Processing your payment, please wait...</div>
     </div>
+<?php endwhile; ?>
+
+<?php else: ?>
+    <div class="col-12 text-center">
+        <p>No Products Found</p>
+    </div>
+<?php endif; ?>
 </div>
-    <?php endif; ?>
-</div>
+
 </div>
 
 <?php include('footer.php'); ?>
 <?php include('js.php'); ?>
+
+<script>
+function getURL(slug){
+    let url = "<?php echo $base_url; ?>detail.php/"+slug;
+    let ref = "<?php echo $_SESSION['user']['user_code'] ?? ''; ?>";
+    return ref ? url + "?ref=" + ref : url;
+}
+
+function shareWhatsApp(name, slug){
+    window.open("https://api.whatsapp.com/send?text="+encodeURIComponent(name+" - "+getURL(slug)));
+}
+function shareFacebook(name, slug){
+    window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(getURL(slug)));
+}
+function shareInstagram(name, slug){
+    navigator.clipboard.writeText(name+" - "+getURL(slug));
+    alert("Link copied! Paste on Instagram.");
+}
+</script>
+
 </body>
 </html>
