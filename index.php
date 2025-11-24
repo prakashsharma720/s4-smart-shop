@@ -86,7 +86,7 @@
             🛍️ Welcome to <b>S4 Smart Shop</b> | 💰 Shop More, Save More🚀| 🤝 Shopping That Rewards You!
         </marquee>
 
-  <div class="namkeen-section">
+        <div class="namkeen-section">
             <section class=" mt-3 welcome-section ">
                 <div class="container">
                     <div class="welcome-left slide-left">
@@ -103,17 +103,21 @@
                     <div class="welcome-right slide-right">
                         <h1>Welcome to S4 Smart Shop</h1>
                         <p>
-                            <strong>S4 Smart Shop</strong> is a trusted online shopping destination offering premium-quality 
-                            <strong>fabrics, watches, goggles, hankies, mufflers, and more</strong>. We bring together 
+                            <strong>S4 Smart Shop</strong> is a trusted online shopping destination offering
+                            premium-quality
+                            <strong>fabrics, watches, goggles, hankies, mufflers, and more</strong>. We bring together
                             style, comfort, and quality to deliver products that suit your everyday lifestyle.
                         </p>
                         <p>
-                            Founded by <strong>Mr. MAHENDRA SINGH BAHDOT</strong>, S4 Smart Shop is built on a vision to provide 
-                            an easy, reliable, and affordable online shopping experience for every customer. Our focus is on 
+                            Founded by <strong>Mr. MAHENDRA SINGH BAHDOT</strong>, S4 Smart Shop is built on a vision to
+                            provide
+                            an easy, reliable, and affordable online shopping experience for every customer. Our focus
+                            is on
                             offering carefully selected products that combine fashion with functionality.
                         </p>
                         <p>
-                            Discover new trends, shop confidently, and experience quality with <strong>S4 Smart Shop</strong> — 
+                            Discover new trends, shop confidently, and experience quality with <strong>S4 Smart
+                                Shop</strong> —
                             your one-stop destination for smart and stylish essentials.
                         </p>
                         <!--<a href="<?= $base_url ?>about-us.php" class="btn-read">Read More</a>-->
@@ -136,7 +140,7 @@
                 $slides = array_chunk($products, 3);
             ?>
 
-           <?php
+            <?php
 // ================== Fetch Products ==================
 $product_sql = "SELECT * FROM products ORDER BY id ASC";
 $product_result = $conn->query($product_sql);
@@ -149,93 +153,94 @@ if ($product_result && $product_result->num_rows > 0) {
 }
 ?>
 
-<div class="container margin_120_95">
-    <div class="main_title text-center mb-4">
-        <h2>Our Products</h2>
-    </div>
+            <div class="container margin_120_95">
+                <div class="main_title text-center mb-4">
+                    <h2>Our Products</h2>
+                </div>
 
-    <?php if (!empty($products)): ?>
-    <div class="product-carousel-wrapper position-relative">
-        <!-- Left Arrow -->
-        <button class="scroll-btn left" id="scrollLeft">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
+                <?php if (!empty($products)): ?>
+                <div class="product-carousel-wrapper position-relative">
+                    <!-- Left Arrow -->
+                    <button class="scroll-btn left" id="scrollLeft">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
 
-<!-- Product Scroll Container -->
-<div class="product-scroll d-flex overflow-auto gap-3 py-2" id="productScroll">
-<?php foreach ($products as $product): ?>
+                    <!-- Product Scroll Container -->
+                    <div class="product-scroll d-flex overflow-auto gap-3 py-2" id="productScroll">
+                        <?php foreach ($products as $product): ?>
 
 
-<div class="product-item flex-shrink-0" style="width: 180px;">
+                        <div class="product-item flex-shrink-0" style="width: 180px;">
 
-    <div class="product-card p-2 rounded bg-white pro-hover shadow-sm">
+                            <div class="product-card p-2 rounded bg-white pro-hover shadow-sm">
 
-        <div class="product-img-box position-relative">
+                                <div class="product-img-box position-relative">
 
-            <!-- IMAGE -->
-            <img src="<?= $base_url ?>back/uploads/<?= $product['feature_img']; ?>"
-                alt="<?= htmlspecialchars($product['name']); ?>"
-                class="img-fluid pro-image">
+                                    <!-- IMAGE -->
+                                   <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>">
+    <img src="<?= $base_url ?>back/uploads/<?= $product['feature_img']; ?>"
+         alt="<?= htmlspecialchars($product['name']); ?>" 
+         class="img-fluid pro-image">
+</a>
 
-            <!-- SHOP NOW -->
-            <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>"
-               class="shop-now-btn">
-               Shop Now
-            </a>
-        </div>
+                                    <!-- SHOP NOW -->
+                                    <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>" class="shop-now-btn">
+                                        Shop Now
+                                    </a>
+                                </div>
 
-        <!-- NAME + SHARE BUTTON -->
-        <div class="d-flex justify-content-between align-items-center mt-1">
+                                <!-- NAME + SHARE BUTTON -->
+                                <div class="d-flex justify-content-between align-items-center mt-1">
 
-           <!-- PRODUCT NAME -->
-<a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>" class="text-decoration-none flex-grow-1">
+                                    <!-- PRODUCT NAME -->
+                                    <a href="<?= $base_url ?>detail.php/<?= $product['slug']; ?>"
+                                        class="text-decoration-none flex-grow-1">
 
-    <!-- PRODUCT NAME (Center) -->
-    <h6 class="fw-semibold text-muted text-center mt-3 mb-1">
-        <?= htmlspecialchars($product['name']); ?>
-    </h6>
+                                        <!-- PRODUCT NAME (Center) -->
+                                        <h6 class="fw-semibold text-muted text-center mt-3 mb-1">
+                                            <?= htmlspecialchars($product['name']); ?>
+                                        </h6>
 
-    <!-- PRICE SECTION -->
-    <?php 
+                                        <!-- PRICE SECTION -->
+                                        <?php 
         $price = $product['price']; 
         $cut = round($price + ($price * 0.20)); 
     ?>
-    <div class="text-center" style="font-size:18px;">
-        <span style="color:#353543; font-weight:700;">₹<?= $price ?></span>
-        <span style="text-decoration:line-through; color:#777; margin:0 6px;">₹<?= $cut ?></span>
-        <span style="color:green; font-weight:600;">20% OFF</span>
-    </div>
+                                        <div class="text-center" style="font-size:18px;">
+                                            <span style="color:#353543; font-weight:700;">₹<?= $price ?></span>
+                                            <span
+                                                style="text-decoration:line-through; color:#777; margin:0 6px;">₹<?= $cut ?></span>
+                                            <span style="color:green; font-weight:600;">20% OFF</span>
+                                        </div>
 
-</a>
-
-<!-- SHARE BUTTON -->
+                                    </a>
+<?php if(isset($_SESSION['user'])): ?>
 <div class="text-center mt-2">
     <div class="dropdown d-inline-block">
 
-        <!-- Curved Share Icon -->
-<a href="#" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false" 
-    class="btn p-1 border rounded shadow-sm"
-    style="width:32px; height:32px; line-height:22px; 
-           background-color:#113d56; 
-           color:#ffffff; 
-           border-color:#113d56;">
-    <i class="fa-solid fa-share fa-sm"></i>
-</a>
+        <a href="#" id="shareDropdown" data-bs-toggle="dropdown"
+            aria-expanded="false" class="btn p-1 border rounded shadow-sm"
+            style="width:32px; height:32px; line-height:22px; 
+            background-color:#113d56; color:#ffffff; border-color:#113d56;">
+            <i class="fa-solid fa-share fa-sm"></i>
+        </a>
 
-        <!-- Dropdown Menu -->
         <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="shareDropdown">
             <li>
-                <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
+<a class="dropdown-item text-success" href="#" 
+   onclick="shareWhatsApp('<?= $product['name'] ?>','<?= $product['slug'] ?>'); return false;">
                     <i class="bi bi-whatsapp me-2"></i> WhatsApp
                 </a>
             </li>
             <li>
-                <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
+<a class="dropdown-item text-primary" href="#" 
+   onclick="shareFacebook('<?= $product['name'] ?>','<?= $product['slug'] ?>'); return false;">
                     <i class="bi bi-facebook me-2"></i> Facebook
                 </a>
             </li>
             <li>
-                <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
+<a class="dropdown-item text-danger" href="#" 
+   onclick="shareInstagram('<?= $product['name'] ?>','<?= $product['slug'] ?>'); return false;">
                     <i class="bi bi-instagram me-2"></i> Instagram
                 </a>
             </li>
@@ -243,51 +248,53 @@ if ($product_result && $product_result->num_rows > 0) {
 
     </div>
 </div>
-        </div>
+<?php endif; ?>
 
-    </div>
-</div>
+                                </div>
 
-<?php endforeach; ?>
-</div>
+                            </div>
+                        </div>
 
-        <!-- Right Arrow -->
-        <button class="scroll-btn right" id="scrollRight">
-            <span class="carousel-control-next-icon"></span>
-        </button>
-    </div>
-    <?php else: ?>
-    <p class="text-center">No products available.</p>
-    <?php endif; ?>
-</div>
-     <div class="container my-5">
-            <div class="main_title text-center mb-5">
-                <h2>How It Works</h2>
-                <p>Start your earning journey with S4 Smart Shop in 2 simple steps!</p>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Right Arrow -->
+                    <button class="scroll-btn right" id="scrollRight">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+                <?php else: ?>
+                <p class="text-center">No products available.</p>
+                <?php endif; ?>
             </div>
-
-            <div class="row text-center process-grid">
-
-                <!-- Step 1 -->
-                <div class="col-lg-6 col-md-6 mb-4 process-step-wrapper">
-                    <div class="process-step">
-                        <img src="img/computer.jpg" alt="Register" class="process-img">
-                        <h4>Register</h4>
-                        <p>Create your free account and become a member of S4 Smart Shop.</p>
-                    </div>
+            <div class="container my-5">
+                <div class="main_title text-center mb-5">
+                    <h2>How It Works</h2>
+                    <p>Start your earning journey with S4 Smart Shop in 2 simple steps!</p>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="col-lg-6 col-md-6 mb-4 process-step-wrapper">
-                    <div class="process-step">
-                        <img src="img/bag.jpg" alt="Shop Products" class="process-img">
-                        <h4>Shop Products</h4>
-                        <p>Explore a wide range of products and shop your favorites with ease.</p>
-                    </div>
-                </div>
+                <div class="row text-center process-grid">
 
-                <!-- Step 3 -->
-                <!-- <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
+                    <!-- Step 1 -->
+                    <div class="col-lg-6 col-md-6 mb-4 process-step-wrapper">
+                        <div class="process-step">
+                            <img src="img/computer.jpg" alt="Register" class="process-img">
+                            <h4>Register</h4>
+                            <p>Create your free account and become a member of S4 Smart Shop.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="col-lg-6 col-md-6 mb-4 process-step-wrapper">
+                        <div class="process-step">
+                            <img src="img/bag.jpg" alt="Shop Products" class="process-img">
+                            <h4>Shop Products</h4>
+                            <p>Explore a wide range of products and shop your favorites with ease.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <!-- <div class="col-lg-4 col-md-6 mb-4 process-step-wrapper">
                     <div class="process-step">
                         <img src="img/referral.png" alt="Refer & Earn" class="process-img">
                         <h4>Refer & Earn</h4>
@@ -295,57 +302,57 @@ if ($product_result && $product_result->num_rows > 0) {
                     </div>
                 </div> -->
 
-                <!-- Step 4 -->
-                <!--<div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">-->
-                <!--    <div class="process-step">-->
-                <!--        <img src="img/investment.png" alt="Grow & Earn" class="process-img">-->
-                <!--        <h4>Grow & Earn</h4>-->
-                <!--        <p>Build your network, increase your level, and enjoy lifelong income benefits.</p>-->
-                <!--    </div>-->
-                <!--</div>-->
-
-            </div>
-        </div>
-
-       
-
-
-
-        <section class="reviews-section py-1">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="row g-4">
-
-                        <!-- Left Column: Why Choose S4 Smart Shop -->
-                        <div class="col-lg-12 mb-4">
-                            <div class="p-4 rounded shadow-sm text-dark" style="background:#deedf7d6;">
-                                <h3 class="mb-3 brand-name" style="font-size:1.5rem;">Why Choose S4 Smart Shop</h3>
-                                <p>
-                                    S4 Smart Shop brings you <strong>premium quality men’s clothing and
-                                        accessories</strong>,
-                                    crafted for style and comfort. Shop the latest trends and elevate your wardrobe
-                                    effortlessly.
-                                </p>
-                                <ul class="list-unstyled mt-3">
-                                    <li class="mb-2">🌟 Stylish & Trendy Apparel</li>
-                                    <li class="mb-2">🌟 Premium Quality Accessories</li>
-                                    <li class="mb-2">🌟 Trusted by Fashion Enthusiasts</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Right Column: Reviews Carousel -->
-                       
-
-                    </div>
-
+                    <!-- Step 4 -->
+                    <!--<div class="col-lg-3 col-md-6 mb-4 process-step-wrapper">-->
+                    <!--    <div class="process-step">-->
+                    <!--        <img src="img/investment.png" alt="Grow & Earn" class="process-img">-->
+                    <!--        <h4>Grow & Earn</h4>-->
+                    <!--        <p>Build your network, increase your level, and enjoy lifelong income benefits.</p>-->
+                    <!--    </div>-->
+                    <!--</div>-->
 
                 </div>
             </div>
-        </section>
 
 
-        <!-- /app_section -->
+
+
+
+            <section class="reviews-section py-1">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="row g-4">
+
+                            <!-- Left Column: Why Choose S4 Smart Shop -->
+                            <div class="col-lg-12 mb-4">
+                                <div class="p-4 rounded shadow-sm text-dark" style="background:#deedf7d6;">
+                                    <h3 class="mb-3 brand-name" style="font-size:1.5rem;">Why Choose S4 Smart Shop</h3>
+                                    <p>
+                                        S4 Smart Shop brings you <strong>premium quality men’s clothing and
+                                            accessories</strong>,
+                                        crafted for style and comfort. Shop the latest trends and elevate your wardrobe
+                                        effortlessly.
+                                    </p>
+                                    <ul class="list-unstyled mt-3">
+                                        <li class="mb-2">🌟 Stylish & Trendy Apparel</li>
+                                        <li class="mb-2">🌟 Premium Quality Accessories</li>
+                                        <li class="mb-2">🌟 Trusted by Fashion Enthusiasts</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Reviews Carousel -->
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- /app_section -->
     </main>
     <!-- /main content -->
     <script>
@@ -378,89 +385,98 @@ if ($product_result && $product_result->num_rows > 0) {
         });
     });
     </script>
-  <script>
-// ======= Scroll Arrows + Auto Scroll =======
-const scrollContainer = document.getElementById('productScroll');
-const leftBtn = document.getElementById('scrollLeft');
-const rightBtn = document.getElementById('scrollRight');
+    <script>
+    // ======= Scroll Arrows + Auto Scroll =======
+    const scrollContainer = document.getElementById('productScroll');
+    const leftBtn = document.getElementById('scrollLeft');
+    const rightBtn = document.getElementById('scrollRight');
 
-let autoScrollActive = true;
-let scrollSpeed = 1.2; // speed in pixels/frame
+    let autoScrollActive = true;
+    let scrollSpeed = 1.2; // speed in pixels/frame
 
-// Manual Scroll Buttons
-leftBtn.addEventListener('click', () => {
-  scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
-});
-rightBtn.addEventListener('click', () => {
-  scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
-});
+    // Manual Scroll Buttons
+    leftBtn.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+            left: -300,
+            behavior: 'smooth'
+        });
+    });
+    rightBtn.addEventListener('click', () => {
+        scrollContainer.scrollBy({
+            left: 300,
+            behavior: 'smooth'
+        });
+    });
 
-// Auto Scroll Function
-function autoScroll() {
-  if (!autoScrollActive) return;
+    // Auto Scroll Function
+    function autoScroll() {
+        if (!autoScrollActive) return;
 
-  scrollContainer.scrollBy({ left: scrollSpeed, behavior: 'smooth' });
+        scrollContainer.scrollBy({
+            left: scrollSpeed,
+            behavior: 'smooth'
+        });
 
-  // Reset when end reached
-  if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 2) {
-    scrollContainer.scrollTo({ left: 0, behavior: 'auto' });
-  }
+        // Reset when end reached
+        if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 2) {
+            scrollContainer.scrollTo({
+                left: 0,
+                behavior: 'auto'
+            });
+        }
 
-  requestAnimationFrame(autoScroll);
+        requestAnimationFrame(autoScroll);
+    }
+
+    // Pause auto-scroll when user interacts
+    scrollContainer.addEventListener('mouseenter', () => (autoScrollActive = false));
+    scrollContainer.addEventListener('mouseleave', () => {
+        if (!autoScrollActive) {
+            autoScrollActive = true;
+            requestAnimationFrame(autoScroll);
+        }
+    });
+
+    // Also pause when clicking arrows (resume after short delay)
+    [leftBtn, rightBtn].forEach(btn => {
+        btn.addEventListener('click', () => {
+            autoScrollActive = false;
+            setTimeout(() => {
+                autoScrollActive = true;
+                requestAnimationFrame(autoScroll);
+            }, 2000);
+        });
+    });
+
+    // Start Auto Scroll
+    window.addEventListener('load', () => {
+        setTimeout(() => requestAnimationFrame(autoScroll), 1500);
+    });
+   function getShareURL(slug) {
+    let base = "<?= $base_url ?>detail.php/" + slug;
+    const userCode = "<?= $_SESSION['user']['user_code'] ?? '' ?>";
+    if (userCode) base += "?ref=" + userCode;
+    return base;
 }
 
-// Pause auto-scroll when user interacts
-scrollContainer.addEventListener('mouseenter', () => (autoScrollActive = false));
-scrollContainer.addEventListener('mouseleave', () => {
-  if (!autoScrollActive) {
-    autoScrollActive = true;
-    requestAnimationFrame(autoScroll);
-  }
-});
-
-// Also pause when clicking arrows (resume after short delay)
-[leftBtn, rightBtn].forEach(btn => {
-  btn.addEventListener('click', () => {
-    autoScrollActive = false;
-    setTimeout(() => {
-      autoScrollActive = true;
-      requestAnimationFrame(autoScroll);
-    }, 2000);
-  });
-});
-
-// Start Auto Scroll
-window.addEventListener('load', () => {
-  setTimeout(() => requestAnimationFrame(autoScroll), 1500);
-});
-  const productURL = "<?= $base_url ?>detail.php/<?= $product['slug'] ?>";
-const productName = "<?= addslashes($product['name']) ?>";
-const userCode = "<?= $user['user_code'] ?? '' ?>";
-
-function getShareURL() {
-    let url = productURL;
-    if(userCode) url += '?ref=' + userCode;
-    return url;
+function shareWhatsApp(name, slug) {
+    const text = `${name} - ${getShareURL(slug)}`;
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
 }
 
-function shareWhatsApp() {
-    const text = `${productName} - ${getShareURL()}`;
-window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+function shareFacebook(name, slug) {
+    window.open(
+        "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(getShareURL(slug)),
+        "_blank"
+    );
 }
 
-function shareFacebook() {
-    const text = `${productName} - ${getShareURL()}`;
-window.open(
-  "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(getShareURL()),
-  "_blank"
-);
-}
-
-function shareInstagram() {
-    const text = `${productName} - ${getShareURL()}`;
+function shareInstagram(name, slug) {
+    const text = `${name} - ${getShareURL(slug)}`;
     navigator.clipboard.writeText(text).then(() => alert("Product link copied! Share on Instagram."));
 }
-</script>
+
+    </script>
     <?php include('footer.php');?>
     <?php include('js.php');?>
 </body>

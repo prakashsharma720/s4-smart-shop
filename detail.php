@@ -168,29 +168,32 @@ $thumbs = array_slice($thumbs, 0, 5);
 
             </div>
 
-            <!-- Share Icons -->
-            <div class="dropdown share-icons-column position-absolute top-0 end-0 d-flex flex-column gap-2">
-                <a href="#" class="btn btn-outline-" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-share-fill"></i> Share
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="shareDropdown">
-                    <li>
-                        <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
-                            <i class="bi bi-whatsapp me-2"></i> WhatsApp
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
-                            <i class="bi bi-facebook me-2"></i> Facebook
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
-                            <i class="bi bi-instagram me-2"></i> Instagram
-                        </a>
-                    </li>
-                </ul>
-            </div>
+           <?php if($user): ?>
+<!-- Share Icons -->
+<div class="dropdown share-icons-column position-absolute top-0 end-0 d-flex flex-column gap-2">
+    <a href="#" class="btn btn-outline-" id="shareDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-share-fill"></i> Share
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="shareDropdown">
+        <li>
+            <a class="dropdown-item text-success" href="#" onclick="shareWhatsApp(); return false;">
+                <i class="bi bi-whatsapp me-2"></i> WhatsApp
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item text-primary" href="#" onclick="shareFacebook(); return false;">
+                <i class="bi bi-facebook me-2"></i> Facebook
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item text-danger" href="#" onclick="shareInstagram(); return false;">
+                <i class="bi bi-instagram me-2"></i> Instagram
+            </a>
+        </li>
+    </ul>
+</div>
+<?php endif; ?>
+
             <div class="total-box mb-2">Price: ₹ <span id="productPrice"><?= $product['price'] ?></span></div>
 
             <?php if($has_sizes): ?>
